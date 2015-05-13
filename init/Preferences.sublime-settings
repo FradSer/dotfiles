@@ -1,41 +1,46 @@
 {
-	"color_scheme": "Packages/Color Scheme - Default/Solarized (Dark).tmTheme",
-	"default_encoding": "UTF-8",
-	"default_line_ending": "unix",
-	"detect_indentation": false,
-	"draw_white_space": "all",
-	"ensure_newline_at_eof_on_save": false,
-	"file_exclude_patterns":
-	[
-		".DS_Store",
-		"Desktop.ini",
-		"*.pyc",
-		"._*",
-		"Thumbs.db",
-		".Spotlight-V100",
-		".Trashes"
-	],
+	"auto_complete_delay": 5,
+	"auto_complete_selector": "source, text",
+	"color_scheme": "Packages/MarkdownEditing/MarkdownEditor.tmTheme",
+	"create_window_at_startup": false,
 	"folder_exclude_patterns":
 	[
+		".svn",
 		".git",
-		"node_modules"
+		".DS_Store",
+		"__pycache__",
+		"*.pyc",
+		"*.pyo",
+		"*.exe",
+		"*.dll",
+		"*.obj",
+		"*.o",
+		"*.a",
+		"*.lib",
+		"*.so",
+		"*.dylib",
+		"*.ncb",
+		"*.sdf",
+		"*.suo",
+		"*.pdb",
+		"*.idb",
+		".DS_Store",
+		"*.psd"
 	],
-	"font_face": "Monaco",
-	"font_size": 13,
-	"highlight_modified_tabs": true,
-	"hot_exit": false,
-	"line_padding_bottom": 5,
-	"match_brackets": true,
-	"match_brackets_angle": true,
-	"remember_open_files": false,
+	"font_face": "Source Code Pro",
+	"font_size": 16,
+	"ignored_packages":
+	[
+		"Markdown Preview",
+		"Vintage",
+		"Markdown"
+	],
+	"open_files_in_new_window": false,
 	"rulers":
 	[
 		80
 	],
-	"show_encoding": true,
-	"show_line_endings": true,
-	"tab_size": 2,
-	"translate_tabs_to_spaces": false,
-	"trim_trailing_white_space_on_save": true,
+	"theme": "Soda Light 3.sublime-theme",
+	"translate_tabs_to_spaces": true,
 	"word_wrap": true
 }
