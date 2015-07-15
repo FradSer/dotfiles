@@ -1,0 +1,2 @@
+" Minimum list of bundles
+let g:spf13_bundle_groups=['general', 'writing', 'programming', 'misc']
