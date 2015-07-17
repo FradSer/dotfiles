@@ -148,5 +148,5 @@ alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
 alias 7zn="7za a -m0=LZMA2 -r -x\!.*"
 
 # Some function in Disk Utility
-alias diskrp="diskutil repairPermissions "
-alias diskrv="diskutil repairVolume "
+alias diskrp="diskutil repairPermissionsi"
+alias diskrv="diskutil repairVolume"
