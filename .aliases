@@ -48,7 +48,7 @@ alias week='date +%V'
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup; npm update -g; sudo gem update'
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup; n stable; npm update -g; sudo gem update'
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -152,3 +152,6 @@ alias 7zn="7za a -m0=LZMA2 -r -x\!.*"
 # Some function in Disk Utility
 alias diskrp="diskutil repairPermissions"
 alias diskrv="diskutil repairVolume"
+
+# Control Time Machine
+alias tms="tmutil startbackup" # Start backup
