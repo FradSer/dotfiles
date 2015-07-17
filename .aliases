@@ -13,6 +13,8 @@ alias dt="cd ~/Desktop"
 alias de="cd ~/Developer"
 alias g="git"
 alias gm="git commit"
+alias gp="git push"
+alias ga="git add"
 alias h="history"
 alias j="jobs"
 
@@ -148,5 +150,5 @@ alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
 alias 7zn="7za a -m0=LZMA2 -r -x\!.*"
 
 # Some function in Disk Utility
-alias diskrp="diskutil repairPermissionsi"
+alias diskrp="diskutil repairPermissions"
 alias diskrv="diskutil repairVolume"
