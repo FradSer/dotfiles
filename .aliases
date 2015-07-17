@@ -140,3 +140,9 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
+
+# theFuck
+alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
+
+# New archive use p7zip with LZMA2
+alias 7zn="7za a -m0=LZMA2 -r -x\!.*"
