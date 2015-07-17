@@ -32,9 +32,16 @@ brew install gzip
 brew install unzip
 brew install make
 
+# Install Node.js
+brew install node
+npm install -g n
+n stable
+brew remove node
+
 # Install other useful binaries.
 brew install ack
 brew install exiv2
+brew install gnupg
 brew install git
 brew install git-lfs
 brew install imagemagick --with-webp
