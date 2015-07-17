@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
 # Install command-line tools using Homebrew.
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # Ask for the administrator password upfront.
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until the script has finished.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# Install Homebrew.
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # Make sure we’re using the latest Homebrew.
 brew update
@@ -36,7 +38,6 @@ brew install exiv2
 brew install git
 brew install git-lfs
 brew install imagemagick --with-webp
-brew install lua
 brew install lynx
 brew install p7zip
 brew install pigz
