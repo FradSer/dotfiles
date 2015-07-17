@@ -152,3 +152,6 @@ alias 7zn="7za a -m0=LZMA2 -r -x\!.*"
 # Some function in Disk Utility
 alias diskrp="diskutil repairPermissions"
 alias diskrv="diskutil repairVolume"
+
+# Control Time Machine
+alias tms="tmutil startbackup" # Start backup
