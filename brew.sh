@@ -32,11 +32,6 @@ brew install gzip
 brew install unzip
 brew install make
 
-# Install Node.js
-brew install node
-npm install -g n
-n stable
-brew remove node
 
 # Install other useful binaries.
 brew install ack
@@ -57,3 +52,14 @@ brew install zopfli
 
 # Remove outdated versions from the cellar.
 brew cleanup
+
+# Install Node.js
+brew install node
+npm install -g n
+n stable
+brew remove node
+brew cleanup
+
+# Insatll RVM & stable Ruby
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+\curl -sSL https://get.rvm.io | bash -s stable --ruby
