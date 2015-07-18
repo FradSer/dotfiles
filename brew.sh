@@ -36,6 +36,7 @@ brew install make
 # Install other useful binaries.
 brew install ack
 brew install exiv2
+brew install thefuck
 brew install gnupg
 brew install git
 brew install git-lfs
