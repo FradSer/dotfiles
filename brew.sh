@@ -54,6 +54,7 @@ brew install zopfli
 
 # Install Node.js
 brew install node
+exec $SHELL -l # Reload the shell
 npm install -g n
 n stable
 brew remove node
