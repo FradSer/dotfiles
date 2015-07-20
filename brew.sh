@@ -73,3 +73,6 @@ brew install python3
 
 # Remove outdated versions from the cellar.
 brew cleanup
+
+# Message
+echo "Congratulations! You are installed Homebrew & more recent versions of some OS X tools &  some useful binaries & Node.js with n & Ruby with RVM & Python & Python 3."
