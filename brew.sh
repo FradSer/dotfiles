@@ -33,26 +33,25 @@ brew install gzip
 brew install unzip
 brew install make
 
-
 # Install other useful binaries.
-brew install ack
-brew install exiv2
-brew install thefuck
-brew install gnupg
-brew install git
-brew install git-lfs
-brew install imagemagick --with-webp
-brew install lynx
-brew install p7zip
-brew install pigz
-brew install pv
-brew install rename
-brew install speedtest_cli
-brew install ssh-copy-id
-brew install tree
-brew install zopfli
+brew install ack # ack is a greplike tool optimized for programmers searching large heterogeneous trees of source code.
+brew install exiv2 # Open source Exif, IPTC and XMP metadata library and tools with Exif MakerNote and read/write support.
+brew install thefuck # thefuck - Magnificent app which corrects your previous console command.
+brew install gnupg # The GNU Privacy Guard (GnuPG) is a free replacement for PGP.
+brew install git # Git
+brew install git-lfs # Git Large File Storage (LFS) replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+brew install imagemagick --with-webp # ImageMagick® is a software suite to create, edit, compose, or convert bitmap images.
+brew install lynx # Lynx is the text web browser.
+brew install p7zip # A command line port of the 7zip utility to Unix, Mac OS X and BeOS.
+brew install pigz # A parallel implementation of gzip for modern multi-processor, multi-core machines.
+brew install pv # pv - monitor the progress of data through a pipe.
+brew install rename # Perl-powered file rename script with many helpful built-ins.
+brew install speedtest_cli # Command-line interface for http://speedtest.net bandwidth tests.
+brew install ssh-copy-id # Add a public key to a remote machine's authorized_keys file.
+brew install tree # Display directories as trees (with optional color/HTML output).
+brew install zopfli # New zlib (gzip, deflate) compatible compressor.
 
-# Install Node.js
+# Install Node.js with n
 brew install node
 exec $SHELL -l # Reload the shell
 npm install -g n
