@@ -1,2 +1,0 @@
-# Add `/usr/local/sbin` to the `$PATH`
-export PATH="/usr/local/sbin:$PATH"
