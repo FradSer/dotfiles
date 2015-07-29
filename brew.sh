@@ -34,7 +34,7 @@ brew install unzip
 brew install make
 
 # Install other useful binaries.
-brew install ack # ack is a greplike tool optimized for programmers searching large heterogeneous trees of source code.
+brew install the_silver_searcher # Code-search similar to ack
 brew install exiv2 # Open source Exif, IPTC and XMP metadata library and tools with Exif MakerNote and read/write support.
 brew install thefuck # thefuck - Magnificent app which corrects your previous console command.
 brew install gnupg # The GNU Privacy Guard (GnuPG) is a free replacement for PGP.
