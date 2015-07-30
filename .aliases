@@ -151,4 +151,7 @@ alias diskrp="diskutil repairPermissions"
 alias diskrv="diskutil repairVolume"
 
 # Control Time Machine
-alias tms="tmutil startbackup" # Start backup
+alias tms="tmutil startbackup" # Start Backup
+
+# Update your Sketch.app plugins
+alias updatesketch='find $HOME/Library/Containers/com.bohemiancoding.sketch3/Data/Library/Application\ Support/com.bohemiancoding.sketch3/Plugins/ -name ".git" -exec git --git-dir={} pull ";"'
