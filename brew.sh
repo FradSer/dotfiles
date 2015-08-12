@@ -35,6 +35,7 @@ brew install make
 
 # Install other useful binaries.
 brew install the_silver_searcher # Code-search similar to ack
+brew install dark-mode # Toggle the Dark Mode (in OS X 10.10) from the command-line
 brew install exiv2 # Open source Exif, IPTC and XMP metadata library and tools with Exif MakerNote and read/write support.
 brew install thefuck # thefuck - Magnificent app which corrects your previous console command.
 brew install gnupg # The GNU Privacy Guard (GnuPG) is a free replacement for PGP.
