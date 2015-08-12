@@ -76,3 +76,6 @@ brew cleanup
 
 # Message
 echo "Congratulations! You are installed Homebrew & more recent versions of some OS X tools &  some useful binaries & Node.js with n & Ruby with RVM & Python & Python 3."
+
+# Use brew-doctor
+brew doctor
