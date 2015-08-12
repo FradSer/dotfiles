@@ -52,25 +52,84 @@ brew install ssh-copy-id # Add a public key to a remote machine's authorized_key
 brew install tree # Display directories as trees (with optional color/HTML output).
 brew install zopfli # New zlib (gzip, deflate) compatible compressor.
 
-# Install Node.js with n
-brew install node
-exec $SHELL -l # Reload the shell
-npm install -g n
-n stable
-brew remove node
-brew prune
-rm -rf /usr/local/include/node/ # Delete Node.js which installed by Homebrew
+# Install Node.js & io.js through n
+function doIt1() {
+	brew install node;
+	exec $SHELL -l; # Reload the shell
+	npm install -g n;
+	n latest;
+	brew remove node;
+	brew prune;
+	rm -rf /usr/local/include/node/; # Delete Node.js which installed by Homebrew
+}
+
+function doIt2() {
+	n io latest;
+}
+
+if [ "$1" == "--force" -o "$1" == "-f" ]; then
+	doIt1;
+	doIt2;
+else
+	read -p "Do you want install Node.js through n? (y/n) " -n 1;
+	echo "";
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		doIt1;
+	fi;
+	read -p "Would you want try io.js? (y/n) " -n 1;
+	echo "";
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		doIt2;
+	fi;
+fi;
+unset doIt;
 
 # Insatll RVM and stable Ruby
-gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-\curl -sSL https://get.rvm.io | bash -s stable
-source ~/.profile
-rm ~/.profile
-rvm install ruby-head
+function doIt() {
+	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3;
+	\curl -sSL https://get.rvm.io | bash -s stable;
+	source ~/.profile;
+	rm ~/.profile;
+	rvm install ruby-head;
+}
 
-# Install Python & Python 3
-brew install python
-brew install python3
+if [ "$1" == "--force" -o "$1" == "-f" ]; then
+	doIt;
+else
+	read -p "Do you want install Ruby through RVM? (y/n) " -n 1;
+	echo "";
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		doIt;
+	fi;
+fi;
+unset doIt;
+
+# Insatll Python 3
+function doIt1() {
+	brew install python
+}
+
+function doIt2() {
+	brew install python3
+}
+
+if [ "$1" == "--force" -o "$1" == "-f" ]; then
+	doIt1;
+	doIt2;
+else
+	read -p "Do you also want install Python? (y/n) " -n 1;
+	echo "";
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		doIt1;
+	fi;
+	read -p "Do you also want install Python 3? (y/n) " -n 1;
+	echo "";
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		doIt2;
+	fi;
+fi;
+unset doIt1;
+unset doIt2;
 
 # Remove outdated versions from the cellar.
 brew cleanup
