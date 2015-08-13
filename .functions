@@ -246,7 +246,6 @@ function tre() {
 }
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-
 function update() {
 	local softwareupdate="softwareupdate -i -a;"
 	local brew="brew update; brew upgrade --all; brew cleanup;"
