@@ -255,5 +255,30 @@ function update() {
 	local pip="pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;"
 	local gem="gem update;"
 	echo "Updating..."
-	sudo sh -c "$softwareupdate"; sh -c "$brew$cask$n$npm$pip"; sudo sh -c "$gem"
+	if [ "$1" == "--all" -o "$1" == "-a" ]; then
+		sudo sh -c "$softwareupdate";
+		sh -c "$brew$cask$n$npm$pip";
+		sudo sh -c "$gem";
+	fi;
+	if [ "$1" == "--softwareupdate" -o "$1" == "-s" ]; then
+		sudo sh -c "$softwareupdate";
+	fi;
+	if [ "$1" == "--brew" -o "$1" == "-b" ]; then
+		sh -c "$brew";
+	fi;
+	if [ "$1" == "--cask" -o "$1" == "-c" ]; then
+		sh -c "$cask";
+	fi;
+	if [ "$1" == "--n" -o "$1" == "-n" ]; then
+		sh -c "$n";
+	fi;
+	if [ "$1" == "--npm" -o "$1" == "-npm" ]; then
+		sh -c "$npm";
+	fi;
+	if [ "$1" == "--pip" -o "$1" == "-p" ]; then
+		sh -c "$pip";
+	fi;
+	if [ "$1" == "--gem" -o "$1" == "-g" ]; then
+		sudo sh -c "$gem";
+	fi;
 }
