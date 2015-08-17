@@ -255,8 +255,6 @@ function update() {
 	local pip="pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;"
 	local gem="gem update;"
 	if [ "$1" == "--all" -o "$1" == "-a" -o "$1" == "" ]; then
-		sudo -v;
-		while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &;
 		sudo sh -c "$softwareupdate";
 		sh -c "$brew$cask$n$npm$pip";
 		sudo sh -c "$gem";
