@@ -250,9 +250,9 @@ function update() {
 	local softwareupdate="softwareupdate -i -a;"
 	local brew="brew update; brew upgrade --all; brew cleanup;"
 	local cask="brew cask update; brew cask cleanup;"
-	local n="n io latest; n latest; n 0.10.40;"
+	local n="n io latest;"
 	local npm="npm update -g;"
-	local pip="pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;"
+	local pip="pip install --upgrade pip; pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;"
 	local gem="gem update;"
 	if [ "$1" == "--all" -o "$1" == "-a" -o "$1" == "" ]; then
         sudo sh -c "$softwareupdate";
