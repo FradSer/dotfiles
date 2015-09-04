@@ -256,7 +256,9 @@ function update() {
 	local gem="gem update;"
 	if [ "$1" == "--all" -o "$1" == "-a" -o "$1" == "" ]; then
         sudo sh -c "$softwareupdate";
-        sh -c "$brew$cask$n$npm$pip";
+        sh -c "$brew$cask$n";
+        exec $SHELL -l;
+        sh -c "$npm$pip";
         sudo sh -c "$gem";
 	fi;
 	if [ "$1" == "--softwareupdate" -o "$1" == "-s" ]; then
