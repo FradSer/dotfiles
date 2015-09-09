@@ -284,9 +284,8 @@ function update() {
 	fi;
 }
 
-# Compress image with TinyJPG(https://tinyjpg.com)
+# Compress image with TinyJPG
 function compress() {
-	local TinyJPG_API="API_key"
     local image="${1}";
-    curl -i --user api:"${TinyJPG_API}" --data-binary @"${image}" https://api.tinify.com/shrink | grep Location:
+    curl -i --user api:$TinyJPG_API --data-binary @"${image}" https://api.tinify.com/shrink | grep Location:
 }
