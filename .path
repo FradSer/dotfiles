@@ -1,0 +1,2 @@
+# TinyJPG API: https://tinyjpg.com
+export TinyJPG_API="API_Key" # Repeat your API Key to API_Key

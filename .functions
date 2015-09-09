@@ -283,3 +283,9 @@ function update() {
 		sudo sh -c "$gem";
 	fi;
 }
+
+# Compress image with TinyJPG
+function compress() {
+    local image="${1}";
+    curl -i --user api:$TinyJPG_API --data-binary @"${image}" https://api.tinify.com/shrink | grep Location:
+}
