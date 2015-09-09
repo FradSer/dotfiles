@@ -34,6 +34,8 @@ brew install unzip
 brew install make
 
 # Install other useful binaries.
+brew install ag #Code-search similar to ack
+brew install apparix # File system navigation via bookmarking directories.
 brew install the_silver_searcher # Code-search similar to ack
 brew install dark-mode # Toggle the Dark Mode (in OS X 10.10) from the command-line
 brew install exiv2 # Open source Exif, IPTC and XMP metadata library and tools with Exif MakerNote and read/write support.
