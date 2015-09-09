@@ -289,3 +289,9 @@ function compress() {
     local image="${1}";
     curl -i --user api:$TinyJPG_API --data-binary @"${image}" https://api.tinify.com/shrink | grep Location:
 }
+
+# Fix Bluetooth
+function fixbluetooth() {
+sudo kextunload -b com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport;
+sudo kextload -b com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport
+}
