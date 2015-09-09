@@ -1,4 +1,4 @@
-# FradSer’s dotfiles v0.0.1
+# FradSer’s dotfiles v0.0.2
 
 A fork of [Mathias’s dotfiles](https://github.com/mathiasbynens/dotfiles "mathiasbynens/dotfiles") focus on OS X for designer.
 
