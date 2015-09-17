@@ -6,7 +6,7 @@ A fork of [Mathias’s dotfiles](https://github.com/mathiasbynens/dotfiles "math
 
 ## Installation
 
-If you are a OS X newbie, please use this command ```xcode-select --install``` to install Xcode Command Line Tools at first.
+**Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don’t want or need. Don’t blindly use my settings unless you know what that entails. Use at your own risk!
 
 ### Using Git and the bootstrap script
 
