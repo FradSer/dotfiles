@@ -290,8 +290,20 @@ function update() {
 
 # Compress image with TinyJPG
 function compress() {
-    local url=$(curl -i --user api:$TinyJPG_API --data-binary @"$1" https://api.tinify.com/shrink | grep Location: | awk '{split($0,a,": ");print a[2]}' | tr -d '\r');
-    wget $url -O "$1"
+	# Check if the $TinyJPG_API is exist.
+	# Check the $1 is image.
+	if [ $# -eq 2]; then
+		if [ "$1" == "--backup" -o "$1" == "-b" ]; then
+			cp "$1" "$1".backup;
+		fi;
+		local image = "$2";
+	    local url=$(curl -i --user api:$TinyJPG_API --data-binary @"$2" https://api.tinify.com/shrink | grep Location: | awk '{split($0,a,": ");print a[2]}' | tr -d '\r');
+	    wget $url -O "$2";
+	else;
+		local image = "$1";
+	    local url=$(curl -i --user api:$TinyJPG_API --data-binary @"$1" https://api.tinify.com/shrink | grep Location: | awk '{split($0,a,": ");print a[2]}' | tr -d '\r');
+	    wget $url -O "$1";
+    fi;
 }
 
 # Fix Bluetooth
