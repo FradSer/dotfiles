@@ -82,6 +82,8 @@ When setting up a new Mac, you may want to install some common [Homebrew](http:/
 ```bash
 ./brew.sh
 ```
+## Usage
+- `compress`: At first run `echo 'export TinyJPG_API="API_Key"' >> ~/.path` ( Repeat your API Key to `API_Key`).
 
 ## Feedback
 
