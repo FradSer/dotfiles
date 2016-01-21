@@ -290,10 +290,14 @@ function update() {
 
 # Compress image with TinyJPG
 function compress() {
-	for image in $*; do
-		local url=$(curl -i --user api:$TinyJPG_API --data-binary @"$image" https://api.tinify.com/shrink | grep Location: | awk '{split($0,a,": ");print a[2]}' | tr -d '\r');
-		wget $url -O "$image";
-	done
+	if [ -n "${TinyJPG_API}" ]; then
+		for image in $*; do
+			local url=$(curl -i --user api:$TinyJPG_API --data-binary @"$image" https://api.tinify.com/shrink | grep Location: | awk '{split($0,a,": ");print a[2]}' | tr -d '\r');
+			wget $url -O "$image";
+		done
+	else
+	   	echo "TinyJPG_API is not defined! Please defined TinyJPG_API in ~/.path"
+	fi
 }
 
 # Fix Bluetooth
