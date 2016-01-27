@@ -53,34 +53,19 @@ brew install ssh-copy-id # Add a public key to a remote machine's authorized_key
 brew install tree # Display directories as trees (with optional color/HTML output).
 brew install zopfli # New zlib (gzip, deflate) compatible compressor.
 
-# Install Node.js & io.js through n
+# Install n & node
 function doIt1() {
-	brew install node;
+	curl -L http://git.io/n-install | bash;
 	exec $SHELL -l; # Reload the shell
-	npm install -g n;
-	n latest;
-	brew remove node;
-	brew prune;
-	rm -rf /usr/local/include/node/; # Delete Node.js which installed by Homebrew
-}
-
-function doIt2() {
-	n io latest;
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
 	doIt1;
-	doIt2;
 else
 	read -p "Do you want install Node.js through n? (y/n) " -n 1;
 	echo "";
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		doIt1;
-	fi;
-	read -p "Would you want try io.js? (y/n) " -n 1;
-	echo "";
-	if [[ $REPLY =~ ^[Yy]$ ]]; then
-		doIt2;
 	fi;
 fi;
 unset doIt;
