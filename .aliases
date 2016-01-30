@@ -159,4 +159,4 @@ alias diskrv="diskutil repairVolume"
 alias tms="tmutil startbackup" # Start Backup
 
 # Update your Sketch.app plugins
-alias updatesketch='mkdir .update_sketch_plugins && cd .update_sketch_plugins && find $HOME/Library/Containers/com.bohemiancoding.sketch3/Data/Library/Application\ Support/com.bohemiancoding.sketch3/Plugins/ -name ".git" -exec git --git-dir={} fetch --all ";" && find $HOME/Library/Containers/com.bohemiancoding.sketch3/Data/Library/Application\ Support/com.bohemiancoding.sketch3/Plugins/ -name ".git" -exec git --git-dir={} reset --hard origin/master ";" && cd .. && rm -rf .update_sketch_plugins'
+alias update_sketch_plugins='mkdir .update_sketch_plugins && cd .update_sketch_plugins && find $HOME/Library/Containers/com.bohemiancoding.sketch3/Data/Library/Application\ Support/com.bohemiancoding.sketch3/Plugins/ -name ".git" -exec git --git-dir={} fetch --all ";" && find $HOME/Library/Containers/com.bohemiancoding.sketch3/Data/Library/Application\ Support/com.bohemiancoding.sketch3/Plugins/ -name ".git" -exec git --git-dir={} reset --hard origin/master ";" && cd .. && rm -rf .update_sketch_plugins'
