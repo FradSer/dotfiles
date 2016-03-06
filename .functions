@@ -299,9 +299,3 @@ function compress() {
 	   	echo "TinyJPG_API is not defined! Please defined TinyJPG_API in ~/.path"
 	fi
 }
-
-# Fix Bluetooth
-function fixbluetooth() {
-sudo kextunload -b com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport;
-sudo kextload -b com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport
-}
