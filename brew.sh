@@ -53,16 +53,16 @@ function doIt2() {
 	n stable;
 }
 
-if [ "$1" == "--force" -o "$1" == "-f" ]; then
+if [ "$1" == "--force" ] || [ "$1" == "-f" ]; then
 	doIt1;
 	doIt2;
 else
-	read -p "Do you want install n? (y/n) " -n 1;
+	read -r -p "Do you want install n? (y/n) " -n 1;
 	echo "";
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		doIt1;
 	fi;
-	read -p "o you want install Node.js? (y/n) " -n 1;
+	read -r -p "o you want install Node.js? (y/n) " -n 1;
 	echo "";
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		doIt2;
@@ -73,16 +73,18 @@ unset doIt;
 # Insatll RVM and stable Ruby
 function doIt() {
 	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3;
+	# shellcheck disable=SC1001
 	\curl -sSL https://get.rvm.io | bash -s stable;
-	source ~/.profile;
+	# shellcheck disable=SC1090
+	source "$HOME/.profile";
 	rm ~/.profile;
 	rvm install ruby-head;
 }
 
-if [ "$1" == "--force" -o "$1" == "-f" ]; then
+if [ "$1" == "--force" ] || [ "$1" == "-f" ]; then
 	doIt;
 else
-	read -p "Do you want install Ruby through RVM? (y/n) " -n 1;
+	read -r -p "Do you want install Ruby through RVM? (y/n) " -n 1;
 	echo "";
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		doIt;
@@ -99,16 +101,16 @@ function doIt2() {
 	brew install python3
 }
 
-if [ "$1" == "--force" -o "$1" == "-f" ]; then
+if [ "$1" == "--force" ] || [ "$1" == "-f" ]; then
 	doIt1;
 	doIt2;
 else
-	read -p "Do you also want install Python? (y/n) " -n 1;
+	read -r -p "Do you also want install Python? (y/n) " -n 1;
 	echo "";
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		doIt1;
 	fi;
-	read -p "Do you also want install Python 3? (y/n) " -n 1;
+	read -r -p "Do you also want install Python 3? (y/n) " -n 1;
 	echo "";
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		doIt2;
