@@ -8,7 +8,7 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade --all
 
-# Install GNU core utilities (those that come with OS X are outdated).
+# Install GNU core utilities (those that come with macOS are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
 brew install coreutils
 ln -s /usr/local/bin/gsha256sum /usr/local/bin/sha256sum
@@ -36,6 +36,14 @@ fi;
 brew install wget --with-iri
 
 # Install more recent versions of some OS X tools.
+
+# Install RingoJS and Narwhal.
+# Note that the order in which these are installed is important;
+# see http://git.io/brew-narwhal-ringo.
+brew install ringojs
+brew install narwhal
+
+# Install more recent versions of some macOS tools.
 brew install vim --override-system-vi
 brew install curl
 brew install grep
