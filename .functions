@@ -230,20 +230,18 @@ function tre() {
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 function update() {
 	local softwareupdate="softwareupdate -i -a;"
-	local brew="brew update; brew upgrade --all; brew cleanup;"
+	local brew="brew update; brew upgrade; brew cleanup;"
 	local cask="brew cask update; brew cask cleanup;"
-	local n="n stable;"
-	local npm="npm update -g;"
+	# local yarn=""
 	local pip="pip install --upgrade pip; pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;"
 	local pip3="pip3 install --upgrade pip; pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U;"
-	local rvm="rvm get stable; rvm install ruby-head; rvm cleanup all;" # Update RVM & Ruby
-	local gem="gem update;"
+	local gem="gem update; gem cleanup;"
 	local vim="curl https://j.mp/spf13-vim3 -L -o - | sh"
 	if [ "$1" == "--all" -o "$1" == "-a" -o "$1" == "" ]; then
         sudo sh -c "$softwareupdate";
-        sh -c "$brew$cask$n";
-        sh -c "$npm$pip$pip3";
-        sh -c "$rvm";
+        sh -c "$brew$cask";
+        # sh -c "$yarn";
+        sh -c "$pip$pip3";
         sudo sh -c "$gem";
         sh -c "$vim"
 	fi;
@@ -256,20 +254,14 @@ function update() {
 	if [ "$1" == "--cask" -o "$1" == "-c" ]; then
 		sh -c "$cask";
 	fi;
-	if [ "$1" == "--n" -o "$1" == "-n" ]; then
-		sh -c "$n";
-	fi;
-	if [ "$1" == "--npm" -o "$1" == "-npm" ]; then
-		sh -c "$npm";
-	fi;
+	# if [ "$1" == "--yarn" -o "$1" == "-y" ]; then
+	# 	sh -c "$yarn";
+	# fi;
 	if [ "$1" == "--pip" -o "$1" == "-p" ]; then
 		sh -c "$pip";
 	fi;
 	if [ "$1" == "--pip3" -o "$1" == "-p3" ]; then
 		sh -c "$pip3";
-	fi;
-	if [ "$1" == "--rvm" -o "$1" == "-r" ]; then
-		sh -c "$rvm";
 	fi;
 	if [ "$1" == "--gem" -o "$1" == "-g" ]; then
 		sudo sh -c "$gem";
