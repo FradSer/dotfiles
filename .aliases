@@ -145,7 +145,7 @@ command -v grunt > /dev/null && alias grunt="grunt --stack"
 
 # Stuff I never really use but cannot delete either because of http://xkcd.com/530/
 alias stfu="osascript -e 'set volume output muted true'"
-alias pumpitup="osascript -e 'set volume 7'"
+alias pumpitup="osascript -e 'set volume output volume 100'"
 
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
@@ -169,3 +169,6 @@ alias tms="tmutil startbackup" # Start Backup
 
 # Update your Sketch.app plugins
 alias update_sketch_plugins='mkdir .update_sketch_plugins && cd .update_sketch_plugins && find $HOME/Library/Containers/com.bohemiancoding.sketch3/Data/Library/Application\ Support/com.bohemiancoding.sketch3/Plugins/ -name ".git" -exec git --git-dir={} fetch --all ";" && find $HOME/Library/Containers/com.bohemiancoding.sketch3/Data/Library/Application\ Support/com.bohemiancoding.sketch3/Plugins/ -name ".git" -exec git --git-dir={} reset --hard origin/master ";" && cd .. && rm -rf .update_sketch_plugins'
+
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
