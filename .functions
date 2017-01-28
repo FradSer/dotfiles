@@ -231,7 +231,6 @@ function tre() {
 function update() {
 	local softwareupdate="softwareupdate -i -a;"
 	local brew="brew update; brew upgrade; brew cleanup;"
-	local cask="brew cask update; brew cask cleanup;"
 	# local yarn=""
 	local pip="pip install --upgrade pip; pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;"
 	local pip3="pip3 install --upgrade pip; pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U;"
@@ -250,9 +249,6 @@ function update() {
 	fi;
 	if [ "$1" == "--brew" -o "$1" == "-b" ]; then
 		sh -c "$brew";
-	fi;
-	if [ "$1" == "--cask" -o "$1" == "-c" ]; then
-		sh -c "$cask";
 	fi;
 	# if [ "$1" == "--yarn" -o "$1" == "-y" ]; then
 	# 	sh -c "$yarn";
