@@ -192,18 +192,18 @@ function tre() {
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 function update() {
-	local softwareupdate="softwareupdate -i -a;"
+	local softwareupdate="mas upgrade;"
 	local brew="brew update; brew upgrade; brew cleanup;"
 	local yarn="yarn global upgrade"
-	local pip="pip install --upgrade pip; pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;"
-	local pip3="pip3 install --upgrade pip; pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U;"
+	local pip2="pip2 install --upgrade pip; pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip2 install -U;"
+	local pip3="pip3 install --upgrade pip; pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U;"
 	local gem="gem update; gem cleanup;"
 	local vim="curl https://j.mp/spf13-vim3 -L -o - | sh"
 	if [ "$1" == "--all" -o "$1" == "-a" -o "$1" == "" ]; then
         sudo sh -c "$softwareupdate";
-        sh -c "$brew$cask";
-        # sh -c "$yarn";
-        sh -c "$pip$pip3";
+        sh -c "$brew";
+        sh -c "$yarn";
+        sh -c "$pip2$pip3";
         sudo sh -c "$gem";
         sh -c "$vim"
 	fi;
@@ -216,8 +216,8 @@ function update() {
 	if [ "$1" == "--yarn" -o "$1" == "-y" ]; then
 		sh -c "$yarn";
 	fi;
-	if [ "$1" == "--pip" -o "$1" == "-p" ]; then
-		sh -c "$pip";
+	if [ "$1" == "--pip2" -o "$1" == "-p2" ]; then
+		sh -c "$pip2";
 	fi;
 	if [ "$1" == "--pip3" -o "$1" == "-p3" ]; then
 		sh -c "$pip3";
@@ -226,6 +226,6 @@ function update() {
 		sudo sh -c "$gem";
 	fi;
 	if [ "$1" == "--vim" -o "$1" == "-v" ]; then
-		sudo sh -c "$vim";
+		sh -c "$vim";
 	fi;
 }
