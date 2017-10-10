@@ -22,7 +22,6 @@ brew install gnu-sed --with-default-names
 # Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before
 # running `chsh`.
 brew install bash
-brew tap homebrew/versions
 brew install bash-completion2
 
 # Switch to using brew-installed bash as default shell
@@ -41,6 +40,8 @@ brew install wget --with-iri
 # see http://git.io/brew-narwhal-ringo.
 brew install ringojs
 brew install narwhal
+# Install GnuPG to enable PGP-signing commits.
+brew install gnupg
 
 # Install more recent versions of some macOS tools.
 brew install vim --override-system-vi
@@ -55,9 +56,9 @@ brew install gzip
 brew install unzip
 brew install make
 brew install vim --with-override-system-vi
-brew install homebrew/dupes/grep
-brew install homebrew/dupes/openssh
-brew install homebrew/dupes/screen
+brew install grep
+brew install openssh
+brew install screen
 brew install homebrew/php/php56 --with-gmp
 
 # Install font tools.
@@ -184,6 +185,22 @@ else
 fi;
 unset doIt1;
 unset doIt2;
+brew install ack
+#brew install exiv2
+brew install git
+brew install git-lfs
+brew install imagemagick --with-webp
+brew install lua
+brew install lynx
+brew install p7zip
+brew install pigz
+brew install pv
+brew install rename
+brew install rlwrap
+brew install ssh-copy-id
+brew install tree
+brew install vbindiff
+brew install zopfli
 
 # Remove outdated versions from the cellar.
 brew cleanup
