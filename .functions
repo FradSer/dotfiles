@@ -75,15 +75,6 @@ function dataurl() {
 	echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')";
 }
 
-# Create a git.io short URL
-function gitio() {
-	if [ -z "${1}" -o -z "${2}" ]; then
-		echo "Usage: \`gitio slug url\`";
-		return 1;
-	fi;
-	curl -i https://git.io/ -F "url=${2}" -F "code=${1}";
-}
-
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
 	local port="${1:-8000}";
@@ -121,24 +112,6 @@ function digga() {
 # UTF-8-encode a string of Unicode symbols
 function escape() {
 	printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u);
-	# print a newline unless we’re piping the output to another program
-	if [ -t 1 ]; then
-		echo ""; # newline
-	fi;
-}
-
-# Decode \x{ABCD}-style Unicode escape sequences
-function unidecode() {
-	perl -e "binmode(STDOUT, ':utf8'); print \"$@\"";
-	# print a newline unless we’re piping the output to another program
-	if [ -t 1 ]; then
-		echo ""; # newline
-	fi;
-}
-
-# Get a character’s Unicode code point
-function codepoint() {
-	perl -e "use utf8; print sprintf('U+%04X', ord(\"$@\"))";
 	# print a newline unless we’re piping the output to another program
 	if [ -t 1 ]; then
 		echo ""; # newline
@@ -189,16 +162,6 @@ function s() {
 	fi;
 }
 
-# `a` with no arguments opens the current directory in Atom Editor, otherwise
-# opens the given location
-function a() {
-	if [ $# -eq 0 ]; then
-		atom .;
-	else
-		atom "$@";
-	fi;
-}
-
 # `v` with no arguments opens the current directory in Vim, otherwise opens the
 # given location
 function v() {
@@ -229,18 +192,18 @@ function tre() {
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 function update() {
-	local softwareupdate="softwareupdate -i -a;"
+	local softwareupdate="mas upgrade;"
 	local brew="brew update; brew upgrade; brew cleanup;"
-	# local yarn=""
-	local pip="pip install --upgrade pip; pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;"
-	local pip3="pip3 install --upgrade pip; pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U;"
+	local yarn="yarn global upgrade"
+	local pip2="pip2 install --upgrade pip; pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip2 install -U;"
+	local pip3="pip3 install --upgrade pip; pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U;"
 	local gem="gem update; gem cleanup;"
 	local vim="curl https://j.mp/spf13-vim3 -L -o - | sh"
 	if [ "$1" == "--all" -o "$1" == "-a" -o "$1" == "" ]; then
         sudo sh -c "$softwareupdate";
-        sh -c "$brew$cask";
-        # sh -c "$yarn";
-        sh -c "$pip$pip3";
+        sh -c "$brew";
+        sh -c "$yarn";
+        sh -c "$pip2$pip3";
         sudo sh -c "$gem";
         sh -c "$vim"
 	fi;
@@ -250,11 +213,11 @@ function update() {
 	if [ "$1" == "--brew" -o "$1" == "-b" ]; then
 		sh -c "$brew";
 	fi;
-	# if [ "$1" == "--yarn" -o "$1" == "-y" ]; then
-	# 	sh -c "$yarn";
-	# fi;
-	if [ "$1" == "--pip" -o "$1" == "-p" ]; then
-		sh -c "$pip";
+	if [ "$1" == "--yarn" -o "$1" == "-y" ]; then
+		sh -c "$yarn";
+	fi;
+	if [ "$1" == "--pip2" -o "$1" == "-p2" ]; then
+		sh -c "$pip2";
 	fi;
 	if [ "$1" == "--pip3" -o "$1" == "-p3" ]; then
 		sh -c "$pip3";
@@ -263,6 +226,6 @@ function update() {
 		sudo sh -c "$gem";
 	fi;
 	if [ "$1" == "--vim" -o "$1" == "-v" ]; then
-		sudo sh -c "$vim";
+		sh -c "$vim";
 	fi;
 }
