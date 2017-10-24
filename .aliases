@@ -36,7 +36,7 @@ alias la="ls -lNaF ${colorflag}"
 # List only directories
 alias lsd="ls -lNF ${colorflag} | grep --color=never '^d'"
 
-# Always use color output for `ls`s
+# Always use color output for `ls`
 alias ls="command ls -N ${colorflag}"
 
 # Always enable colored `grep` output
