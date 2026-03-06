@@ -4,27 +4,39 @@
 # ==========================================
 
 # 1. Homebrew (Essential for macOS)
-if [[ -f "/opt/homebrew/bin/brew" ]]; then
+# This handles /opt/homebrew/bin (Node, Git, etc.)
+if [[ -x "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [[ -f "/usr/local/bin/brew" ]]; then
+elif [[ -x "/usr/local/bin/brew" ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-# 2. OrbStack Shell Integration
-if [[ -f "$HOME/.orbstack/shell/init.zsh" ]]; then
-  source "$HOME/.orbstack/shell/init.zsh" 2>/dev/null || :
+# 2. Rust (Cargo)
+if [[ -d "$HOME/.cargo/bin" ]]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-# 3. Development Tools PATH
-# pnpm
+# 4. Go (Golang)
+if [[ -d "/opt/homebrew/opt/go/bin" || -d "/usr/local/opt/go/bin" ]]; then
+  export GOPATH="$HOME/go"
+  export PATH="$GOPATH/bin:$PATH"
+fi
+
+# 5. pnpm (Node.js)
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# uv & Local Bin
+# 6. uv (Python) & Local Bin
 export PATH="$HOME/.local/bin:$PATH"
 
-# Antigravity
-export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
+# 7. Antigravity Bin
+if [[ -d "$HOME/.antigravity/antigravity/bin" ]]; then
+  export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
+fi
+
+# 8. Identity & Profile Defaults
+export EDITOR="cursor"
+export LANG="en_US.UTF-8"

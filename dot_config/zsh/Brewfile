@@ -12,7 +12,8 @@ brew "zoxide"        # Fast directory navigation (cd replacement)
 brew "eza"           # Modern ls replacement
 brew "bat"           # Syntax highlighting cat
 brew "fzf"           # Fuzzy finder
-brew "pnpm"          # Node.js package manager
+brew "node"          # Node.js runtime (Homebrew version)
+brew "go"            # Go programming language
 brew "uv"            # Python environment manager
 brew "chezmoi"       # Dotfiles manager
 brew "zsh-completions" # Extra completions for zsh
@@ -24,10 +25,12 @@ brew "zsh-autopair"
 brew "you-should-use"
 
 # --- Casks (GUI Apps) ---
-cask "cursor"        # AI-powered code editor
-cask "orbstack"      # Fast Docker & Linux VM replacement
-cask "visual-studio-code" # Optional: VS Code core
-cask "iterm2"        # Optional: Enhanced Terminal
+cask "cursor"        # AI-powered code editor (Primary)
+cask "ghostty"       # Modern GPU-accelerated terminal (Replacement for iTerm2)
+
+# Optional / Manual Install
+# cask "orbstack"    # Docker & Linux VM (Commented out as per preference)
+# cask "iterm2"      # (Replaced by Ghostty)
 
 # --- Global Configs ---
 # brew "git"          # Ensure latest git
