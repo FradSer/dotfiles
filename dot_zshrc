@@ -1,0 +1,25 @@
+# ==========================================
+# Interactive Shell Configuration
+# ==========================================
+
+# 1. Initialize Zsh Completion System (with Caching Optimization)
+autoload -Uz compinit
+# Only rebuild cache once a day
+if [[ -n "${HOME}/.zcompdump"(#qN.m-1) ]]; then
+  compinit -C
+else
+  compinit
+fi
+
+# 2. Load secret environment variables
+if [[ -f "$HOME/.config/zsh/.env.secrets" ]]; then
+  source "$HOME/.config/zsh/.env.secrets"
+fi
+
+# 3. Load modular configurations
+if [[ -d "$HOME/.config/zsh/rc.d" ]]; then
+  for conf in "$HOME/.config/zsh/rc.d/"*.zsh; do
+    source "${conf}"
+  done
+  unset conf
+fi

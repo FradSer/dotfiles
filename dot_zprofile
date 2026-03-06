@@ -1,0 +1,30 @@
+# ==========================================
+# Environment Variables & PATH
+# macOS Zsh Profile Configuration (Login Shell)
+# ==========================================
+
+# 1. Homebrew (Essential for macOS)
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f "/usr/local/bin/brew" ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
+# 2. OrbStack Shell Integration
+if [[ -f "$HOME/.orbstack/shell/init.zsh" ]]; then
+  source "$HOME/.orbstack/shell/init.zsh" 2>/dev/null || :
+fi
+
+# 3. Development Tools PATH
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# uv & Local Bin
+export PATH="$HOME/.local/bin:$PATH"
+
+# Antigravity
+export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
