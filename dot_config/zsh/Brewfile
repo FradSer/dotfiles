@@ -1,36 +1,45 @@
 # ==========================================
-# Homebrew Bundle - Development Environment
+# Homebrew Bundle - Full Development Suite
 # ==========================================
 
 # --- Taps ---
 tap "homebrew/bundle"
-tap "homebrew/services"
 
-# --- Formulae (CLI Tools) ---
+# --- Core Runtimes ---
+brew "node"          # Node.js (Corepack source)
+brew "go"            # Go
+brew "rust"          # Rust (Cargo)
+brew "python@3.14"   # Python
+brew "uv"            # Python manager
+brew "deno"          # Alternative JS runtime
+
+# --- CLI Productivity ---
 brew "starship"      # Prompt
-brew "zoxide"        # Fast directory navigation (cd replacement)
-brew "eza"           # Modern ls replacement
-brew "bat"           # Syntax highlighting cat
-brew "fzf"           # Fuzzy finder
-brew "node"          # Node.js runtime (Homebrew version)
-brew "go"            # Go programming language
-brew "uv"            # Python environment manager
+brew "zoxide"        # Navigation
+brew "eza"           # Modern ls
+brew "bat"           # Modern cat
+brew "fzf"           # Fuzzy search
+brew "fd"            # Modern find
+brew "ripgrep"       # Modern grep
+brew "lazygit"       # TUI for Git
+brew "gh"            # GitHub CLI
+brew "tmux"          # Terminal multiplexer
+brew "yt-dlp"        # Media downloader
 brew "chezmoi"       # Dotfiles manager
-brew "zsh-completions" # Extra completions for zsh
 
-# Zsh Plugins from Homebrew
+# --- Zsh Plugins (Homebrew) ---
+brew "zsh-completions"
 brew "zsh-syntax-highlighting"
 brew "zsh-history-substring-search"
 brew "zsh-autopair"
+brew "zsh-autosuggestions"
 brew "you-should-use"
 
 # --- Casks (GUI Apps) ---
-cask "cursor"        # AI-powered code editor (Primary)
-cask "ghostty"       # Modern GPU-accelerated terminal (Replacement for iTerm2)
-
-# Optional / Manual Install
-# cask "orbstack"    # Docker & Linux VM (Commented out as per preference)
-# cask "iterm2"      # (Replaced by Ghostty)
-
-# --- Global Configs ---
-# brew "git"          # Ensure latest git
+cask "ghostty"       # Primary Terminal
+cask "cursor"        # Primary AI Editor
+cask "zed"           # Alternative Fast Editor
+cask "fork"          # Git GUI
+cask "orbstack"      # Docker (Optional)
+cask "macs-fan-control" # Utility
+cask "font-maple-mono-nf-cn" # Typography
