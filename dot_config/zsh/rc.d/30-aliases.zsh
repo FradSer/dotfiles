@@ -16,6 +16,11 @@ alias ip="ipconfig getifaddr en0" # macOS Quick IP
 alias z="cd"
 alias zi="cdi"
 
+# Quick Jump
+alias down="cd ~/Downloads"
+alias dev="cd ~/Developer"
+alias doc="cd ~/Documents"
+
 if type bat &>/dev/null; then
   alias cat="bat"
 fi

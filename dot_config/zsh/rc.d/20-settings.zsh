@@ -14,6 +14,11 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
+setopt AUTO_CD # Enable auto cd (e.g., ../xxx -> cd ../xxx)
+
+# --- 1. CDPATH (Search paths for 'cd' or 'autocd') ---
+# This allows you to jump to these folders from anywhere without typing the full path
+export CDPATH=".:$HOME:$HOME/Developer:$HOME/Downloads:$HOME/Documents"
 
 # --- Modern Tools Theme Settings ---
 
