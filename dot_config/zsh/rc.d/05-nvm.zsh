@@ -1,0 +1,1 @@
+# ==========================================\n# nvm (Node Version Manager) Configuration\n# ==========================================\n\nif [ -d "$HOME/.nvm" ]; then\n  export NVM_DIR="$HOME/.nvm"\n\n  # Load nvm\n  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"\n\n  # Load nvm bash_completion\n  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"\nfi

@@ -56,3 +56,4 @@ fi
 # 9. Identity & Profile Defaults
 export EDITOR="cursor"
 export LANG="en_US.UTF-8"
+export COLORTERM=truecolor
