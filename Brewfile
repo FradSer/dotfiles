@@ -6,11 +6,8 @@
 # ==========================================
 
 # --- Core Runtimes ---
-brew "node"          # Node.js (Corepack source)
 brew "go"            # Go
 brew "rust"          # Rust (Cargo)
-brew "python"        # Python
-brew "uv"            # Python manager
 brew "deno"          # Alternative JS runtime
 
 # --- CLI Productivity ---
@@ -28,6 +25,7 @@ brew "tmux"          # Terminal multiplexer
 brew "yt-dlp"        # Media downloader
 brew "chezmoi"       # Dotfiles manager
 brew "coreutils"     # GNU File, Shell, and Text utilities
+brew "mole"          # Deep clean and optimize your Mac
 
 # --- Zsh Plugins (Homebrew) ---
 brew "zsh-completions"
@@ -46,3 +44,4 @@ cask "fork"          # Git GUI
 cask "orbstack"      # Docker (Optional)
 cask "macs-fan-control" # Utility
 cask "font-maple-mono-nf-cn" # Typography (with CN support)
+cask "google-chrome" # Browser

@@ -20,10 +20,16 @@ if [[ -d "$HOME/.cargo/bin" ]]; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-# 4. Go (Golang)
+# 3. Go (Golang)
 if [[ -d "/opt/homebrew/opt/go/bin" || -d "/usr/local/opt/go/bin" ]]; then
   export GOPATH="$HOME/go"
   export PATH="$GOPATH/bin:$PATH"
+fi
+
+# 4. nvm (Node Version Manager)
+export NVM_DIR="$HOME/.nvm"
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+  source "$NVM_DIR/nvm.sh"
 fi
 
 # 5. pnpm (Node.js)
@@ -33,14 +39,20 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# 6. uv (Python) & Local Bin
+# 6. Bun (JavaScript Runtime)
+export BUN_INSTALL="$HOME/.bun"
+if [[ -d "$BUN_INSTALL/bin" ]]; then
+  export PATH="$BUN_INSTALL/bin:$PATH"
+fi
+
+# 7. uv (Python) & Local Bin
 export PATH="$HOME/.local/bin:$PATH"
 
-# 7. Antigravity Bin
+# 8. Antigravity Bin
 if [[ -d "$HOME/.antigravity/antigravity/bin" ]]; then
   export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 fi
 
-# 8. Identity & Profile Defaults
+# 9. Identity & Profile Defaults
 export EDITOR="cursor"
 export LANG="en_US.UTF-8"
