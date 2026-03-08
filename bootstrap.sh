@@ -111,8 +111,8 @@ fi
 print_header "📁 Syncing Dotfiles"
 if command -v chezmoi >/dev/null; then
   if [ ! -d "$HOME/.local/share/chezmoi/.git" ]; then
-    print_step "📁 Initializing chezmoi from fradser/dotfiles..."
-    chezmoi init https://github.com/fradser/dotfiles.git --quiet
+    print_step "📁 Initializing chezmoi from FradSer/dotfiles..."
+    chezmoi init git@github.com:FradSer/dotfiles.git --quiet
   fi
   chezmoi apply --force
   print_success "📁 Dotfiles synced"
