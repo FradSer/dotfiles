@@ -2,14 +2,11 @@
 # Homebrew Bundle - Full Development Suite
 # ==========================================
 
-# --- Taps ---
-tap "homebrew/bundle"
-
 # --- Core Runtimes ---
 brew "node"          # Node.js (Corepack source)
 brew "go"            # Go
 brew "rust"          # Rust (Cargo)
-brew "python@3.14"   # Python
+brew "python@3.13"   # Python
 brew "uv"            # Python manager
 brew "deno"          # Alternative JS runtime
 
@@ -33,7 +30,8 @@ brew "zsh-syntax-highlighting"
 brew "zsh-history-substring-search"
 brew "zsh-autopair"
 brew "zsh-autosuggestions"
-brew "you-should-use"
+brew "zsh-you-should-use"
+brew "fzf-tab"
 
 # --- Casks (GUI Apps) ---
 cask "ghostty"       # Primary Terminal
@@ -42,4 +40,4 @@ cask "zed"           # Alternative Fast Editor
 cask "fork"          # Git GUI
 cask "orbstack"      # Docker (Optional)
 cask "macs-fan-control" # Utility
-cask "font-maple-mono-nf-cn" # Typography
+cask "font-maple-mono-nf" # Typography

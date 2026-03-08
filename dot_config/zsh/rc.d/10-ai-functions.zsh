@@ -250,7 +250,7 @@ function claude() {
   fi
 
   # Run the wrapped claude command
-  command ${HOME}/.local/bin/claude --dangerously-skip-permissions --model opusplan "${remaining_args[@]}"
+  command claude --dangerously-skip-permissions --model opusplan "${remaining_args[@]}"
 }
 
 # --- Step 4: Define and Register Zsh Completions ---

@@ -6,18 +6,18 @@ if type brew &>/dev/null; then
 fi
 
 # export ZSH_AUTOSUGGEST_STRATEGY=(ai history)
-export ZSH_AUTOSUGGEST_STRATEGY=(ai)
-export ZSH_AUTOSUGGEST_AI_MIN_INPUT=0
-export ZSH_AUTOSUGGEST_AI_HISTORY_LINES=5
-export ZSH_AUTOSUGGEST_AI_PREFER_PWD_HISTORY=yes
-export ZSH_AUTOSUGGEST_AI_DEBUG=0
+export ZSH_AUTOSUGGEST_STRATEGY=(history)
+# export ZSH_AUTOSUGGEST_AI_MIN_INPUT=0
+# export ZSH_AUTOSUGGEST_AI_HISTORY_LINES=5
+# export ZSH_AUTOSUGGEST_AI_PREFER_PWD_HISTORY=yes
+# export ZSH_AUTOSUGGEST_AI_DEBUG=0
 
 # 1. Core Completion & Autosuggestions
-source $HOME/Developer/FradSer/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ${BREW_PREFIX:-/opt/homebrew}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # source $HOME/Developer/FradSer/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # 2. FZF-Tab (Must be loaded after compinit and before syntax highlighting)
-source $HOME/Developer/FradSer/fzf-tab/fzf-tab.plugin.zsh
+source ${BREW_PREFIX:-/opt/homebrew}/opt/fzf-tab/share/fzf-tab/fzf-tab.zsh
 
 # 3. Utilities
 source ${BREW_PREFIX:-/opt/homebrew}/share/zsh-autopair/autopair.zsh
