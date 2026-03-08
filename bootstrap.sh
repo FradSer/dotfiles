@@ -37,7 +37,7 @@ print_info() {
   echo -e "${BLUE}${BOLD}$1${NC}"
 }
 
-echo -e "${CYAN}${BOLD}🚀 Starting environment bootstrap...${NC}\n"
+echo -e "${CYAN}${BOLD}🚀 Starting environment bootstrap...${NC}"
 
 # 1. Install Homebrew if not present
 print_step "🍺 Checking Homebrew..."
@@ -46,7 +46,6 @@ if ! command -v brew >/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
   print_success "🍺 Homebrew already installed"
-  echo
 fi
 
 # Setup brew environment (works for both Intel and Apple Silicon)
@@ -68,7 +67,6 @@ BREWFILE_PATH="$(dirname "$0")/Brewfile"
 if [ -f "$BREWFILE_PATH" ]; then
   # Use --quiet to keep output clean
   script -q /dev/null brew bundle --file="$BREWFILE_PATH"
-  echo
   print_success "📦 Brew packages synced"
 else
   print_error "🚫 Brewfile not found at $BREWFILE_PATH"
@@ -80,20 +78,17 @@ print_header "🔧 Configuring Git"
 git config --global user.name "Frad LEE"
 git config --global user.email "fradser@gmail.com"
 print_success "🔧 Git configured (Frad LEE <fradser@gmail.com>)"
-echo
 
 # 4. Node.js & Corepack (pnpm setup)
 print_header "🟢 Setting up Node.js & AI Agents"
 print_step "🟢 Checking Node.js..."
 if command -v node >/dev/null; then
   print_success "🟢 Node.js $(node --version) found"
-  echo
 
   print_step "📦 Updating Corepack..."
   npm install --global corepack@latest --silent
   corepack enable pnpm
   print_success "📦 pnpm enabled via Corepack"
-  echo
 
   # Install AI Coding Agents
   print_step "🤖 Installing AI coding agents..."
@@ -120,20 +115,19 @@ if command -v chezmoi >/dev/null; then
     chezmoi init https://github.com/fradser/dotfiles.git --quiet
   fi
   chezmoi apply --force
-  echo
   print_success "📁 Dotfiles synced"
 else
   print_info "📁 Chezmoi not found, skipping dotfiles sync."
 fi
 
 # 6. Sync Ghostty config
+print_header "👻 Syncing Ghostty config"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 GHOSTTY_CONFIG_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
 if [ -f "$SCRIPT_DIR/ghostty_config" ]; then
   print_step "👻 Syncing Ghostty config..."
   mkdir -p "$GHOSTTY_CONFIG_DIR"
   cp "$SCRIPT_DIR/ghostty_config" "$GHOSTTY_CONFIG_DIR/config"
-  echo
   print_success "👻 Ghostty config synced to $GHOSTTY_CONFIG_DIR/config"
 else
   print_info "👻 ghostty_config not found at $SCRIPT_DIR/ghostty_config, skipping."
@@ -144,7 +138,6 @@ print_header "⚙️ Applying Configuration"
 print_step "⚙️ Sourcing zsh configuration..."
 if [ -f "$HOME/.zshrc" ]; then
   source "$HOME/.zshrc"
-  echo
   print_success "⚙️ zshrc sourced"
 else
   print_info "⚙️ .zshrc not found"

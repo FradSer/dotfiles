@@ -1,12 +1,15 @@
 # ==========================================
 # Homebrew Bundle - Full Development Suite
 # ==========================================
+# Install Homebrew:
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# ==========================================
 
 # --- Core Runtimes ---
 brew "node"          # Node.js (Corepack source)
 brew "go"            # Go
 brew "rust"          # Rust (Cargo)
-brew "python@3.13"   # Python
+brew "python"        # Python
 brew "uv"            # Python manager
 brew "deno"          # Alternative JS runtime
 
