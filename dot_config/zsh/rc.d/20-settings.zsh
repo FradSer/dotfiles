@@ -27,14 +27,13 @@ export CDPATH=".:$HOME:$HOME/Developer:$HOME/Downloads:$HOME/Documents"
 export BAT_THEME="base16"
 
 # 2. LS_COLORS (For eza and fzf-tab)
-# Ensuring directory colors are unified
-if command -v dircolors >/dev/null; then
-  # Use GNU dircolors (from coreutils)
+# Cache dircolors output (regenerate with: dircolors -b > ~/.config/zsh/.dircolors.cache)
+if [[ -f "$HOME/.config/zsh/.dircolors.cache" ]]; then
+  source "$HOME/.config/zsh/.dircolors.cache"
+elif command -v dircolors >/dev/null; then
   eval "$(dircolors -b)"
 elif [[ -f "$HOME/.dircolors" ]]; then
-  # Fallback to local .dircolors file if dircolors exists elsewhere
   eval "$(dircolors -b $HOME/.dircolors)"
 else
-  # Default BSD-style colors for macOS (fallback)
   export LSCOLORS="Gxfxcxdxbxegedabagacad"
 fi

@@ -1,9 +1,8 @@
 # Plugins
 
-if type brew &>/dev/null; then
-    local BREW_PREFIX=$(brew --prefix)
-    FPATH=~/.config/zsh/completions:$BREW_PREFIX/share/zsh-completions:$FPATH
-fi
+# Cache brew prefix to avoid subprocess call
+local BREW_PREFIX="/opt/homebrew"
+FPATH=~/.config/zsh/completions:$BREW_PREFIX/share/zsh-completions:$FPATH
 
 # export ZSH_AUTOSUGGEST_STRATEGY=(ai history)
 export ZSH_AUTOSUGGEST_STRATEGY=(history)
