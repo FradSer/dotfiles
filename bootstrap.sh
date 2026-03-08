@@ -75,7 +75,14 @@ else
   exit 1
 fi
 
-# 3. Node.js & Corepack (pnpm setup)
+# 3. Git configuration
+print_header "🔧 Configuring Git"
+git config --global user.name "Frad LEE"
+git config --global user.email "fradser@gmail.com"
+print_success "🔧 Git configured (Frad LEE <fradser@gmail.com>)"
+echo
+
+# 4. Node.js & Corepack (pnpm setup)
 print_header "🟢 Setting up Node.js & AI Agents"
 print_step "🟢 Checking Node.js..."
 if command -v node >/dev/null; then
@@ -105,12 +112,12 @@ else
   print_info "🟢 Node.js not found, skipping AI agents setup."
 fi
 
-# 4. Chezmoi Dotfiles Sync
+# 5. Chezmoi Dotfiles Sync
 print_header "📁 Syncing Dotfiles"
 if command -v chezmoi >/dev/null; then
   if [ ! -d "$HOME/.local/share/chezmoi/.git" ]; then
-    print_step "📁 Initializing chezmoi from fradser/dot_config..."
-    chezmoi init https://github.com/fradser/dot_config.git --quiet
+    print_step "📁 Initializing chezmoi from fradser/dotfiles..."
+    chezmoi init https://github.com/fradser/dotfiles.git --quiet
   fi
   chezmoi apply --force
   echo
@@ -119,7 +126,7 @@ else
   print_info "📁 Chezmoi not found, skipping dotfiles sync."
 fi
 
-# 5. Sync Ghostty config
+# 6. Sync Ghostty config
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 GHOSTTY_CONFIG_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
 if [ -f "$SCRIPT_DIR/ghostty_config" ]; then
@@ -132,7 +139,7 @@ else
   print_info "👻 ghostty_config not found at $SCRIPT_DIR/ghostty_config, skipping."
 fi
 
-# 6. Source zsh config
+# 7. Source zsh config
 print_header "⚙️ Applying Configuration"
 print_step "⚙️ Sourcing zsh configuration..."
 if [ -f "$HOME/.zshrc" ]; then

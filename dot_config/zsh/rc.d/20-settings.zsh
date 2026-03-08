@@ -29,8 +29,12 @@ export BAT_THEME="base16"
 # 2. LS_COLORS (For eza and fzf-tab)
 # Ensuring directory colors are unified
 if command -v dircolors >/dev/null; then
+  # Use GNU dircolors (from coreutils)
   eval "$(dircolors -b)"
+elif [[ -f "$HOME/.dircolors" ]]; then
+  # Fallback to local .dircolors file if dircolors exists elsewhere
+  eval "$(dircolors -b $HOME/.dircolors)"
 else
-  # Default BSD-style colors for macOS
+  # Default BSD-style colors for macOS (fallback)
   export LSCOLORS="Gxfxcxdxbxegedabagacad"
 fi

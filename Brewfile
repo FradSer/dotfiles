@@ -11,6 +11,7 @@ brew "uv"            # Python manager
 brew "deno"          # Alternative JS runtime
 
 # --- CLI Productivity ---
+brew "git"           # Version control
 brew "starship"      # Prompt
 brew "zoxide"        # Navigation
 brew "eza"           # Modern ls
@@ -23,6 +24,7 @@ brew "gh"            # GitHub CLI
 brew "tmux"          # Terminal multiplexer
 brew "yt-dlp"        # Media downloader
 brew "chezmoi"       # Dotfiles manager
+brew "coreutils"     # GNU File, Shell, and Text utilities
 
 # --- Zsh Plugins (Homebrew) ---
 brew "zsh-completions"
