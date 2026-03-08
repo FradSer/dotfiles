@@ -28,7 +28,6 @@ brew "gh"            # GitHub CLI
 brew "tmux"          # Terminal multiplexer
 brew "yt-dlp"        # Media downloader
 brew "chezmoi"       # Dotfiles manager
-brew "coreutils"     # GNU File, Shell, and Text utilities
 brew "mole"          # Deep clean and optimize your Mac
 
 # --- Zsh Plugins (Homebrew) ---
