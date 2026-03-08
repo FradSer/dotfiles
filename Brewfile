@@ -12,6 +12,10 @@ brew "deno"          # Alternative JS runtime
 
 # --- CLI Productivity ---
 brew "git"           # Version control
+brew "git-delta"     # Syntax-highlighting pager for git and diff
+brew "git-flow-next" # Modern implementation of Git-flow
+brew "git-lfs"       # Versioning large files
+brew "git-open"      # Open GitHub webpages from terminal
 brew "starship"      # Prompt
 brew "zoxide"        # Navigation
 brew "eza"           # Modern ls
