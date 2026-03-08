@@ -45,4 +45,4 @@ cask "zed"           # Alternative Fast Editor
 cask "fork"          # Git GUI
 cask "orbstack"      # Docker (Optional)
 cask "macs-fan-control" # Utility
-cask "font-maple-mono-nf" # Typography
+cask "font-maple-mono-nf-cn" # Typography (with CN support)
