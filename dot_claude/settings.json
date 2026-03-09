@@ -1,0 +1,32 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "$HOME/.claude/statusline.sh"
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "git@frad-dotclaude": true,
+    "gitflow@frad-dotclaude": true,
+    "playground@claude-plugins-official": false,
+    "refactor@frad-dotclaude": true,
+    "document-skills@anthropic-agent-skills": false,
+    "github@frad-dotclaude": true,
+    "review@frad-dotclaude": true,
+    "exa-mcp-server@exa-mcp-server": true,
+    "ralph-loop@claude-plugins-official": true,
+    "impeccable@impeccable": true,
+    "superpowers@frad-dotclaude": true,
+    "skill-creator@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "impeccable": {
+      "source": {
+        "source": "github",
+        "repo": "pbakaus/impeccable"
+      },
+      "autoUpdate": true
+    }
+  },
+  "autoMemoryEnabled": true,
+  "skipDangerousModePermissionPrompt": true
+}
