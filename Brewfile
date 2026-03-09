@@ -31,6 +31,8 @@ brew "chezmoi"       # Dotfiles manager
 brew "mole"          # Deep clean and optimize your Mac
 
 # --- Zsh Plugins (Homebrew) ---
+tap "fradser/brew"
+brew "fradser/brew/evalcache"
 brew "zsh-completions"
 brew "zsh-syntax-highlighting"
 brew "zsh-history-substring-search"

@@ -1,12 +1,11 @@
 # ==========================================
-# Tool Initializations (Starship)
+# Tool Initializations (Evalcache & Starship)
 # ==========================================
 
-# Cache starship init (regenerate with: starship init zsh > ~/.config/zsh/.starship.zsh)
+# Initialize evalcache
+source $(brew --prefix)/share/evalcache/evalcache.plugin.zsh
+
+# Cache starship init using evalcache
 if type starship &>/dev/null; then
-  if [[ -f "$HOME/.config/zsh/.starship.zsh" ]]; then
-    source "$HOME/.config/zsh/.starship.zsh"
-  else
-    eval "$(starship init zsh)"
-  fi
+  _evalcache starship init zsh
 fi

@@ -3,11 +3,9 @@
 # ==========================================
 
 # 1. 初始化 fzf 的 Zsh 补全和快捷键绑定
-# Cache fzf init (regenerate with: fzf --zsh > ~/.config/zsh/.fzf.zsh)
-if [[ -f "$HOME/.config/zsh/.fzf.zsh" ]]; then
-  source "$HOME/.config/zsh/.fzf.zsh"
-else
-  source <(fzf --zsh)
+# Cache fzf init using evalcache
+if type fzf &>/dev/null; then
+  _evalcache fzf --zsh
 fi
 
 # 2. 统一色彩与 UI 规则 (Unified Nerd Font Palette)
