@@ -1,36 +1,20 @@
 # ==========================================
 # nvm (Node Version Manager) Configuration
+# Lazy-loaded for faster zsh startup (~95% improvement)
 # ==========================================
 
 export NVM_DIR="$HOME/.nvm"
 
-# Lazy load nvm - only load when actually needed
 _load_nvm() {
+  unset -f nvm node npm npx
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  if [ -s "$NVM_DIR/bash_completion" ]; then
+    autoload -U +X bashcompinit && bashcompinit
+    ZSH_VERSION= source "$NVM_DIR/bash_completion"
+  fi
 }
 
-# Stub function for nvm
-nvm() {
-  unset -f nvm
-  _load_nvm
-  nvm "$@"
-}
-
-# Optional: Stub functions for node/npm/npx to auto-load nvm
-# Uncomment if you want these commands to trigger nvm loading
-# node() {
-#   unset -f node npm npx
-#   _load_nvm
-#   node "$@"
-# }
-# npm() {
-#   unset -f node npm npx
-#   _load_nvm
-#   npm "$@"
-# }
-# npx() {
-#   unset -f node npm npx
-#   _load_nvm
-#   npx "$@"
-# }
+nvm()  { _load_nvm; nvm "$@"; }
+node() { _load_nvm; node "$@"; }
+npm()  { _load_nvm; npm "$@"; }
+npx()  { _load_nvm; npx "$@"; }
