@@ -155,7 +155,7 @@ if command -v chezmoi >/dev/null; then
   print_success "📁 Dotfiles synced"
 
   # Reminder for non-synced secrets file
-  SECRETS_FILE="$HOME/.config/zsh/.env.secrets"
+  SECRETS_FILE="$HOME/.config/zsh/.secret"
   if [ ! -f "$SECRETS_FILE" ]; then
     mkdir -p "$(dirname "$SECRETS_FILE")"
     touch "$SECRETS_FILE"

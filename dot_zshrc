@@ -12,8 +12,8 @@ else
 fi
 
 # 2. Load secret environment variables
-if [[ -f "$HOME/.config/zsh/.env.secrets" ]]; then
-  source "$HOME/.config/zsh/.env.secrets"
+if [[ -f "$HOME/.config/zsh/.secret" ]]; then
+  source "$HOME/.config/zsh/.secret"
 fi
 
 # 3. Load modular configurations
