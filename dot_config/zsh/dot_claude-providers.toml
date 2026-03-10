@@ -1,0 +1,161 @@
+# Claude Provider Configurations
+# Managed by `claude-provider add`
+
+[provider.cceverything-payg]
+url = "https://hk.cceverything.com/api"
+token_var = "CCEVERYTHING_PAYG_TOKEN"
+
+[provider.cceverything]
+url = "https://hk.cceverything.com/api"
+token_var = "CCEVERYTHING_TOKEN"
+
+[provider.codemirror]
+url = "https://api.codemirror.codes"
+token_var = "CODEMIRROR_TOKEN"
+
+[provider.codesome]
+url = "https://v2.codesome.cn"
+token_var = "CODESOME_TOKEN"
+
+[provider.codesome-ai]
+url = "https://cc.codesome.ai"
+token_var = "CODESOME_TOKEN"
+
+[provider.streamlake]
+url = "https://vanchin.streamlake.ai/api/gateway/v1/endpoints/ep-5yrdj1-1760167206638876146/claude-code-proxy"
+token_var = "STREAMLAKE_TOKEN"
+
+[provider.glm]
+url = "https://open.bigmodel.cn/api/anthropic"
+token_var = "GLM_TOKEN"
+haiku_model = "glm-4.7"
+sonnet_model = "glm-5"
+opus_model = "glm-5"
+extra_flags = "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
+
+[provider.z]
+url = "https://api.z.ai/api/anthropic"
+token_var = "GLM_TOKEN"
+haiku_model = "glm-4.7"
+sonnet_model = "glm-5"
+opus_model = "glm-5"
+extra_flags = "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
+
+[provider.anyrouter]
+url = "https://anyrouter.top"
+token_var = "ANYROUTER_TOKEN"
+
+[provider.anyrouter-cn]
+url = "https://pmpjfbhq.cn-nb1.rainapp.top"
+token_var = "ANYROUTER_TOKEN"
+
+[provider.moonshot]
+url = "https://api.moonshot.cn/anthropic"
+token_var = "MOONSHOT_TOKEN"
+
+[provider.modelscope]
+url = "https://api-inference.modelscope.cn"
+token_var = "MODELSCOPE_TOKEN"
+haiku_model = "ZhipuAI/GLM-4.7-Flash"
+sonnet_model = "ZhipuAI/GLM-4.7"
+opus_model = "ZhipuAI/GLM-4.7"
+
+[provider.aliyuncs]
+url = "https://dashscope.aliyuncs.com/apps/anthropic"
+token_var = "ALIYUNCS_TOKEN"
+haiku_model = "qwen-flash"
+sonnet_model = "qwen3-coder-plus"
+opus_model = "qwen3-max-preview"
+
+[provider.kimi]
+url = "https://api.kimi.com/coding"
+token_var = "KIMI_TOKEN"
+haiku_model = "kimi-for-coding"
+sonnet_model = "kimi-for-coding"
+opus_model = "kimi-for-coding"
+
+[provider.zenmux]
+url = "https://zenmux.ai/api/anthropic"
+token_var = "ZENMUX_TOKEN"
+haiku_model = "z-ai/glm-4.6v-flash"
+sonnet_model = "kuaishou/kat-coder-pro-v1"
+opus_model = "google/gemini-3-pro-preview"
+extra_flags = "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
+
+[provider.tu-zi]
+url = "https://api.tu-zi.com"
+token_var = "TU_ZI_TOKEN"
+haiku_model = "gemini-2.5-flash"
+sonnet_model = "gemini-3-pro-preview"
+opus_model = "gemini-3-pro-preview"
+extra_flags = "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
+
+[provider.openrouter]
+url = "https://openrouter.ai/api"
+token_var = "OPENROUTER_TOKEN"
+haiku_model = "openrouter/pony-alpha"
+sonnet_model = "openrouter/pony-alpha"
+opus_model = "openrouter/pony-alpha"
+
+[provider.antigravity]
+url = "http://${CLIPROXYAPI_HOST}:8045"
+token_var = "ANTIGRAVITY_TOKEN"
+haiku_model = "gemini-3-flash"
+sonnet_model = "gemini-3-pro-low"
+opus_model = "gemini-3-pro-high"
+
+[provider.antigravity-claude]
+url = "http://${CLIPROXYAPI_HOST}:8045"
+token_var = "ANTIGRAVITY_CLAUDE_TOKEN"
+haiku_model = "gemini-3-flash"
+sonnet_model = "claude-sonnet-4-5-thinking"
+opus_model = "claude-opus-4-5-thinking"
+
+[provider.cliproxyapi-qwen]
+url = "http://${CLIPROXYAPI_HOST}:8317"
+token_var = "CLIPROXYAPI_TOKEN"
+haiku_model = "qwen3-coder-next"
+sonnet_model = "qwen3.5-plus"
+opus_model = "qwen3-max-preview"
+
+[provider.cliproxyapi-glm]
+url = "http://${CLIPROXYAPI_HOST}:8317"
+token_var = "CLIPROXYAPI_TOKEN"
+haiku_model = "glm-4.7"
+sonnet_model = "glm-5"
+opus_model = "glm-5"
+
+[provider.cliproxyapi-glm-5]
+url = "http://${CLIPROXYAPI_HOST}:8317"
+token_var = "CLIPROXYAPI_TOKEN"
+haiku_model = "glm-5"
+sonnet_model = "glm-5"
+opus_model = "glm-5"
+
+[provider.cliproxyapi-kimi]
+url = "http://${CLIPROXYAPI_HOST}:8317"
+token_var = "CLIPROXYAPI_TOKEN"
+haiku_model = "kimi-k2.5"
+sonnet_model = "kimi-k2.5"
+opus_model = "kimi-k2.5"
+
+[provider.cliproxyapi-minimax]
+url = "http://${CLIPROXYAPI_HOST}:8317"
+token_var = "CLIPROXYAPI_TOKEN"
+haiku_model = "MiniMax/MiniMax-M2.5"
+sonnet_model = "MiniMax/MiniMax-M2.5"
+opus_model = "MiniMax/MiniMax-M2.5"
+
+[provider.cliproxyapi-doubao]
+url = "http://${CLIPROXYAPI_HOST}:8317"
+token_var = "CLIPROXYAPI_TOKEN"
+haiku_model = "ark/doubao-seed-2.0-code"
+sonnet_model = "ark/doubao-seed-2.0-code"
+opus_model = "ark/doubao-seed-2.0-code"
+
+[provider.cliproxyapi-gemini]
+url = "http://${CLIPROXYAPI_HOST}:8317"
+token_var = "CLIPROXYAPI_TOKEN"
+haiku_model = "gemini-3-flash-preview"
+sonnet_model = "gemini-3.1-pro-preview"
+opus_model = "gemini-3.1-pro-preview"
