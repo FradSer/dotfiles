@@ -1,0 +1,241 @@
+# =============================================================================
+# Global Git Ignore - macOS, Linux, Windows, Editors IDE,s
+# https://gist.github.com/gg2001/6a838a9bbae3138e0a2f7c1712058708
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# macOS
+# -----------------------------------------------------------------------------
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+NetworkTrashFolder
+TemporaryItems
+.apdisk
+
+# -----------------------------------------------------------------------------
+# Windows
+# -----------------------------------------------------------------------------
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs.db:encryptable
+
+# Windows image file
+Desktop.ini
+
+# Windows log files
+*.log
+
+# Windows temporary files
+~$*
+
+# -----------------------------------------------------------------------------
+# Linux
+# -----------------------------------------------------------------------------
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# -----------------------------------------------------------------------------
+# Editors & IDEs
+# -----------------------------------------------------------------------------
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# JetBrains (IntelliJ, WebStorm, etc)
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea_modules/
+
+# Vim
+*.swp
+*.swo
+*~
+.Session.vim
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Atom
+*.atom/
+.config/atom/
+
+# Nano
+.nano_history
+
+# -----------------------------------------------------------------------------
+# Languages & Frameworks
+# -----------------------------------------------------------------------------
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+.pnpm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+
+# Rust
+/target
+Cargo.lock
+
+# Go
+/vendor/
+*.test
+coverage.txt
+*.out
+
+# Swift / Objective-C
+xcuserdata/
+*.xcuserdatad
+*.xcworkspace/contents.xcworkspacedata
+
+# Android
+*.apk
+*.ap_
+*.dex
+*.class
+local.properties
+.gradle/
+build/
+gen/
+
+# iOS
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Ruby / Rails
+.bundle/
+vendor/bundle
+.rspec
+coverage/
+log/*.log
+tmp/
+.byebug_history
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# -----------------------------------------------------------------------------
+# Logs & Temporary Files
+# -----------------------------------------------------------------------------
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.cache/
+tmp/
+temp/
+
+# -----------------------------------------------------------------------------
+# Sensitive Data
+# -----------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.env
+*.key
+*.pem
+*.crt
+*.secret
+cookies.*
+*.htpasswd
+
+# -----------------------------------------------------------------------------
+# Misc
+# -----------------------------------------------------------------------------
+*.local.md
+*.bak
+*.backup
+*.orig
+*.rej
+*.copy
+*.merge

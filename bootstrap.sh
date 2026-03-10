@@ -83,6 +83,7 @@ print_success "🏗️ $HOME/Developer/FradSer created"
 print_header "🔧 Configuring Git"
 git config --global user.name "Frad LEE"
 git config --global user.email "fradser@gmail.com"
+git config --global core.excludesfile ~/.gitignore_global
 print_success "🔧 Git configured (Frad LEE <fradser@gmail.com>)"
 
 # 5. Node.js & Corepack (nvm setup)
