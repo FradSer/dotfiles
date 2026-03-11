@@ -2,12 +2,13 @@
 enabled: true
 # Commit Message Conventions
 scopes:
-  - zsh         # Zsh shell configuration
-  - chezmoi     # Chezmoi-specific settings
-  - config      # General configuration files
-  - deps        # Dependencies
-  - ci          # CI/CD
-  - docs        # Documentation
+  - zsh
+  - config
+  - deps
+  - bootstrap
+  - ghostty
+  - starship
+  - git
 types:
   - feat
   - fix
@@ -26,10 +27,10 @@ branch_prefixes:
   docs: docs/*
 # .gitignore Generation Defaults
 gitignore:
-  os: [macos, linux]
-  languages: []
+  os: [macos, linux, windows]
+  languages: [sh, bash, zsh]
   frameworks: []
-  tools: [chezmoi, zsh]
+  tools: [chezmoi, brew, vscode, vim]
 ---
 
 # Project-Specific Git Settings

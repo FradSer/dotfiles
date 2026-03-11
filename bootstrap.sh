@@ -3,191 +3,171 @@
 # ==========================================
 # Bootstrap Script for macOS Development
 # ==========================================
+# Usage on a new machine:
+#   Step 1 — install chezmoi and apply dotfiles:
+#     sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply FradSer
+#   Step 2 — install tools:
+#     ~/.local/share/chezmoi/bootstrap.sh
+# ==========================================
 
-set -e # Exit on error
+set -euo pipefail
 
-# Colors
+# --- Colors ---
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 BOLD='\033[1m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-print_header() {
-  echo -e "\n${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo -e "${CYAN}${BOLD}$1${NC}"
-  echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
-}
-
-print_step() {
-  echo -e "${YELLOW}${BOLD}$1${NC}"
-}
-
-print_success() {
-  echo -e "${GREEN}${BOLD}$1${NC}"
-}
-
-print_error() {
-  echo -e "${RED}${BOLD}$1${NC}"
-}
-
-print_info() {
-  echo -e "${BLUE}${BOLD}$1${NC}"
-}
+print_header()  { echo -e "\n${CYAN}${BOLD}==> $1${NC}\n"; }
+print_step()    { echo -e "${YELLOW}${BOLD}  -> $1${NC}"; }
+print_success() { echo -e "${GREEN}${BOLD}  ok $1${NC}"; }
+print_error()   { echo -e "${RED}${BOLD} err $1${NC}"; }
+print_info()    { echo -e "${BLUE}${BOLD}    $1${NC}"; }
 
 echo -e "${CYAN}${BOLD}🚀 Starting environment bootstrap...${NC}"
 
-# 1. Install Homebrew if not present
-print_step "🍺 Checking Homebrew..."
-if ! command -v brew >/dev/null; then
-  print_info "🍺 Installing Homebrew..."
+# ==========================================
+# 1. Homebrew
+# ==========================================
+print_header "🍺 Homebrew"
+if ! command -v brew >/dev/null 2>&1; then
+  print_step "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
-  print_success "🍺 Homebrew already installed"
+  print_success "Homebrew already installed"
 fi
 
-# Setup brew environment (works for both Intel and Apple Silicon)
-if [ -f "/opt/homebrew/bin/brew" ]; then
+# Load brew into current shell session
+if [[ -x "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [ -f "/usr/local/bin/brew" ]; then
+elif [[ -x "/usr/local/bin/brew" ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-# Verify brew is available
-if ! command -v brew >/dev/null; then
-  print_error "🚫 Homebrew installation failed or not found in PATH"
+if ! command -v brew >/dev/null 2>&1; then
+  print_error "Homebrew not found in PATH after install"
   exit 1
 fi
 
-# 2. Sync Brew Tools
-print_header "📦 Installing Homebrew Packages"
-BREWFILE_PATH="$(dirname "$0")/Brewfile"
-if [ -f "$BREWFILE_PATH" ]; then
-  # Use --quiet to keep output clean
-  script -q /dev/null brew bundle --file="$BREWFILE_PATH"
-  print_success "📦 Brew packages synced"
-else
-  print_error "🚫 Brewfile not found at $BREWFILE_PATH"
+# ==========================================
+# 2. Homebrew Packages
+# ==========================================
+print_header "📦 Homebrew Packages"
+BREWFILE_PATH="$(cd "$(dirname "$0")" && pwd)/Brewfile"
+if [[ ! -f "$BREWFILE_PATH" ]]; then
+  print_error "Brewfile not found at $BREWFILE_PATH"
   exit 1
 fi
+brew bundle --file="$BREWFILE_PATH" --no-lock
+print_success "Brew packages synced"
 
-# 3. Workspace Setup
-print_header "🏗️ Setting up Workspace"
-print_step "🏗️ Creating Developer directories..."
+# ==========================================
+# 3. Workspace
+# ==========================================
+print_header "🏗️ Workspace"
 mkdir -p "$HOME/Developer/FradSer"
-print_success "🏗️ $HOME/Developer/FradSer created"
+print_success "$HOME/Developer/FradSer created"
 
-# 4. Git configuration
-print_header "🔧 Configuring Git"
-git config --global user.name "Frad LEE"
+# ==========================================
+# 4. Git
+# ==========================================
+print_header "🔧 Git"
+git config --global user.name  "Frad LEE"
 git config --global user.email "fradser@gmail.com"
-git config --global core.excludesfile ~/.gitignore_global
-print_success "🔧 Git configured (Frad LEE <fradser@gmail.com>)"
+git config --global core.excludesfile "$HOME/.gitignore_global"
+print_success "Git configured"
 
-# 5. Node.js & Corepack (nvm setup)
-print_header "🟢 Setting up Node.js (via nvm) & AI Agents"
-print_step "🟢 Checking nvm..."
-if [ ! -d "$HOME/.nvm" ]; then
-  print_info "🟢 Installing nvm..."
+# ==========================================
+# 5. Node.js via nvm
+# ==========================================
+print_header "🟢 Node.js (nvm)"
+if [[ ! -d "$HOME/.nvm" ]]; then
+  print_step "Installing nvm..."
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
 fi
 
-# Load nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# shellcheck disable=SC1091
+[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
 
-print_step "🟢 Installing Node.js 24..."
+if ! command -v nvm >/dev/null 2>&1; then
+  print_error "nvm failed to load"
+  exit 1
+fi
+
+print_step "Installing Node.js 24..."
 nvm install 24 --silent
 nvm use 24 --silent
 nvm alias default 24
-print_success "🟢 Node.js $(node -v) installed via nvm"
+print_success "Node.js $(node -v) ready"
 
-print_step "📦 Enabling pnpm via Corepack..."
+print_step "Enabling pnpm via Corepack..."
 corepack enable pnpm
-print_success "📦 pnpm $(pnpm -v) enabled"
+print_success "pnpm $(pnpm -v) enabled"
 
-# Install AI Coding Agents
-print_step "🤖 Installing AI coding agents..."
-
-print_info "📦 Installing @google/gemini-cli..."
+# ==========================================
+# 6. AI Coding Agents
+# ==========================================
+print_header "🤖 AI Coding Agents"
 npm install -g @google/gemini-cli --silent
-
-print_info "📦 Installing Claude Code CLI..."
 npm install -g @anthropic-ai/claude-code --silent
-
-print_info "📦 Installing OpenAI Codex..."
 npm install -g @openai/codex --silent
+print_success "AI agents installed"
 
-print_success "🤖 AI agents installed"
-
-# 6. Bun Runtime Setup
-print_header "🍞 Setting up Bun"
-print_step "🍞 Checking Bun..."
-if ! command -v bun >/dev/null; then
-  print_info "🍞 Installing Bun..."
+# ==========================================
+# 7. Bun
+# ==========================================
+print_header "🍞 Bun"
+if ! command -v bun >/dev/null 2>&1; then
+  print_step "Installing Bun..."
   curl -fsSL https://bun.sh/install | bash
-  print_success "🍞 Bun installed"
+  export PATH="$HOME/.bun/bin:$PATH"
+  print_success "Bun installed"
 else
-  print_success "🍞 Bun $(bun --version) found"
+  print_success "Bun $(bun --version) found"
 fi
 
-# 7. uv (Python manager) Setup
-print_header "⚡ Setting up uv"
-print_step "⚡ Checking uv..."
-if ! command -v uv >/dev/null; then
-  print_info "⚡ Installing uv..."
+# ==========================================
+# 8. uv (Python)
+# ==========================================
+print_header "⚡ uv (Python)"
+if ! command -v uv >/dev/null 2>&1; then
+  print_step "Installing uv..."
   curl -LsSf https://astral.sh/uv/install.sh | sh
-  print_success "⚡ uv installed"
+  export PATH="$HOME/.local/bin:$PATH"
+  print_success "uv installed"
 else
-  print_success "⚡ uv $(uv --version) found"
+  print_success "uv $(uv --version) found"
 fi
 
-# 8. Chezmoi Dotfiles Sync
-print_header "📁 Syncing Dotfiles"
-if command -v chezmoi >/dev/null; then
-  if [ ! -d "$HOME/.local/share/chezmoi/.git" ]; then
-    print_step "📁 Initializing chezmoi from FradSer/dotfiles..."
-    chezmoi init git@github.com:FradSer/dotfiles.git --quiet
-  fi
-  chezmoi apply --force
-  print_success "📁 Dotfiles synced"
-
-  # Reminder for non-synced secrets file
-  SECRETS_FILE="$HOME/.config/zsh/.secret"
-  if [ ! -f "$SECRETS_FILE" ]; then
-    mkdir -p "$(dirname "$SECRETS_FILE")"
-    touch "$SECRETS_FILE"
-    print_info "⚠️  Created empty $SECRETS_FILE. Please sync your secrets manually."
-  fi
-else
-  print_info "📁 Chezmoi not found, skipping dotfiles sync."
-fi
-
-# 9. Sync Ghostty config
-print_header "👻 Syncing Ghostty config"
+# ==========================================
+# 9. Ghostty Config
+# ==========================================
+print_header "👻 Ghostty"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 GHOSTTY_CONFIG_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
-if [ -f "$SCRIPT_DIR/ghostty_config" ]; then
-  print_step "👻 Syncing Ghostty config..."
+if [[ -f "$SCRIPT_DIR/ghostty_config" ]]; then
   mkdir -p "$GHOSTTY_CONFIG_DIR"
   cp "$SCRIPT_DIR/ghostty_config" "$GHOSTTY_CONFIG_DIR/config"
-  print_success "👻 Ghostty config synced to $GHOSTTY_CONFIG_DIR/config"
+  print_success "Ghostty config synced"
 else
-  print_info "👻 ghostty_config not found at $SCRIPT_DIR/ghostty_config, skipping."
+  print_info "ghostty_config not found, skipping"
 fi
 
-# 10. Source zsh config
-print_header "⚙️ Applying Configuration"
-print_step "⚙️ Sourcing zsh configuration..."
-if [ -f "$HOME/.zshrc" ]; then
-  source "$HOME/.zshrc"
-  print_success "⚙️ zshrc sourced"
-else
-  print_info "⚙️ .zshrc not found"
+# ==========================================
+# Done
+# ==========================================
+
+# Ensure secrets file exists
+SECRETS_FILE="$HOME/.config/zsh/.secret"
+if [[ ! -f "$SECRETS_FILE" ]]; then
+  mkdir -p "$(dirname "$SECRETS_FILE")"
+  touch "$SECRETS_FILE"
+  print_info "⚠️  Created empty $SECRETS_FILE — sync your secrets manually"
 fi
 
-echo -e "\n${GREEN}${BOLD}🎉 Bootstrap complete!${NC}"
-echo -e "${YELLOW}To apply changes in current shell, run: ${BOLD}source ~/.zshrc${NC}"
-echo -e "${YELLOW}Or restart your terminal (Ghostty).${NC}\n"
+echo -e "\n${GREEN}${BOLD}🎉 Bootstrap complete.${NC}"
+echo -e "${YELLOW}Run ${BOLD}source ~/.zshrc${NC}${YELLOW} or restart your terminal to apply changes.${NC}\n"
