@@ -8,7 +8,6 @@
 # --- Core Runtimes ---
 brew "go"            # Go
 brew "rust"          # Rust (Cargo)
-brew "deno"          # Alternative JS runtime
 
 # --- CLI Productivity ---
 brew "git"           # Version control
@@ -45,8 +44,5 @@ brew "fzf-tab"
 cask "ghostty"       # Primary Terminal
 cask "cursor"        # Primary AI Editor
 cask "zed"           # Alternative Fast Editor
-cask "fork"          # Git GUI
-cask "orbstack"      # Docker (Optional)
-cask "macs-fan-control" # Utility
 cask "font-maple-mono-nf-cn" # Typography (with CN support)
 cask "google-chrome" # Browser

@@ -1,15 +1,5 @@
 #!/bin/zsh
 
-# ==========================================
-# Bootstrap Script for macOS Development
-# ==========================================
-# Usage on a new machine:
-#   Step 1 — install chezmoi and apply dotfiles:
-#     sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply FradSer
-#   Step 2 — install tools:
-#     ~/.local/share/chezmoi/bootstrap.sh
-# ==========================================
-
 set -euo pipefail
 
 # --- Colors ---
@@ -61,18 +51,36 @@ if [[ ! -f "$BREWFILE_PATH" ]]; then
   print_error "Brewfile not found at $BREWFILE_PATH"
   exit 1
 fi
-brew bundle --file="$BREWFILE_PATH" --no-lock
+brew bundle --file="$BREWFILE_PATH"
 print_success "Brew packages synced"
 
 # ==========================================
-# 3. Workspace
+# 3. Dotfiles (chezmoi)
+# ==========================================
+print_header "📁 Dotfiles (chezmoi)"
+if command -v chezmoi >/dev/null 2>&1; then
+  chezmoi init --apply FradSer
+else
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply FradSer
+fi
+print_success "Dotfiles applied"
+
+SECRETS_FILE="$HOME/.config/zsh/.secret"
+if [[ ! -f "$SECRETS_FILE" ]]; then
+  mkdir -p "$(dirname "$SECRETS_FILE")"
+  touch "$SECRETS_FILE"
+  print_info "⚠️  Created empty $SECRETS_FILE — sync your secrets manually"
+fi
+
+# ==========================================
+# 4. Workspace
 # ==========================================
 print_header "🏗️ Workspace"
 mkdir -p "$HOME/Developer/FradSer"
 print_success "$HOME/Developer/FradSer created"
 
 # ==========================================
-# 4. Git
+# 5. Git
 # ==========================================
 print_header "🔧 Git"
 git config --global user.name  "Frad LEE"
@@ -160,14 +168,5 @@ fi
 # ==========================================
 # Done
 # ==========================================
-
-# Ensure secrets file exists
-SECRETS_FILE="$HOME/.config/zsh/.secret"
-if [[ ! -f "$SECRETS_FILE" ]]; then
-  mkdir -p "$(dirname "$SECRETS_FILE")"
-  touch "$SECRETS_FILE"
-  print_info "⚠️  Created empty $SECRETS_FILE — sync your secrets manually"
-fi
-
 echo -e "\n${GREEN}${BOLD}🎉 Bootstrap complete.${NC}"
 echo -e "${YELLOW}Run ${BOLD}source ~/.zshrc${NC}${YELLOW} or restart your terminal to apply changes.${NC}\n"
