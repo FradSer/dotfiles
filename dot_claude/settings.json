@@ -28,5 +28,9 @@
     }
   },
   "autoMemoryEnabled": true,
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "attribution": {
+    "commit": "Generated with AI\n\nCo-Authored-By: AI <ai@example.com>",
+    "pr": "\n\n<sub>**🤖 Generated with [AI](https://website.com)**</sub>"
+  }
 }

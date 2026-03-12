@@ -50,7 +50,12 @@ if [[ -d "$HOME/.antigravity/antigravity/bin" ]]; then
   export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 fi
 
-# 9. Identity & Profile Defaults
-export EDITOR="cursor"
+# 9. User bin (Cursor CLI, etc.)
+if [[ -d "$HOME/bin" ]]; then
+  export PATH="$HOME/bin:$PATH"
+fi
+
+# 10. Identity & Profile Defaults
+export EDITOR="cot"
 export LANG="en_US.UTF-8"
 export COLORTERM=truecolor
