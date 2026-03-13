@@ -16,7 +16,8 @@
     "ralph-loop@claude-plugins-official": true,
     "impeccable@impeccable": true,
     "superpowers@frad-dotclaude": true,
-    "skill-creator@claude-plugins-official": true
+    "skill-creator@claude-plugins-official": true,
+    "acpx@frad-dotclaude": true
   },
   "extraKnownMarketplaces": {
     "impeccable": {
@@ -28,9 +29,5 @@
     }
   },
   "autoMemoryEnabled": true,
-  "skipDangerousModePermissionPrompt": true,
-  "attribution": {
-    "commit": "Generated with AI\n\nCo-Authored-By: AI <ai@example.com>",
-    "pr": "\n\n<sub>**🤖 Generated with [AI](https://website.com)**</sub>"
-  }
+  "skipDangerousModePermissionPrompt": true
 }
