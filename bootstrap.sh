@@ -89,27 +89,20 @@ git config --global core.excludesfile "$HOME/.gitignore_global"
 print_success "Git configured"
 
 # ==========================================
-# 5. Node.js via nvm
+# 6. Node.js via fnm
 # ==========================================
-print_header "🟢 Node.js (nvm)"
-if [[ ! -d "$HOME/.nvm" ]]; then
-  print_step "Installing nvm..."
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
-fi
-
-export NVM_DIR="$HOME/.nvm"
-# shellcheck disable=SC1091
-[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
-
-if ! command -v nvm >/dev/null 2>&1; then
-  print_error "nvm failed to load"
+print_header "🟢 Node.js (fnm)"
+if ! command -v fnm >/dev/null 2>&1; then
+  print_error "fnm not found — ensure Brewfile was applied"
   exit 1
 fi
 
+eval "$(fnm env --shell zsh)"
+
 print_step "Installing Node.js 24..."
-nvm install 24 --silent
-nvm use 24 --silent
-nvm alias default 24
+fnm install 24
+fnm use 24
+fnm default 24
 print_success "Node.js $(node -v) ready"
 
 print_step "Enabling pnpm via Corepack..."
@@ -117,7 +110,7 @@ corepack enable pnpm
 print_success "pnpm $(pnpm -v) enabled"
 
 # ==========================================
-# 6. AI Coding Agents
+# 7. AI Coding Agents
 # ==========================================
 print_header "🤖 AI Coding Agents"
 npm install -g @google/gemini-cli --silent
@@ -126,7 +119,7 @@ npm install -g @openai/codex --silent
 print_success "AI agents installed"
 
 # ==========================================
-# 7. Bun
+# 8. Bun
 # ==========================================
 print_header "🍞 Bun"
 if ! command -v bun >/dev/null 2>&1; then
@@ -139,7 +132,7 @@ else
 fi
 
 # ==========================================
-# 8. uv (Python)
+# 9. uv (Python)
 # ==========================================
 print_header "⚡ uv (Python)"
 if ! command -v uv >/dev/null 2>&1; then
@@ -152,7 +145,7 @@ else
 fi
 
 # ==========================================
-# 9. Ghostty Config
+# 10. Ghostty Config
 # ==========================================
 print_header "👻 Ghostty"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"

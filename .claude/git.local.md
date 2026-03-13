@@ -3,12 +3,13 @@ enabled: true
 # Commit Message Conventions
 scopes:
   - zsh
-  - config
-  - deps
+  - config      # Configuration
+  - deps        # Dependencies
   - bootstrap
+  - chezmoi
   - ghostty
   - starship
-  - git
+  - ci          # CI/CD
 types:
   - feat
   - fix
@@ -30,7 +31,7 @@ gitignore:
   os: [macos, linux, windows]
   languages: [sh, bash, zsh]
   frameworks: []
-  tools: [chezmoi, brew, vscode, vim]
+  tools: [chezmoi, homebrew]
 ---
 
 # Project-Specific Git Settings

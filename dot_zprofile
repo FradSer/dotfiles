@@ -26,10 +26,7 @@ if [[ -d "/opt/homebrew/opt/go/bin" || -d "/usr/local/opt/go/bin" ]]; then
   export PATH="$GOPATH/bin:$PATH"
 fi
 
-# 4. nvm (Node Version Manager) - REPLACED BY FNM in rc.d/05-fnm.zsh
-# export NVM_DIR="$HOME/.nvm"
-
-# 5. pnpm (Node.js)
+# 4. pnpm (Node.js)
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;

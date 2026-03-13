@@ -8,6 +8,7 @@
 # --- Core Runtimes ---
 brew "go"            # Go
 brew "rust"          # Rust (Cargo)
+brew "fnm"           # Fast Node Manager
 
 # --- CLI Productivity ---
 brew "git"           # Version control

@@ -9,3 +9,8 @@ source $(brew --prefix)/share/evalcache/evalcache.plugin.zsh
 if type starship &>/dev/null; then
   _evalcache starship init zsh
 fi
+
+# fnm (Fast Node Manager)
+if type fnm &>/dev/null; then
+  _evalcache fnm env --use-on-cd --version-file-strategy=recursive --shell zsh
+fi

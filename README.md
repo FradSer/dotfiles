@@ -24,7 +24,7 @@ Now that the repository is cloned to your machine, run the setup script to insta
 1. Installs **Homebrew** (if missing)
 2. Installs core tools, runtimes, and applications via **Brewfile**
 3. Configures global **Git** settings
-4. Sets up **Node.js** (via `nvm`), enables `pnpm`, and installs **AI agents** (Gemini, Claude Code, Codex)
+4. Sets up **Node.js** (via `fnm`), enables `pnpm`, and installs **AI agents** (Gemini, Claude Code, Codex)
 5. Installs **Bun** and **uv** (Python manager)
 6. Configures **Ghostty** terminal
 
@@ -33,7 +33,7 @@ Now that the repository is cloned to your machine, run the setup script to insta
 - **Shell**: Zsh (custom configuration, Homebrew-managed plugins)
 - **Terminal**: [Ghostty](https://ghostty.org/)
 - **Prompt**: [Starship](https://starship.rs/)
-- **Runtimes**: Node.js (nvm), Go, Rust, Bun, Python (uv)
+- **Runtimes**: Node.js (fnm), Go, Rust, Bun, Python (uv)
 - **Editor**: Cursor / Zed
 - **Core CLI Tools**:
   - `zoxide` (smart `cd`)
