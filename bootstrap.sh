@@ -157,16 +157,28 @@ fi
 # ==========================================
 print_header "🤖 AI Coding Agents"
 
-# Claude Code (official installer)
-if ! command -v claude >/dev/null 2>&1; then
-  print_step "Installing Claude Code..."
-  if curl -fsSL https://claude.ai/install.sh | bash 2>/dev/null; then
-    print_success "Claude Code installed"
+# opencode
+if ! command -v opencode >/dev/null 2>&1; then
+  print_step "Installing opencode..."
+  if curl -fsSL https://opencode.ai/install | bash 2>/dev/null; then
+    print_success "opencode installed"
   else
-    print_info "Claude Code failed (optional, skipping)"
+    print_info "opencode failed (optional, skipping)"
   fi
 else
-  print_success "Claude Code found"
+  print_success "opencode found"
+fi
+
+# claude (official installer)
+if ! command -v claude >/dev/null 2>&1; then
+  print_step "Installing claude..."
+  if curl -fsSL https://claude.ai/install.sh | bash 2>/dev/null; then
+    print_success "claude installed"
+  else
+    print_info "claude failed (optional, skipping)"
+  fi
+else
+  print_success "claude found"
 fi
 
 # Gemini CLI (npm)
