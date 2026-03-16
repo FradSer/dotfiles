@@ -136,7 +136,7 @@ if ! command -v bun >/dev/null 2>&1; then
   export PATH="$HOME/.bun/bin:$PATH"
   print_success "Bun installed"
 else
-  print_success "Bun $(bun --version) found"
+  print_success "bun $(bun --version) found"
 fi
 
 # ==========================================
@@ -149,7 +149,7 @@ if ! command -v uv >/dev/null 2>&1; then
   export PATH="$HOME/.local/bin:$PATH"
   print_success "uv installed"
 else
-  print_success "uv $(uv --version) found"
+  print_success "$(uv --version) found"
 fi
 
 # ==========================================
@@ -184,7 +184,7 @@ fi
 # Gemini CLI (npm)
 if command -v npm >/dev/null 2>&1; then
   if npm install -g @google/gemini-cli --silent 2>/dev/null; then
-    print_success "gemini-cli installed"
+    print_success "gemini installed"
   else
     print_info "gemini-cli failed (optional, skipping)"
   fi
