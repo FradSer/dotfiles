@@ -20,6 +20,34 @@ print_info()    { echo -e "${BLUE}${BOLD}    $1${NC}"; }
 echo -e "${CYAN}${BOLD}🚀 Starting environment bootstrap...${NC}"
 
 # ==========================================
+# 0. Prerequisites
+# ==========================================
+print_header "🔧 Prerequisites"
+
+# Check Xcode Command Line Tools
+if ! xcode-select -p >/dev/null 2>&1; then
+  print_step "Installing Xcode Command Line Tools..."
+  xcode-select --install
+  print_info "Please click Install in the dialog, then press Enter"
+  read -r
+  while ! xcode-select -p >/dev/null 2>&1; do
+    sleep 2
+  done
+fi
+print_success "Xcode CLT ready"
+
+# Check Rosetta 2 on Apple Silicon
+if [[ $(uname -m) == "arm64" ]]; then
+  if ! /usr/bin/pgrep -q oahd; then
+    print_step "Installing Rosetta 2..."
+    /usr/sbin/softwareupdate --install-rosetta --agree-to-license 2>/dev/null || true
+    print_success "Rosetta 2 ready"
+  else
+    print_success "Rosetta 2 already installed"
+  fi
+fi
+
+# ==========================================
 # 1. Homebrew
 # ==========================================
 print_header "🍺 Homebrew"
@@ -58,10 +86,11 @@ print_success "Brew packages synced"
 # 3. Dotfiles (chezmoi)
 # ==========================================
 print_header "📁 Dotfiles (chezmoi)"
+CHEZMOI_REPO="https://github.com/FradSer/dotfiles.git"
 if command -v chezmoi >/dev/null 2>&1; then
-  chezmoi init --apply FradSer
+  chezmoi init "$CHEZMOI_REPO" --apply
 else
-  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply FradSer
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- init "$CHEZMOI_REPO" --apply
 fi
 print_success "Dotfiles applied"
 
@@ -99,10 +128,9 @@ fi
 
 eval "$(fnm env --shell zsh)"
 
-print_step "Installing Node.js 24..."
-fnm install 24
-fnm use 24
-fnm default 24
+print_step "Installing Node.js LTS..."
+fnm install --lts
+fnm default lts-latest
 print_success "Node.js $(node -v) ready"
 
 print_step "Enabling pnpm via Corepack..."
@@ -139,10 +167,19 @@ fi
 # 9. AI Coding Agents
 # ==========================================
 print_header "🤖 AI Coding Agents"
-npm install -g @google/gemini-cli --silent
-npm install -g @anthropic-ai/claude-code --silent
-npm install -g @openai/codex --silent
-print_success "AI agents installed"
+install_ai_tool() {
+  local tool="$1"
+  local package="$2"
+  if npm install -g "$package" --silent 2>/dev/null; then
+    print_success "$tool installed"
+  else
+    print_info "$tool failed (optional, skipping)"
+  fi
+}
+
+install_ai_tool "gemini-cli" "@google/gemini-cli"
+install_ai_tool "claude-code" "@anthropic-ai/claude-code"
+install_ai_tool "codex" "@openai/codex" || true
 
 # ==========================================
 # Done
