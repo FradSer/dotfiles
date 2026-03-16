@@ -5,5 +5,5 @@
 
 # Cache zoxide init using evalcache
 if type zoxide &>/dev/null; then
-  _evalcache zoxide init zsh --cmd cd
+  _evalcache zoxide init zsh
 fi
