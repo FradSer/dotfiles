@@ -26,6 +26,12 @@
         "repo": "pbakaus/impeccable"
       },
       "autoUpdate": true
+    },
+    "frad-dotclaude": {
+      "source": {
+        "source": "github",
+        "repo": "fradser/dotclaude"
+      }
     }
   },
   "autoMemoryEnabled": true,
