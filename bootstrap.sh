@@ -36,17 +36,6 @@ if ! xcode-select -p >/dev/null 2>&1; then
 fi
 print_success "Xcode CLT ready"
 
-# Check Rosetta 2 on Apple Silicon
-if [[ $(uname -m) == "arm64" ]]; then
-  if ! /usr/bin/pgrep -q oahd; then
-    print_step "Installing Rosetta 2..."
-    /usr/sbin/softwareupdate --install-rosetta --agree-to-license 2>/dev/null || true
-    print_success "Rosetta 2 ready"
-  else
-    print_success "Rosetta 2 already installed"
-  fi
-fi
-
 # ==========================================
 # 1. Homebrew
 # ==========================================
