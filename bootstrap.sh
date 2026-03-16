@@ -167,19 +167,36 @@ fi
 # 9. AI Coding Agents
 # ==========================================
 print_header "🤖 AI Coding Agents"
-install_ai_tool() {
-  local tool="$1"
-  local package="$2"
-  if npm install -g "$package" --silent 2>/dev/null; then
-    print_success "$tool installed"
-  else
-    print_info "$tool failed (optional, skipping)"
-  fi
-}
 
-install_ai_tool "gemini-cli" "@google/gemini-cli"
-install_ai_tool "claude-code" "@anthropic-ai/claude-code"
-install_ai_tool "codex" "@openai/codex" || true
+# Claude Code (official installer)
+if ! command -v claude >/dev/null 2>&1; then
+  print_step "Installing Claude Code..."
+  if curl -fsSL https://claude.ai/install.sh | bash 2>/dev/null; then
+    print_success "Claude Code installed"
+  else
+    print_info "Claude Code failed (optional, skipping)"
+  fi
+else
+  print_success "Claude Code found"
+fi
+
+# Gemini CLI (npm)
+if command -v npm >/dev/null 2>&1; then
+  if npm install -g @google/gemini-cli --silent 2>/dev/null; then
+    print_success "gemini-cli installed"
+  else
+    print_info "gemini-cli failed (optional, skipping)"
+  fi
+fi
+
+# Codex (npm)
+if command -v npm >/dev/null 2>&1; then
+  if npm install -g @openai/codex --silent 2>/dev/null; then
+    print_success "codex installed"
+  else
+    print_info "codex failed (optional, skipping)"
+  fi
+fi
 
 # ==========================================
 # Done
