@@ -1,2 +1,5 @@
 .config/zsh/.secret
 README.md
+bootstrap.sh
+Brewfile
+CLAUDE.md
