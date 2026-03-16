@@ -110,16 +110,7 @@ corepack enable pnpm
 print_success "pnpm $(pnpm -v) enabled"
 
 # ==========================================
-# 7. AI Coding Agents
-# ==========================================
-print_header "🤖 AI Coding Agents"
-npm install -g @google/gemini-cli --silent
-npm install -g @anthropic-ai/claude-code --silent
-npm install -g @openai/codex --silent
-print_success "AI agents installed"
-
-# ==========================================
-# 8. Bun
+# 7. Bun
 # ==========================================
 print_header "🍞 Bun"
 if ! command -v bun >/dev/null 2>&1; then
@@ -132,7 +123,7 @@ else
 fi
 
 # ==========================================
-# 9. uv (Python)
+# 8. uv (Python)
 # ==========================================
 print_header "⚡ uv (Python)"
 if ! command -v uv >/dev/null 2>&1; then
@@ -145,18 +136,13 @@ else
 fi
 
 # ==========================================
-# 10. Ghostty Config
+# 9. AI Coding Agents
 # ==========================================
-print_header "👻 Ghostty"
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-GHOSTTY_CONFIG_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty"
-if [[ -f "$SCRIPT_DIR/ghostty_config" ]]; then
-  mkdir -p "$GHOSTTY_CONFIG_DIR"
-  cp "$SCRIPT_DIR/ghostty_config" "$GHOSTTY_CONFIG_DIR/config"
-  print_success "Ghostty config synced"
-else
-  print_info "ghostty_config not found, skipping"
-fi
+print_header "🤖 AI Coding Agents"
+npm install -g @google/gemini-cli --silent
+npm install -g @anthropic-ai/claude-code --silent
+npm install -g @openai/codex --silent
+print_success "AI agents installed"
 
 # ==========================================
 # Done
