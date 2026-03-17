@@ -1,58 +1,38 @@
-# ==========================================
-# Environment Variables & PATH
-# macOS Zsh Profile Configuration (Login Shell)
-# ==========================================
+# Login Shell — PATH and tool environment setup.
+# Sourced once for login shells. Universal vars belong in .zshenv.
 
-# 1. Homebrew (Essential for macOS)
-# This handles /opt/homebrew/bin (Node, Git, etc.)
+# 1. Homebrew
 if [[ -x "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
-  # GNU coreutils available with 'g' prefix (gls, gcp, gmv, etc.)
-  # export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 elif [[ -x "/usr/local/bin/brew" ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
-  # GNU coreutils available with 'g' prefix (gls, gcp, gmv, etc.)
-  # export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 fi
 
 # 2. Rust (Cargo)
-if [[ -d "$HOME/.cargo/bin" ]]; then
-  export PATH="$HOME/.cargo/bin:$PATH"
-fi
+[[ -d "$HOME/.cargo/bin" ]] && export PATH="$HOME/.cargo/bin:$PATH"
 
-# 3. Go (Golang)
-if [[ -d "/opt/homebrew/opt/go/bin" || -d "/usr/local/opt/go/bin" ]]; then
-  export GOPATH="$HOME/go"
+# 3. Go
+if command -v go &>/dev/null || [[ -d "$HOME/go/bin" ]]; then
+  export GOPATH="${GOPATH:-$HOME/go}"
   export PATH="$GOPATH/bin:$PATH"
 fi
 
-# 4. pnpm (Node.js)
+# 4. pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+[[ ":$PATH:" != *":$PNPM_HOME:"* ]] && export PATH="$PNPM_HOME:$PATH"
 
-# 6. Bun (JavaScript Runtime)
+# 5. Bun
 export BUN_INSTALL="$HOME/.bun"
-if [[ -d "$BUN_INSTALL/bin" ]]; then
-  export PATH="$BUN_INSTALL/bin:$PATH"
-fi
+[[ -d "$BUN_INSTALL/bin" ]] && export PATH="$BUN_INSTALL/bin:$PATH"
 
-# 7. uv (Python) & Local Bin
+# 6. uv / local bin
 export PATH="$HOME/.local/bin:$PATH"
 
-# 8. Antigravity Bin
-if [[ -d "$HOME/.antigravity/antigravity/bin" ]]; then
-  export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
-fi
+# 7. opencode
+[[ -d "$HOME/.opencode/bin" ]] && export PATH="$HOME/.opencode/bin:$PATH"
+
+# 8. antigravity
+[[ -d "$HOME/.antigravity/antigravity/bin" ]] && export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 
 # 9. User bin (Cursor CLI, etc.)
-if [[ -d "$HOME/bin" ]]; then
-  export PATH="$HOME/bin:$PATH"
-fi
-
-# 10. Identity & Profile Defaults
-export EDITOR="cot"
-export LANG="en_US.UTF-8"
-export COLORTERM=truecolor
+[[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"

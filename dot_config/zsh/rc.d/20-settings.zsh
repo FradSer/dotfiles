@@ -1,8 +1,5 @@
-# --- 0. Identity & Profile ---
+# --- Identity & Profile ---
 export GITHUB_USERNAME="FradSer"
-export EDITOR="cursor" # Or "vim", "code --wait"
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
 
 # History Configuration
 HISTFILE=$HOME/.zsh_history

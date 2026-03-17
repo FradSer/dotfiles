@@ -1,0 +1,6 @@
+# Shell Environment (ALL shells: interactive, non-interactive, login, scripts)
+# Keep minimal — only truly universal variables. No PATH, no output.
+
+export EDITOR="cursor"
+export LANG="en_US.UTF-8"
+export COLORTERM="truecolor"

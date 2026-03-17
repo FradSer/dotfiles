@@ -47,7 +47,6 @@ alias g="git"
 
 # Status & Diff
 alias gst="git status"
-alias gitst="git status"
 alias gd="git diff"
 alias gds="git diff --staged"
 

@@ -7,6 +7,7 @@
 
 # Global AI Variables
 export GOOGLE_VERTEX_LOCATION="us-central1"
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 
 # --- Step 1: Provider Name Discovery ---
 # Providers are derived from the associative array definitions below.
@@ -85,8 +86,6 @@ _load_claude_providers
 
 # --- Step 3: The Main `claude` Function ---
 function claude() {
-
-  export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 
   # Ensure a clean environment for each run
   unset CLAUDE_CODE_OAUTH_TOKEN \

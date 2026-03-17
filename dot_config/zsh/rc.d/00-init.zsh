@@ -1,5 +1,5 @@
 # ==========================================
-# Tool Initializations (Evalcache & Starship)
+# Tool Initializations
 # ==========================================
 
 # Initialize evalcache
@@ -14,6 +14,3 @@ fi
 if type fnm &>/dev/null; then
   _evalcache fnm env --use-on-cd --version-file-strategy=recursive --shell zsh
 fi
-
-# --- opencode ---
-export PATH="$HOME/.opencode/bin:$PATH"
