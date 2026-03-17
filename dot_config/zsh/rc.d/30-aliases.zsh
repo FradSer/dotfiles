@@ -12,10 +12,6 @@ alias ....="cd ../../.."
 alias grep="grep --color=auto"
 alias ip="ipconfig getifaddr en0" # macOS Quick IP
 
-# Zoxide (Navigation)
-alias z="cd"
-alias zi="cdi"
-
 # Quick Jump
 alias down="cd ~/Downloads"
 alias dev="cd ~/Developer"
