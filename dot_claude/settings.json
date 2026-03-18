@@ -1,4 +1,5 @@
 {
+  "model": "haiku",
   "statusLine": {
     "type": "command",
     "command": "$HOME/.claude/statusline.sh"
@@ -7,9 +8,7 @@
     "context7@claude-plugins-official": true,
     "git@frad-dotclaude": true,
     "gitflow@frad-dotclaude": true,
-    "playground@claude-plugins-official": false,
     "refactor@frad-dotclaude": true,
-    "document-skills@anthropic-agent-skills": false,
     "github@frad-dotclaude": true,
     "review@frad-dotclaude": true,
     "exa-mcp-server@exa-mcp-server": true,
@@ -17,7 +16,9 @@
     "impeccable@impeccable": true,
     "superpowers@frad-dotclaude": true,
     "skill-creator@claude-plugins-official": true,
-    "acpx@frad-dotclaude": true
+    "acpx@frad-dotclaude": true,
+    "claude-md-management@claude-plugins-official": true,
+    "code-context@frad-dotclaude": true
   },
   "extraKnownMarketplaces": {
     "impeccable": {
@@ -30,8 +31,9 @@
     "frad-dotclaude": {
       "source": {
         "source": "github",
-        "repo": "fradser/dotclaude"
-      }
+        "repo": "FradSer/dotclaude"
+      },
+      "autoUpdate": true
     }
   },
   "autoMemoryEnabled": true,
