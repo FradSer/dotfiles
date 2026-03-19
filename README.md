@@ -123,7 +123,7 @@ Load order: `dot_zshrc` → `dot_config/zsh/rc.d/*.zsh` (00-99)
 - Custom statusline showing model, directory, git branch
 - 30+ alternative API providers configured in `.claude-providers.toml`
 - Plugins: context7, exa-mcp-server, git, gitflow, github, review, refactor, impeccable, superpowers, code-context, and more
-- Auto memory enabled; model defaults to `haiku`
+- Auto memory enabled; model defaults to `opusplan`
 
 ### Terminal (Ghostty)
 - Font: Maple Mono NF CN

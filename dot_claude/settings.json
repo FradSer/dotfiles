@@ -1,5 +1,5 @@
 {
-  "model": "haiku",
+  "model": "opusplan",
   "statusLine": {
     "type": "command",
     "command": "$HOME/.claude/statusline.sh"

@@ -123,7 +123,7 @@ chezmoi edit ~/.zshrc  # 编辑托管文件
 - 自定义状态栏（显示模型、目录、git 分支）
 - 30+ 备用 API 提供商（`.claude-providers.toml`）
 - 插件：context7、exa-mcp-server、git、gitflow、github、review、refactor、impeccable、superpowers、code-context 等
-- 自动记忆已启用；默认模型为 `haiku`
+- 自动记忆已启用；默认模型为 `opusplan`
 
 ### 终端（Ghostty）
 - 字体：Maple Mono NF CN
