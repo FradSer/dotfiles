@@ -50,13 +50,36 @@ fi
 # Get all git info using a single git status call
 git_info=""
 if git -C "$current_dir" rev-parse --git-dir >/dev/null 2>&1; then
-  branch=$(git -C "$current_dir" branch --show-current 2>/dev/null || echo "HEAD")
+  branch=$(git -C "$current_dir" branch --show-current 2>/dev/null)
+
+  # Detect rebase/merge/cherry-pick state
+  git_dir=$(git -C "$current_dir" rev-parse --absolute-git-dir 2>/dev/null)
+  rebase_suffix=""
+  if [[ -d "$git_dir/rebase-merge" ]]; then
+    rebase_cur=$(cat "$git_dir/rebase-merge/msgnum" 2>/dev/null)
+    rebase_tot=$(cat "$git_dir/rebase-merge/end" 2>/dev/null)
+    short_hash=$(git -C "$current_dir" rev-parse --short=7 HEAD 2>/dev/null)
+    branch="HEAD ($short_hash)"
+    rebase_suffix=" (REBASING $rebase_cur/$rebase_tot)"
+  elif [[ -d "$git_dir/rebase-apply" ]]; then
+    rebase_cur=$(cat "$git_dir/rebase-apply/next" 2>/dev/null)
+    rebase_tot=$(cat "$git_dir/rebase-apply/last" 2>/dev/null)
+    short_hash=$(git -C "$current_dir" rev-parse --short=7 HEAD 2>/dev/null)
+    branch="HEAD ($short_hash)"
+    rebase_suffix=" (REBASING $rebase_cur/$rebase_tot)"
+  elif [[ -f "$git_dir/MERGE_HEAD" ]]; then
+    rebase_suffix=" (MERGING)"
+  elif [[ -f "$git_dir/CHERRY_PICK_HEAD" ]]; then
+    rebase_suffix=" (CHERRY-PICKING)"
+  fi
+  [[ -z "$branch" ]] && branch="HEAD"
 
   git_flags=""
   git_status_output=$(git -C "$current_dir" status --porcelain 2>/dev/null)
   # Order mirrors starship git_status defaults: $!+?  then ahead_behind
   git -C "$current_dir" rev-parse --verify refs/stash >/dev/null 2>&1 && git_flags="${git_flags}\$"
   echo "$git_status_output" | grep -q "^.[MD]" && git_flags="${git_flags}!"  # unstaged modified/deleted
+  echo "$git_status_output" | grep -q "^[UAD][UAD]" && git_flags="${git_flags}="  # unmerged/conflict
   echo "$git_status_output" | grep -q "^[AMDRC]" && git_flags="${git_flags}+"  # staged
   echo "$git_status_output" | grep -q "^??" && git_flags="${git_flags}?"
   ahead_behind=$(git -C "$current_dir" rev-list --left-right --count @{upstream}...HEAD 2>/dev/null)
@@ -73,7 +96,7 @@ if git -C "$current_dir" rev-parse --git-dir >/dev/null 2>&1; then
   fi
   [[ -n "$git_flags" ]] && git_flags=" [$git_flags]"
 
-  git_info=" on   $branch$git_flags"
+  git_info=" on   $branch$rebase_suffix$git_flags"
 fi
 
 # Output style indicator
