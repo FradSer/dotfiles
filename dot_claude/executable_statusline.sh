@@ -54,9 +54,24 @@ if git -C "$current_dir" rev-parse --git-dir >/dev/null 2>&1; then
 
   git_flags=""
   git_status_output=$(git -C "$current_dir" status --porcelain 2>/dev/null)
-  [[ -n "$(echo "$git_status_output" | grep -v "^??")" ]] && git_flags=" *"
+  # Order mirrors starship git_status defaults: $!+?  then ahead_behind
+  git -C "$current_dir" rev-parse --verify refs/stash >/dev/null 2>&1 && git_flags="${git_flags}\$"
+  echo "$git_status_output" | grep -q "^.[MD]" && git_flags="${git_flags}!"  # unstaged modified/deleted
+  echo "$git_status_output" | grep -q "^[AMDRC]" && git_flags="${git_flags}+"  # staged
   echo "$git_status_output" | grep -q "^??" && git_flags="${git_flags}?"
-  git -C "$current_dir" rev-parse --verify refs/stash >/dev/null 2>&1 && git_flags="${git_flags} S"
+  ahead_behind=$(git -C "$current_dir" rev-list --left-right --count @{upstream}...HEAD 2>/dev/null)
+  if [[ -n "$ahead_behind" ]]; then
+    behind=$(echo "$ahead_behind" | awk '{print $1}')
+    ahead=$(echo "$ahead_behind" | awk '{print $2}')
+    if [[ "$ahead" -gt 0 && "$behind" -gt 0 ]]; then
+      git_flags="${git_flags}⇕"  # diverged
+    elif [[ "$ahead" -gt 0 ]]; then
+      git_flags="${git_flags}⇡"
+    elif [[ "$behind" -gt 0 ]]; then
+      git_flags="${git_flags}⇣"
+    fi
+  fi
+  [[ -n "$git_flags" ]] && git_flags=" [$git_flags]"
 
   git_info=" on   $branch$git_flags"
 fi
