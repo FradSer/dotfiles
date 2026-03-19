@@ -2,13 +2,24 @@
 
 [![CI Status](https://img.shields.io/badge/CI-chezmoi-purple)](https://github.com/FradSer/dotfiles) [![Shell](https://img.shields.io/badge/Shell-Zsh-orange)](https://www.zsh.org/) [![Terminal](https://img.shields.io/badge/Terminal-Ghostty-black)](https://ghostty.org/)
 
-[English](README.md) | [简体中文](README.zh-CN.md)
+**English** | [简体中文](README.zh-CN.md)
 
 ----
 
 # Frad's Dotfiles
 
 My personal macOS development environment configuration managed with [chezmoi](https://www.chezmoi.io/).
+
+## 🚨 Important Warning
+
+**🚨 This script will reset your terminal and shell configuration!**
+
+Before running, please:
+1. Backup your existing configs: `~/.zshrc`, `~/.zshenv`, `~/.gitconfig`, `~/.config/ghostty/`
+2. Understand what this script does (review `bootstrap.sh` and the directory structure above)
+3. I am not responsible for any data loss or configuration issues
+
+---
 
 ## 🚀 Quick Setup (For a fresh Mac)
 
@@ -64,6 +75,8 @@ chezmoi edit ~/.zshrc  # Edit a managed file
 
 ```text
 .
+├── bin/
+│   └── chezmoi               # chezmoi binary (self-managed)
 ├── bootstrap.sh              # Environment setup script
 ├── Brewfile                  # Homebrew dependencies
 ├── dot_zshrc                 # Zsh entry point
@@ -74,20 +87,21 @@ chezmoi edit ~/.zshrc  # Edit a managed file
 │   ├── ghostty/config        # Ghostty terminal config
 │   ├── starship.toml         # Starship prompt config
 │   └── zsh/
+│       ├── completions/      # Zsh completion scripts
 │       ├── rc.d/             # Zsh initialization scripts (numeric order)
-│       │   ├── 00-init.zsh  # Tool init: evalcache, starship, fnm
-│       │   ├── 05-compinit.zsh   # Zsh completion
+│       │   ├── 00-init.zsh          # Tool init: evalcache, starship, fnm
+│       │   ├── 05-compinit.zsh      # Zsh completion
 │       │   ├── 10-ai-functions.zsh  # AI shell functions
-│       │   ├── 20-settings.zsh     # Zsh options
-│       │   ├── 25-fzf.zsh          # fzf keybindings
-│       │   ├── 30-aliases.zsh      # Git & system aliases
-│       │   ├── 90-plugins.zsh      # Plugin loading
-│       │   ├── 95-tips.zsh         # Shell tips
-│       │   └── 99-zoxide.zsh       # zoxide init
+│       │   ├── 20-settings.zsh      # Zsh options
+│       │   ├── 25-fzf.zsh           # fzf keybindings
+│       │   ├── 30-aliases.zsh       # Git & system aliases
+│       │   ├── 90-plugins.zsh       # Plugin loading
+│       │   ├── 95-tips.zsh          # Shell tips
+│       │   └── 99-zoxide.zsh        # zoxide init
 │       └── .claude-providers.toml  # 30+ Claude API providers
 └── dot_claude/
-    ├── settings.json         # Claude Code settings & MCP plugins
-    └── statusline.sh         # Custom status line
+    ├── settings.json              # Claude Code settings & plugins
+    └── executable_statusline.sh   # Custom status line
 ```
 
 ## 🔧 Configuration Highlights
@@ -108,7 +122,8 @@ Load order: `dot_zshrc` → `dot_config/zsh/rc.d/*.zsh` (00-99)
 ### Claude Code
 - Custom statusline showing model, directory, git branch
 - 30+ alternative API providers configured in `.claude-providers.toml`
-- MCP plugins: Gmail, Google Calendar, Context7, DeepWiki, Exa, Zai
+- Plugins: context7, exa-mcp-server, git, gitflow, github, review, refactor, impeccable, superpowers, code-context, and more
+- Auto memory enabled; model defaults to `haiku`
 
 ### Terminal (Ghostty)
 - Font: Maple Mono NF CN
@@ -135,11 +150,15 @@ Heavily optimized for AI-assisted development:
 - Gemini CLI - Google AI
 - OpenAI Codex - CLI coding assistant
 
-### MCP Plugins Enabled
-- Gmail & Google Calendar integration
-- Context7 & DeepWiki - code documentation
-- Exa - web search & code examples
-- Zai - UI analysis tools
+### Claude Plugins Enabled
+- context7 — library documentation lookup
+- exa-mcp-server — web search & code examples
+- git, gitflow, github — git workflow automation
+- review, refactor — code quality
+- impeccable — UI/UX polish
+- superpowers — advanced agent workflows
+- code-context — codebase research
+- skill-creator, ralph-loop, acpx, claude-md-management — utilities
 
 ## 🔄 Updating
 
