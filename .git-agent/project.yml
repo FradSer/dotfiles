@@ -1,0 +1,6 @@
+scopes:
+    - claude
+    - zsh
+    - bootstrap
+    - starship
+    - ghostty
