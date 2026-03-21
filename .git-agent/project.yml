@@ -1,3 +1,4 @@
+hook_type: conventional
 scopes:
     - claude
     - zsh
