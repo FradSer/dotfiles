@@ -162,10 +162,11 @@ if [[ -z "${ANTHROPIC_BASE_URL:-}" ]]; then
   # Parse cached data (display latest available, never show placeholder)
   usage_parts=""
   if [[ -f "$USAGE_CACHE" ]]; then
-    IFS=$'\t' read -r five_used seven_used <<< "$(
+    IFS=$'\t' read -r five_used seven_used seven_resets_at <<< "$(
       jq -r '[
         (.five_hour.utilization  // -1 | floor | tostring),
-        (.seven_day.utilization  // -1 | floor | tostring)
+        (.seven_day.utilization  // -1 | floor | tostring),
+        (.seven_day.resets_at    // "")
       ] | @tsv' "$USAGE_CACHE" 2>/dev/null
     )"
 
@@ -179,7 +180,18 @@ if [[ -z "${ANTHROPIC_BASE_URL:-}" ]]; then
       [[ -n "$usage_parts" ]] && usage_parts+="\033[90m · \033[0m"
       seven_rem=$(( 100 - seven_used ))
       c=$(_usage_color "$seven_rem")
-      usage_parts+="\033[90m7d \033[0m${c}${seven_rem}%\033[0m"
+      # Compute days remaining until weekly reset
+      seven_label="7d"
+      if [[ -n "$seven_resets_at" ]]; then
+        resets_epoch=$(date -j -f "%Y-%m-%dT%H:%M:%S" "${seven_resets_at%%+*}" "+%s" 2>/dev/null \
+          || date -j -f "%Y-%m-%dT%H:%M:%S" "${seven_resets_at%%.*}" "+%s" 2>/dev/null)
+        if [[ -n "$resets_epoch" ]]; then
+          days_left=$(( (resets_epoch - $(date +%s) + 86399) / 86400 ))
+          [[ $days_left -lt 0 ]] && days_left=0
+          seven_label="${days_left}d"
+        fi
+      fi
+      usage_parts+="\033[90m${seven_label} \033[0m${c}${seven_rem}%\033[0m"
     fi
   fi
 
