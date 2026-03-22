@@ -12,8 +12,8 @@ fi
 [[ -d "$HOME/.cargo/bin" ]] && export PATH="$HOME/.cargo/bin:$PATH"
 
 # 3. Go
-if command -v go &>/dev/null || [[ -d "$HOME/go/bin" ]]; then
-  export GOPATH="${GOPATH:-$HOME/go}"
+if command -v go &>/dev/null || [[ -d "$HOME/.go/bin" ]]; then
+  export GOPATH="${GOPATH:-$HOME/.go}"
   export PATH="$GOPATH/bin:$PATH"
 fi
 
