@@ -144,11 +144,14 @@ function claude() {
   fi
 
   # Sync macOS appearance to Claude Code theme
-  local _macos_theme _claude_theme
+  local _macos_theme _claude_theme _current_theme
   _macos_theme=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
   [[ "$_macos_theme" == "Dark" ]] && _claude_theme="dark" || _claude_theme="light"
-  jq --arg t "$_claude_theme" '.theme = $t' ~/.claude.json > /tmp/claude-json-theme.json \
-    && mv /tmp/claude-json-theme.json ~/.claude.json
+  _current_theme=$(jq -r '.theme // ""' ~/.claude.json 2>/dev/null)
+  if [[ "$_current_theme" != "$_claude_theme" ]]; then
+    jq --arg t "$_claude_theme" '.theme = $t' ~/.claude.json > /tmp/claude-json-theme.json \
+      && mv /tmp/claude-json-theme.json ~/.claude.json
+  fi
 
   # Run the wrapped claude command
   command claude --dangerously-skip-permissions --model opusplan "${remaining_args[@]}"

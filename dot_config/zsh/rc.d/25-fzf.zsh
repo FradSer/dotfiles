@@ -4,7 +4,7 @@
 
 # 1. 初始化 fzf 的 Zsh 补全和快捷键绑定
 # Cache fzf init using evalcache
-if type fzf &>/dev/null; then
+if [[ -o interactive ]] && type fzf &>/dev/null; then
   _evalcache fzf --zsh
 fi
 

@@ -1,6 +1,8 @@
 # Login Shell — PATH and tool environment setup.
 # Sourced once for login shells. Universal vars belong in .zshenv.
 
+typeset -U path
+
 # 1. Homebrew
 if [[ -x "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -34,5 +36,3 @@ export PATH="$HOME/.local/bin:$PATH"
 # 8. antigravity
 [[ -d "$HOME/.antigravity/antigravity/bin" ]] && export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 
-# 9. User bin (Cursor CLI, etc.)
-[[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
