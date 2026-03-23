@@ -30,9 +30,11 @@ export BAT_THEME="base16"
 if [[ -f "$HOME/.config/zsh/.dircolors.cache" ]]; then
   source "$HOME/.config/zsh/.dircolors.cache"
 elif command -v dircolors >/dev/null; then
-  eval "$(dircolors -b)"
-elif [[ -f "$HOME/.dircolors" ]]; then
-  eval "$(dircolors -b $HOME/.dircolors)"
+  if [[ -f "$HOME/.dircolors" ]]; then
+    eval "$(dircolors -b "$HOME/.dircolors")"
+  else
+    eval "$(dircolors -b)"
+  fi
 else
   export LSCOLORS="Gxfxcxdxbxegedabagacad"
 fi
