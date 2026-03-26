@@ -155,7 +155,23 @@ fi
 # ==========================================
 # 9. AI Coding Agents
 # ==========================================
+# Make user-local CLI install locations visible to this bootstrap run.
+export PATH="$HOME/.local/bin:$HOME/.amp/bin:$PATH"
+
 print_header "🤖 AI Coding Agents"
+
+# amp
+if ! command -v amp >/dev/null 2>&1; then
+  print_step "Installing amp..."
+  if curl -fsSL https://ampcode.com/install.sh | bash 2>/dev/null; then
+    export PATH="$HOME/.local/bin:$HOME/.amp/bin:$PATH"
+    print_success "amp installed"
+  else
+    print_info "amp failed (optional, skipping)"
+  fi
+else
+  print_success "amp found"
+fi
 
 # opencode
 if ! command -v opencode >/dev/null 2>&1; then

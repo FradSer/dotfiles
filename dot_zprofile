@@ -30,9 +30,11 @@ export BUN_INSTALL="$HOME/.bun"
 # 6. uv / local bin
 export PATH="$HOME/.local/bin:$PATH"
 
-# 7. opencode
+# 7. amp
+[[ -d "$HOME/.amp/bin" ]] && export PATH="$HOME/.amp/bin:$PATH"
+
+# 8. opencode
 [[ -d "$HOME/.opencode/bin" ]] && export PATH="$HOME/.opencode/bin:$PATH"
 
-# 8. antigravity
+# 9. antigravity
 [[ -d "$HOME/.antigravity/antigravity/bin" ]] && export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
-
