@@ -1,13 +1,14 @@
 # --- Fonts & Text ---
-font-family = Maple Mono NF CN
+font-family = "Maple Mono NF CN"
 
 # --- Appearance & Theme ---
 theme = light:Apple System Colors Light,dark:Cursor Dark
-background-opacity = 0.9
+background-opacity = 0.95
 background-blur-radius = 128
 window-padding-x = 8
 window-padding-y = 8
 macos-titlebar-style = transparent
+shell-integration-features = no-cursor
 
 # --- Window Behavior ---
 window-save-state = always
@@ -16,7 +17,7 @@ initial-window = true
 quit-after-last-window-closed = true
 
 # --- Cursor ---
-cursor-style = bar
+cursor-style = block
 cursor-style-blink = true
 cursor-opacity = 0.8
 
