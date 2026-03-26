@@ -9,6 +9,7 @@
 export GOOGLE_VERTEX_LOCATION="us-central1"
 export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 export CLAUDE_CODE_NEW_INIT=1
+export CLAUDE_CODE_EFFORT_LEVEL=max
 
 
 # --- Step 1: Provider Name Discovery ---
@@ -154,7 +155,7 @@ function claude() {
   fi
 
   # Run the wrapped claude command
-  command claude --dangerously-skip-permissions --model opusplan "${remaining_args[@]}"
+  command claude --dangerously-skip-permissions "${remaining_args[@]}"
 }
 
 # --- Step 4: Interactive Provider Management ---

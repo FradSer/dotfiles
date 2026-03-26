@@ -1,0 +1,7 @@
+hook:
+    - conventional
+scopes:
+    - description: Configuration and scripts for Claude Code integration
+      name: claude
+    - description: System configuration files such as Zsh, Starship, and Ghostty
+      name: config
