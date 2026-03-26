@@ -156,6 +156,9 @@ function claude() {
 
   # Run the wrapped claude command
   command claude --dangerously-skip-permissions "${remaining_args[@]}"
+
+  # Reset kitty keyboard protocol mode
+  printf '\e[>0u'
 }
 
 # --- Step 4: Interactive Provider Management ---

@@ -123,7 +123,7 @@ chezmoi edit ~/.zshrc  # 编辑托管文件
 - 自定义状态栏（显示模型、目录、git 分支）
 - 30+ 备用 API 提供商（`.claude-providers.toml`）
 - 插件：context7、exa-mcp-server、git、gitflow、github、review、refactor、impeccable、superpowers、code-context 等
-- 自动记忆已启用；默认模型为 `opusplan`
+- 自动记忆已启用；默认模型为 `opus`
 
 ### 终端（Ghostty）
 - 字体：Maple Mono NF CN
@@ -153,11 +153,10 @@ export ANTHROPIC_API_KEY="your_token"
 - context7 — 库文档查询
 - exa-mcp-server — 网页搜索和代码示例
 - git、gitflow、github — git 工作流自动化
-- review、refactor — 代码质量
 - impeccable — UI/UX 优化
 - superpowers — 高级 Agent 工作流
 - code-context — 代码库研究
-- skill-creator、ralph-loop、acpx、claude-md-management — 实用工具
+- skill-creator、acpx、claude-md-management — 实用工具
 
 ## 🔄 更新
 

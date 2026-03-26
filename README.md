@@ -112,18 +112,20 @@ Load order: `dot_zshrc` → `dot_config/zsh/rc.d/*.zsh` (00-99)
 | Script | Purpose |
 |--------|---------|
 | `00-init.zsh` | evalcache, starship, fnm |
+| `05-compinit.zsh` | Zsh completion initialization |
 | `10-ai-functions.zsh` | Gemini, Claude, Codex CLI wrappers |
 | `20-settings.zsh` | Zsh options (hist, completion) |
 | `25-fzf.zsh` | fzf keybindings & preview |
 | `30-aliases.zsh` | Git aliases, system shortcuts |
 | `90-plugins.zsh` | zsh-autosuggestions, syntax-highlighting |
+| `95-tips.zsh` | Shell tips and helpers |
 | `99-zoxide.zsh` | Smart `cd` integration |
 
 ### Claude Code
 - Custom statusline showing model, directory, git branch
 - 30+ alternative API providers configured in `.claude-providers.toml`
 - Plugins: context7, exa-mcp-server, git, gitflow, github, review, refactor, impeccable, superpowers, code-context, and more
-- Auto memory enabled; model defaults to `opusplan`
+- Auto memory enabled; model defaults to `opus`
 
 ### Terminal (Ghostty)
 - Font: Maple Mono NF CN
@@ -154,11 +156,10 @@ Heavily optimized for AI-assisted development:
 - context7 — library documentation lookup
 - exa-mcp-server — web search & code examples
 - git, gitflow, github — git workflow automation
-- review, refactor — code quality
 - impeccable — UI/UX polish
 - superpowers — advanced agent workflows
 - code-context — codebase research
-- skill-creator, ralph-loop, acpx, claude-md-management — utilities
+- skill-creator, acpx, claude-md-management — utilities
 
 ## 🔄 Updating
 
