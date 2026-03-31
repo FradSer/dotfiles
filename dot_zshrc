@@ -10,3 +10,6 @@ if [[ -d "$HOME/.config/zsh/rc.d" ]]; then
   done
   unset conf
 fi
+
+# 3. Load machine-local overrides (not managed by chezmoi)
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
