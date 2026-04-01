@@ -107,7 +107,30 @@ git config --global core.excludesfile "$HOME/.gitignore_global"
 print_success "Git configured"
 
 # ==========================================
-# 6. Node.js via fnm
+# 6. GPG
+# ==========================================
+print_header "GPG"
+GNUPG_DIR="$HOME/.gnupg"
+GPG_AGENT_CONF="$GNUPG_DIR/gpg-agent.conf"
+mkdir -p "$GNUPG_DIR"
+chmod 700 "$GNUPG_DIR"
+
+PINENTRY_PATH="$(which pinentry-mac)"
+if [[ -n "$PINENTRY_PATH" ]]; then
+  if ! grep -q "pinentry-program" "$GPG_AGENT_CONF" 2>/dev/null; then
+    echo "pinentry-program $PINENTRY_PATH" >> "$GPG_AGENT_CONF"
+    print_success "pinentry-mac configured"
+  else
+    print_success "pinentry-mac already configured"
+  fi
+  killall gpg-agent 2>/dev/null || true
+  print_success "gpg-agent restarted"
+else
+  print_error "pinentry-mac not found"
+fi
+
+# ==========================================
+# 7. Node.js via fnm
 # ==========================================
 print_header "🟢 Node.js (fnm)"
 if ! command -v fnm >/dev/null 2>&1; then
@@ -127,7 +150,7 @@ corepack enable pnpm
 print_success "pnpm $(pnpm -v) enabled"
 
 # ==========================================
-# 7. Bun
+# 8. Bun
 # ==========================================
 print_header "🍞 Bun"
 if ! command -v bun >/dev/null 2>&1; then
@@ -140,7 +163,7 @@ else
 fi
 
 # ==========================================
-# 8. uv (Python)
+# 9. uv (Python)
 # ==========================================
 print_header "⚡ uv (Python)"
 if ! command -v uv >/dev/null 2>&1; then
@@ -153,7 +176,7 @@ else
 fi
 
 # ==========================================
-# 9. AI Coding Agents
+# 10. AI Coding Agents
 # ==========================================
 # Make user-local CLI install locations visible to this bootstrap run.
 export PATH="$HOME/.local/bin:$HOME/.amp/bin:$PATH"

@@ -28,6 +28,8 @@ brew "gh"            # GitHub CLI
 brew "tmux"          # Terminal multiplexer
 brew "yt-dlp"        # Media downloader
 brew "chezmoi"       # Dotfiles manager
+brew "gnupg"         # GPG encryption
+brew "pinentry-mac"  # macOS GPG pinentry
 brew "mole"          # Deep clean and optimize your Mac
 
 # --- Zsh Plugins (Homebrew) ---
