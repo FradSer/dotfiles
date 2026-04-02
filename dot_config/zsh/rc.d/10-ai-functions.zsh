@@ -10,6 +10,7 @@ export GOOGLE_VERTEX_LOCATION="us-central1"
 export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 export CLAUDE_CODE_NEW_INIT=1
 export CLAUDE_CODE_EFFORT_LEVEL=max
+export CLAUDE_CODE_NO_FLICKER=1
 
 
 # --- Step 1: Provider Name Discovery ---
