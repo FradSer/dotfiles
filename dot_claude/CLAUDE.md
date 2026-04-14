@@ -4,6 +4,10 @@
 
 NEVER use git add/git commit via Bash. When asked to commit, ALWAYS invoke the `/git:commit` skill via the Skill tool. Do NOT run `git status`, `git diff`, or `git log` for commit purposes — the skill handles everything.
 
+## CRITICAL: Asking the User
+
+ALWAYS use the `AskUserQuestion` tool when you need to ask the user a question. Do NOT ask questions in plain text output.
+
 ## Core Principles
 
 - BDD-driven TDD: define Given/When/Then scenarios in `.feature` files first → RED test → GREEN code → REFACTOR
@@ -14,6 +18,8 @@ NEVER use git add/git commit via Bash. When asked to commit, ALWAYS invoke the `
   2. Domain layer: zero external imports — pure interfaces and value objects only
   3. Application layer: orchestrates via interfaces, never imports infrastructure
   4. Composition Root (cmd layer): wiring only, no business logic
+- Challenge the premise before implementing: is the stated problem the actual problem?
+- Match complexity to actual scale — 2 variants = if/switch, not an abstraction layer
 - Web search for latest best practices before planning and implementing
 - Verify your own work: run tests and typecheck after completing changes
 
