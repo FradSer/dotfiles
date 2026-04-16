@@ -117,9 +117,12 @@ if [[ -z "${ANTHROPIC_BASE_URL:-}" ]]; then
       echo "$fallback"
       return
     fi
+    local ts="$resets_at"
+    ts="${ts%Z}"
+    ts="${ts%%+*}"
+    ts="${ts%%.*}"
     local resets_epoch
-    resets_epoch=$(date -j -f "%Y-%m-%dT%H:%M:%S" "${resets_at%%+*}" "+%s" 2>/dev/null \
-      || date -j -f "%Y-%m-%dT%H:%M:%S" "${resets_at%%.*}" "+%s" 2>/dev/null)
+    resets_epoch=$(TZ=UTC date -j -f "%Y-%m-%dT%H:%M:%S" "$ts" "+%s" 2>/dev/null)
     if [[ -z "$resets_epoch" ]]; then
       echo "$fallback"
       return
