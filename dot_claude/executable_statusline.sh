@@ -131,9 +131,9 @@ if [[ -z "${ANTHROPIC_BASE_URL:-}" ]]; then
     if [[ $secs_left -le 60 ]]; then
       echo "now"
     elif [[ $secs_left -lt 3600 ]]; then
-      echo "$(( secs_left / 60 ))m"
+      echo "$(( (secs_left + 30) / 60 ))m"
     elif [[ $secs_left -lt 86400 ]]; then
-      echo "$(( secs_left / 3600 ))h"
+      echo "$(( (secs_left + 1800) / 3600 ))h"
     else
       echo "$(( (secs_left + 86399) / 86400 ))d"
     fi
