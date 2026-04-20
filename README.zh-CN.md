@@ -91,7 +91,8 @@ chezmoi edit ~/.zshrc  # 编辑托管文件
 │       ├── rc.d/                  # Zsh 初始化脚本（数字顺序）
 │       │   ├── 00-init.zsh          # 工具初始化
 │       │   ├── 05-compinit.zsh      # Zsh 补全
-│       │   ├── 10-ai-functions.zsh  # AI shell 函数
+│       │   ├── 10-ai-claude.zsh     # Claude 封装与 provider 配置
+│       │   ├── 11-ai-others.zsh     # Codex / Gemini / Qwen 封装
 │       │   ├── 20-settings.zsh      # Zsh 选项
 │       │   ├── 25-fzf.zsh           # fzf 键绑定
 │       │   ├── 30-aliases.zsh       # Git 别名
@@ -112,7 +113,8 @@ chezmoi edit ~/.zshrc  # 编辑托管文件
 | 脚本 | 用途 |
 |---------|---------|
 | `00-init.zsh` | evalcache, starship, fnm |
-| `10-ai-functions.zsh` | Gemini、Claude、Codex CLI 封装 |
+| `10-ai-claude.zsh` | Claude 封装 + provider TOML 加载 + 补全 |
+| `11-ai-others.zsh` | Codex / Gemini / Qwen CLI 封装 |
 | `20-settings.zsh` | Zsh 选项（历史、补全）|
 | `25-fzf.zsh` | fzf 键绑定和预览 |
 | `30-aliases.zsh` | Git 别名、系统快捷键 |

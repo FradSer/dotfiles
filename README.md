@@ -91,7 +91,8 @@ chezmoi edit ~/.zshrc  # Edit a managed file
 │       ├── rc.d/             # Zsh initialization scripts (numeric order)
 │       │   ├── 00-init.zsh          # Tool init: evalcache, starship, fnm
 │       │   ├── 05-compinit.zsh      # Zsh completion
-│       │   ├── 10-ai-functions.zsh  # AI shell functions
+│       │   ├── 10-ai-claude.zsh     # Claude wrapper + provider config
+│       │   ├── 11-ai-others.zsh     # Codex / Gemini / Qwen wrappers
 │       │   ├── 20-settings.zsh      # Zsh options
 │       │   ├── 25-fzf.zsh           # fzf keybindings
 │       │   ├── 30-aliases.zsh       # Git & system aliases
@@ -113,7 +114,8 @@ Load order: `dot_zshrc` → `dot_config/zsh/rc.d/*.zsh` (00-99)
 |--------|---------|
 | `00-init.zsh` | evalcache, starship, fnm |
 | `05-compinit.zsh` | Zsh completion initialization |
-| `10-ai-functions.zsh` | Gemini, Claude, Codex CLI wrappers |
+| `10-ai-claude.zsh` | Claude wrapper + provider TOML loader + completions |
+| `11-ai-others.zsh` | Codex / Gemini / Qwen CLI wrappers |
 | `20-settings.zsh` | Zsh options (hist, completion) |
 | `25-fzf.zsh` | fzf keybindings & preview |
 | `30-aliases.zsh` | Git aliases, system shortcuts |

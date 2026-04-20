@@ -44,7 +44,8 @@ Modular structure loaded by `dot_zshrc` → `dot_config/zsh/rc.d/` in numeric or
 | File | Purpose |
 |------|---------|
 | `00-init.zsh` | Tool init: evalcache, starship prompt, fnm (Node.js) |
-| `10-ai-functions.zsh` | Shell functions for AI providers (Gemini, Claude, etc.) |
+| `10-ai-claude.zsh` | Claude wrapper, provider TOML loader, completions |
+| `11-ai-others.zsh` | Codex / Gemini / Qwen CLI wrappers |
 | `20-settings.zsh` | Zsh options and behavior |
 | `25-fzf.zsh` | fzf keybindings and preview config |
 | `30-aliases.zsh` | Git and system aliases |
