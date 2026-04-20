@@ -6,3 +6,4 @@ Brewfile
 bin
 CLAUDE.md
 .zshrc.local
+.git-agent
