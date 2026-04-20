@@ -89,16 +89,9 @@ opus_model = "qwen3-max-preview"
 [provider.cliproxyapi-glm]
 url = "http://${CLIPROXYAPI_HOST}:8317"
 token_var = "CLIPROXYAPI_TOKEN"
-haiku_model = "glm-4.7"
-sonnet_model = "glm-5"
-opus_model = "glm-5"
-
-[provider.cliproxyapi-glm-5]
-url = "http://${CLIPROXYAPI_HOST}:8317"
-token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "glm-5"
-sonnet_model = "glm-5"
-opus_model = "glm-5"
+sonnet_model = "glm-5.1"
+opus_model = "glm-5.1"
 
 [provider.cliproxyapi-kimi]
 url = "http://${CLIPROXYAPI_HOST}:8317"
@@ -124,6 +117,6 @@ opus_model = "ark/doubao-seed-2.0-code"
 [provider.cliproxyapi-gemini]
 url = "http://${CLIPROXYAPI_HOST}:8317"
 token_var = "CLIPROXYAPI_TOKEN"
-haiku_model = "gemini-3-flash-preview"
+haiku_model = "gemini-3.1-flash-lite-preview"
 sonnet_model = "gemini-3.1-pro-preview"
 opus_model = "gemini-3.1-pro-preview"
