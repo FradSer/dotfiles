@@ -10,7 +10,7 @@ token_var = "CODESOME_TOKEN"
 [provider.glm]
 url = "https://open.bigmodel.cn/api/anthropic"
 token_var = "GLM_TOKEN"
-haiku_model = "glm-4.7"
+haiku_model = "glm-5.1"
 sonnet_model = "glm-5.1"
 opus_model = "glm-5.1"
 extra_flags = "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
