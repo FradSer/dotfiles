@@ -82,9 +82,9 @@ opus_model = "openrouter/pony-alpha"
 [provider.cliproxyapi-qwen]
 url = "http://${CLIPROXYAPI_HOST}:8317"
 token_var = "CLIPROXYAPI_TOKEN"
-haiku_model = "qwen3-coder-next"
-sonnet_model = "qwen3.5-plus"
-opus_model = "qwen3-max-preview"
+haiku_model = "qwen3.6-flash"
+sonnet_model = "qwen3.6-plus"
+opus_model = "qwen3.6-plus"
 
 [provider.cliproxyapi-glm]
 url = "http://${CLIPROXYAPI_HOST}:8317"
