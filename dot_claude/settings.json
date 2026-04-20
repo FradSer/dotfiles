@@ -1,10 +1,13 @@
 {
+  "permissions": {
+    "defaultMode": "auto"
+  },
   "statusLine": {
     "type": "command",
     "command": "$HOME/.claude/statusline.sh"
   },
   "enabledPlugins": {
-    "context7@claude-plugins-official": true,
+    "context7@claude-plugins-official": false,
     "git@frad-dotclaude": true,
     "gitflow@frad-dotclaude": true,
     "playground@claude-plugins-official": false,
@@ -12,12 +15,12 @@
     "document-skills@anthropic-agent-skills": false,
     "github@frad-dotclaude": true,
     "exa-mcp-server@exa-mcp-server": true,
-    "impeccable@impeccable": true,
+    "impeccable@impeccable": false,
     "superpowers@frad-dotclaude": true,
     "skill-creator@claude-plugins-official": true,
     "acpx@frad-dotclaude": true,
-    "claude-md-management@claude-plugins-official": true,
-    "code-context@frad-dotclaude": true
+    "code-context@frad-dotclaude": true,
+    "codex@openai-codex": true
   },
   "extraKnownMarketplaces": {
     "impeccable": {
@@ -39,5 +42,9 @@
   "voiceEnabled": false,
   "autoMemoryEnabled": true,
   "autoDreamEnabled": true,
-  "skipDangerousModePermissionPrompt": true
+  "effortLevel": "xhigh",
+  "awaySummaryEnabled": false,
+  "skipDangerousModePermissionPrompt": true,
+  "skipAutoPermissionPrompt": true,
+  "theme": "auto"
 }
