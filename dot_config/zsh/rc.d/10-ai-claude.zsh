@@ -54,11 +54,14 @@ claude() {
     ANTHROPIC_DEFAULT_HAIKU_MODEL ANTHROPIC_DEFAULT_SONNET_MODEL ANTHROPIC_DEFAULT_OPUS_MODEL
 
   local provider="" arg candidate
+  local -i skip_perms=0
   local -a remaining=()
 
   for arg in "$@"; do
     candidate="${arg#--}"
-    if [[ "$arg" == --* && "${_CLAUDE_PROVIDER_NAMES[(Ie)$candidate]}" -gt 0 ]]; then
+    if [[ "$arg" == "--yolo" ]]; then
+      skip_perms=1
+    elif [[ "$arg" == --* && "${_CLAUDE_PROVIDER_NAMES[(Ie)$candidate]}" -gt 0 ]]; then
       provider="$candidate"
     else
       remaining+=("$arg")
@@ -86,7 +89,11 @@ claude() {
 
   _claude_sync_theme
 
-  command claude --dangerously-skip-permissions "${remaining[@]}"
+  if (( skip_perms )); then
+    command claude --dangerously-skip-permissions "${remaining[@]}"
+  else
+    command claude "${remaining[@]}"
+  fi
 
   printf '\e[>0u'
 }
@@ -226,6 +233,7 @@ _claude_completions() {
     "--help:Show help"
     "--version:Show version"
     "--model:Override model"
+    "--yolo:Enable --dangerously-skip-permissions"
     "--dangerously-skip-permissions:Skip permissions prompts"
   )
 
