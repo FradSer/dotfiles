@@ -1,30 +1,21 @@
 # Plugins
+# FPATH and _BREW_PREFIX are set up in 05-compinit.zsh (must precede compinit).
 
-# Cache brew prefix to avoid subprocess call
-local BREW_PREFIX="/opt/homebrew"
-FPATH=~/.config/zsh/completions:$BREW_PREFIX/share/zsh-completions:$FPATH
-
-# export ZSH_AUTOSUGGEST_STRATEGY=(ai history)
 export ZSH_AUTOSUGGEST_STRATEGY=(history)
-# export ZSH_AUTOSUGGEST_AI_MIN_INPUT=0
-# export ZSH_AUTOSUGGEST_AI_HISTORY_LINES=5
-# export ZSH_AUTOSUGGEST_AI_PREFER_PWD_HISTORY=yes
-# export ZSH_AUTOSUGGEST_AI_DEBUG=0
 
 # 1. Core Completion & Autosuggestions
-source ${BREW_PREFIX:-/opt/homebrew}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-# source $HOME/Developer/FradSer/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source $_BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # 2. FZF-Tab (Must be loaded after compinit and before syntax highlighting)
-source ${BREW_PREFIX:-/opt/homebrew}/opt/fzf-tab/share/fzf-tab/fzf-tab.zsh
+source $_BREW_PREFIX/opt/fzf-tab/share/fzf-tab/fzf-tab.zsh
 
 # 3. Utilities
-source ${BREW_PREFIX:-/opt/homebrew}/share/zsh-autopair/autopair.zsh
-source ${BREW_PREFIX:-/opt/homebrew}/share/zsh-you-should-use/you-should-use.plugin.zsh
+source $_BREW_PREFIX/share/zsh-autopair/autopair.zsh
+source $_BREW_PREFIX/share/zsh-you-should-use/you-should-use.plugin.zsh
 
 # 4. Visual & History (Must be loaded last)
-source ${BREW_PREFIX:-/opt/homebrew}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ${BREW_PREFIX:-/opt/homebrew}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $_BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $_BREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # --- FZF-Tab Settings ---
 # disable sort when completing `git checkout`

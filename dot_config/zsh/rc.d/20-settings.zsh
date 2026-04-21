@@ -26,15 +26,21 @@ export CDPATH=".:$HOME:$HOME/Developer:$HOME/Downloads:$HOME/Documents"
 export BAT_THEME="base16"
 
 # 2. LS_COLORS (For eza and fzf-tab)
-# Cache dircolors output (regenerate with: dircolors -b > ~/.config/zsh/.dircolors.cache)
-if [[ -f "$HOME/.config/zsh/.dircolors.cache" ]]; then
-  source "$HOME/.config/zsh/.dircolors.cache"
-elif command -v dircolors >/dev/null; then
-  if [[ -f "$HOME/.dircolors" ]]; then
-    eval "$(dircolors -b "$HOME/.dircolors")"
+# Cache dircolors output. Cache is regenerated when missing or when
+# ~/.dircolors is newer than the cache.
+() {
+  local cache="$HOME/.config/zsh/.dircolors.cache"
+  local src="$HOME/.dircolors"
+  if command -v dircolors >/dev/null; then
+    if [[ ! -f "$cache" ]] || { [[ -f "$src" ]] && [[ "$src" -nt "$cache" ]] }; then
+      if [[ -f "$src" ]]; then
+        dircolors -b "$src" > "$cache"
+      else
+        dircolors -b > "$cache"
+      fi
+    fi
+    source "$cache"
   else
-    eval "$(dircolors -b)"
+    export LSCOLORS="Gxfxcxdxbxegedabagacad"
   fi
-else
-  export LSCOLORS="Gxfxcxdxbxegedabagacad"
-fi
+}

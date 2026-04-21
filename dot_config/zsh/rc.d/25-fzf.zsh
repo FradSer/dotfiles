@@ -2,9 +2,8 @@
 # FZF Configuration - Nerd Font Pro Edition
 # ==========================================
 
-# 1. 初始化 fzf 的 Zsh 补全和快捷键绑定
-# Cache fzf init using evalcache
-if [[ -o interactive ]] && type fzf &>/dev/null; then
+# 1. 初始化 fzf 的 Zsh 补全和快捷键绑定（.zshrc 必然交互，无需额外判断）
+if type fzf &>/dev/null; then
   _evalcache fzf --zsh
 fi
 

@@ -75,7 +75,7 @@ claude() {
     [[ -n "$v" ]] && export ANTHROPIC_DEFAULT_OPUS_MODEL="$v"
 
     extra="$(_claude_provider_get "$provider" extra_flags)"
-    [[ -n "$extra" ]] && eval "export $extra"
+    [[ -n "$extra" ]] && export ${(z)extra}
   fi
 
   if (( skip_perms )); then
