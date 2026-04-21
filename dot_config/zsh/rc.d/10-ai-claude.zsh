@@ -37,15 +37,6 @@ _claude_providers_load
 
 _claude_provider_get() { print -r -- "${_CLAUDE_PROVIDERS[${1}::${2}]}" }
 
-_claude_sync_theme() {
-  local macos target current
-  macos=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
-  [[ "$macos" == "Dark" ]] && target="dark" || target="light"
-  current=$(jq -r '.theme // ""' ~/.claude.json 2>/dev/null)
-  [[ "$current" == "$target" ]] && return
-  jq --arg t "$target" '.theme = $t' ~/.claude.json > /tmp/claude-json-theme.json \
-    && mv /tmp/claude-json-theme.json ~/.claude.json
-}
 
 claude() {
   unset CLAUDE_CODE_OAUTH_TOKEN \
@@ -86,8 +77,6 @@ claude() {
     extra="$(_claude_provider_get "$provider" extra_flags)"
     [[ -n "$extra" ]] && eval "export $extra"
   fi
-
-  _claude_sync_theme
 
   if (( skip_perms )); then
     command claude --dangerously-skip-permissions "${remaining[@]}"
