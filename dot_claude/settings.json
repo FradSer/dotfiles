@@ -1,6 +1,92 @@
 {
   "permissions": {
+    "allow": [
+      "Bash(uv *)",
+      "Bash(uvx *)",
+      "Bash(python *)",
+      "Bash(python3 *)",
+      "Bash(ruff *)",
+      "Bash(black *)",
+      "Bash(mypy *)",
+      "Bash(pyright *)",
+      "Bash(pytest *)",
+      "Bash(poetry *)",
+      "Bash(pip *)",
+      "Bash(pipx *)",
+      "Bash(pnpm *)",
+      "Bash(bun *)",
+      "Bash(bunx *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(yarn *)",
+      "Bash(deno *)",
+      "Bash(node *)",
+      "Bash(tsx *)",
+      "Bash(tsc *)",
+      "Bash(biome *)",
+      "Bash(eslint *)",
+      "Bash(prettier *)",
+      "Bash(vitest *)",
+      "Bash(jest *)",
+      "Bash(turbo *)",
+      "Bash(nx *)",
+      "Bash(cargo *)",
+      "Bash(rustup *)",
+      "Bash(rustc *)",
+      "Bash(rustfmt *)",
+      "Bash(swift *)",
+      "Bash(swiftc *)",
+      "Bash(xcodebuild *)",
+      "Bash(xcrun *)",
+      "Bash(go *)",
+      "Bash(gofmt *)",
+      "Bash(make *)",
+      "Bash(just *)",
+      "Bash(cmake *)",
+      "Bash(ninja *)",
+      "Bash(gh *)",
+      "Bash(docker *)",
+      "Bash(kubectl *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(jq *)",
+      "Bash(yq *)",
+      "Bash(rg *)",
+      "Bash(fd *)",
+      "Bash(mkdir *)",
+      "Bash(touch *)",
+      "Bash(mv *)",
+      "Bash(cp *)",
+      "Bash(ln *)",
+      "Bash(chmod *)",
+      "Bash(* --version)",
+      "Bash(* --help)"
+    ],
     "defaultMode": "auto"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay -v 0.3 /System/Library/Sounds/Purr.aiff 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay -v 0.3 /System/Library/Sounds/Submarine.aiff 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
   },
   "statusLine": {
     "type": "command",
@@ -36,9 +122,16 @@
         "repo": "FradSer/dotclaude"
       },
       "autoUpdate": true
+    },
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
     }
   },
   "model": "opus",
+  "tui": "fullscreen",
   "voiceEnabled": false,
   "autoMemoryEnabled": true,
   "autoDreamEnabled": true,
@@ -46,5 +139,7 @@
   "awaySummaryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "skipAutoPermissionPrompt": true,
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true,
   "theme": "auto"
 }
