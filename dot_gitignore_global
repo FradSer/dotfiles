@@ -239,3 +239,5 @@ cookies.*
 *.rej
 *.copy
 *.merge
+
+.antigravitycli
