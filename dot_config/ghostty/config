@@ -8,6 +8,7 @@ background-blur = macos-glass-clear
 background-blur-radius = 128
 window-padding-x = 8
 window-padding-y = 8
+macos-titlebar-style = transparent
 
 # --- Window Behavior ---
 window-save-state = always
