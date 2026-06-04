@@ -80,3 +80,10 @@ alias glol="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgre
 alias gsta="git stash push"
 alias gstp="git stash pop"
 alias gstl="git stash list"
+
+# --- 4. Global Aliases (Pipeline shortcuts) ---
+alias -g H='| head'
+alias -g T='| tail'
+alias -g G='| grep'
+alias -g L='| less'
+alias -g NUL='> /dev/null 2>&1'

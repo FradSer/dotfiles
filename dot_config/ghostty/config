@@ -3,7 +3,7 @@ font-family = "Maple Mono NF CN"
 
 # --- Appearance & Theme ---
 theme = light:Apple System Colors Light,dark:Cursor Dark
-background-opacity = 0.9
+background-opacity = 0.95
 background-blur = macos-glass-clear
 background-blur-radius = 128
 window-padding-x = 8

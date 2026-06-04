@@ -4,8 +4,8 @@ export EDITOR="cot"
 
 # History Configuration
 HISTFILE=$HOME/.zsh_history
-HISTSIZE=20000
-SAVEHIST=20000
+HISTSIZE=50000
+SAVEHIST=50000
 
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
@@ -14,7 +14,8 @@ setopt HIST_SAVE_NO_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_VERIFY
 setopt SHARE_HISTORY
-setopt AUTO_CD # Enable auto cd (e.g., ../xxx -> cd ../xxx)
+setopt EXTENDED_HISTORY  # Record timestamps
+setopt AUTO_CD           # Enable auto cd (e.g., ../xxx -> cd ../xxx)
 
 # --- 1. CDPATH (Search paths for 'cd' or 'autocd') ---
 # This allows you to jump to these folders from anywhere without typing the full path

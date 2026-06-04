@@ -20,3 +20,21 @@ if [[ -n "$_zcd"(#qN.m-1) ]]; then
 else
   compinit -i -d "$_zcd"
 fi
+
+# --- Completion Behavior ---
+setopt auto_menu         # Show completion menu on successive Tab press
+setopt complete_in_word  # Complete from within a word
+setopt always_to_end     # Move cursor to end after completion
+
+# Completion caching
+zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' cache-path "$HOME/.cache/zsh/completions"
+
+# Case-insensitive + hyphen-insensitive matching
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Special directories (. and ..)
+zstyle ':completion:*' special-dirs true
+
+# SSH hosts from known_hosts
+zstyle ':completion:*:*:ssh:*:hosts' hosts ${${${(f)"$(<$HOME/.ssh/known_hosts)"}%% *}#*\]} 2>/dev/null
