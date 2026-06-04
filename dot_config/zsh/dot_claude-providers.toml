@@ -44,8 +44,8 @@ opus_model = "MiniMax/MiniMax-M2.7"
 url = "https://dashscope.aliyuncs.com/apps/anthropic"
 token_var = "ALIYUNCS_TOKEN"
 haiku_model = "qwen3.6-flash"
-sonnet_model = "qwen3.6-plus"
-opus_model = "qwen3.6-max-preview"
+sonnet_model = "qwen3.7-plus"
+opus_model = "qwen3.7-max"
 
 [provider.kimi]
 url = "https://api.kimi.com/coding"
@@ -81,8 +81,8 @@ opus_model = "openrouter/pony-alpha"
 url = "http://${CLIPROXYAPI_HOST}:8317"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "qwen3.6-flash"
-sonnet_model = "qwen3.6-plus"
-opus_model = "qwen3.6-max-preview"
+sonnet_model = "qwen3.7-plus"
+opus_model = "qwen3.7-max"
 
 [provider.cliproxyapi-glm]
 url = "http://${CLIPROXYAPI_HOST}:8317"
