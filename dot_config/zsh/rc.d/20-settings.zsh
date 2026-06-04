@@ -1,5 +1,6 @@
 # --- Identity & Profile ---
 export GITHUB_USERNAME="FradSer"
+export EDITOR="cot"
 
 # History Configuration
 HISTFILE=$HOME/.zsh_history
@@ -27,7 +28,7 @@ export BAT_THEME="base16"
 
 # 2. LS_COLORS (For eza and fzf-tab)
 # Cache dircolors output. Cache is regenerated when missing or when
-# ~/.dircolors is newer than the cache.
+# $HOME/.dircolors is newer than the cache.
 () {
   local cache="$HOME/.config/zsh/.dircolors.cache"
   local src="$HOME/.dircolors"

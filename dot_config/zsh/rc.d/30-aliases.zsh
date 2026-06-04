@@ -3,9 +3,10 @@
 # ==========================================
 
 # --- 1. System & Productivity ---
-alias reload="source ~/.zshrc"
+alias reload="source $HOME/.zshrc"
+alias esecret='${EDITOR:-vim} $HOME/.config/zsh/.secret' # Quick edit secrets/API keys
 alias p="pnpm"
-alias brewst="brew bundle --file=~/.local/share/chezmoi/Brewfile"
+alias brewst="brew bundle --file=$HOME/.local/share/chezmoi/Brewfile"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -13,9 +14,9 @@ alias grep="grep --color=auto"
 alias ip="ipconfig getifaddr en0" # macOS Quick IP
 
 # Quick Jump
-alias down="cd ~/Downloads"
-alias dev="cd ~/Developer"
-alias doc="cd ~/Documents"
+alias down="cd $HOME/Downloads"
+alias dev="cd $HOME/Developer"
+alias doc="cd $HOME/Documents"
 
 if type bat &>/dev/null; then
   alias cat="bat"

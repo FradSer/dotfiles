@@ -2,7 +2,7 @@
 # Zsh Completion System
 # ==========================================
 # FPATH must be extended BEFORE compinit runs, otherwise completions
-# from ~/.config/zsh/completions and brew's zsh-completions never load.
+# from $HOME/.config/zsh/completions and brew's zsh-completions never load.
 
 typeset -g _BREW_PREFIX="/opt/homebrew"
 typeset -U fpath  # auto-dedupe; /etc/zshrc or plugins may re-prepend
