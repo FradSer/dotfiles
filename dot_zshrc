@@ -14,4 +14,5 @@ fi
 # 3. Load machine-local overrides (not managed by chezmoi)
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
 
-. "$HOME/.local/bin/env"
+# 4. Add ~/.local/bin to PATH
+[[ -f "$HOME/.local/bin/env" ]] && source "$HOME/.local/bin/env"
