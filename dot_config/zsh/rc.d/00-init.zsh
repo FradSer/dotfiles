@@ -12,5 +12,5 @@ fi
 
 # fnm (Fast Node Manager)
 if type fnm &>/dev/null; then
-  _evalcache fnm env --use-on-cd --version-file-strategy=recursive --shell zsh
+  _evalcache fnm env --use-on-cd --version-file-strategy=recursive --resolve-engines --corepack-enabled --shell zsh
 fi
