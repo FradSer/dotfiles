@@ -138,7 +138,7 @@ if ! command -v fnm >/dev/null 2>&1; then
   exit 1
 fi
 
-eval "$(fnm env --shell zsh)"
+eval "$(fnm env --use-on-cd --version-file-strategy=recursive --resolve-engines --corepack-enabled --shell zsh)"
 
 print_step "Installing Node.js LTS..."
 fnm install --lts
@@ -220,22 +220,28 @@ else
   print_success "claude found"
 fi
 
-# Gemini CLI (npm)
-if command -v npm >/dev/null 2>&1; then
-  if npm install -g @google/gemini-cli --silent 2>/dev/null; then
+# Gemini CLI
+if ! command -v gemini >/dev/null 2>&1; then
+  print_step "Installing Gemini CLI..."
+  if curl -fsSL https://antigravity.google/cli/install.sh | bash 2>/dev/null; then
     print_success "gemini installed"
   else
     print_info "gemini-cli failed (optional, skipping)"
   fi
+else
+  print_success "gemini found"
 fi
 
-# Codex (npm)
-if command -v npm >/dev/null 2>&1; then
-  if npm install -g @openai/codex --silent 2>/dev/null; then
+# Codex
+if ! command -v codex >/dev/null 2>&1; then
+  print_step "Installing Codex..."
+  if curl -fsSL https://chatgpt.com/codex/install.sh | sh 2>/dev/null; then
     print_success "codex installed"
   else
     print_info "codex failed (optional, skipping)"
   fi
+else
+  print_success "codex found"
 fi
 
 # ==========================================
