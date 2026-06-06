@@ -11,6 +11,9 @@ if type starship &>/dev/null; then
 fi
 
 # fnm (Fast Node Manager)
+# Do NOT evalcache this: `fnm env` mints a per-shell multishell symlink, so a
+# cached copy makes every terminal share one — `fnm use` then leaks across all
+# shells. The call is ~9ms, so eval it directly.
 if type fnm &>/dev/null; then
-  _evalcache fnm env --use-on-cd --version-file-strategy=recursive --resolve-engines --corepack-enabled --shell zsh
+  eval "$(fnm env --use-on-cd --version-file-strategy=recursive --resolve-engines --corepack-enabled --shell zsh)"
 fi
