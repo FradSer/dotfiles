@@ -113,7 +113,7 @@ if [[ -z "${ANTHROPIC_BASE_URL:-}" ]]; then
   # Convert resets_at timestamp to human-readable countdown label
   _countdown_label() {
     local resets_at=$1 fallback=$2
-    if [[ -z "$resets_at" ]]; then
+    if [[ -z "$resets_at" || "$resets_at" == "-" ]]; then
       echo "$fallback"
       return
     fi
@@ -195,8 +195,8 @@ if [[ -z "${ANTHROPIC_BASE_URL:-}" ]]; then
       jq -r '[
         (.five_hour.utilization  // -1 | floor | tostring),
         (.seven_day.utilization  // -1 | floor | tostring),
-        (.five_hour.resets_at    // ""),
-        (.seven_day.resets_at    // "")
+        (.five_hour.resets_at    // "-"),
+        (.seven_day.resets_at    // "-")
       ] | @tsv' "$USAGE_CACHE" 2>/dev/null
     )"
 
