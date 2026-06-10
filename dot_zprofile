@@ -19,9 +19,10 @@ if command -v go &>/dev/null || [[ -d "$HOME/.go/bin" ]]; then
   export PATH="$GOPATH/bin:$PATH"
 fi
 
-# 4. pnpm
+# 4. pnpm (v10 legacy shims live in $PNPM_HOME, v11 moved them to $PNPM_HOME/bin)
 export PNPM_HOME="$HOME/Library/pnpm"
 [[ ":$PATH:" != *":$PNPM_HOME:"* ]] && export PATH="$PNPM_HOME:$PATH"
+[[ ":$PATH:" != *":$PNPM_HOME/bin:"* ]] && export PATH="$PNPM_HOME/bin:$PATH"
 
 # 5. Bun
 export BUN_INSTALL="$HOME/.bun"
