@@ -8,18 +8,17 @@ token_var = "CODESOME_TOKEN"
 [provider.glm]
 url = "https://open.bigmodel.cn/api/anthropic"
 token_var = "GLM_TOKEN"
-haiku_model = "glm-5.1"
-sonnet_model = "glm-5.1"
-opus_model = "glm-5.1"
+haiku_model = "glm-5.2"
+sonnet_model = "glm-5.2"
+opus_model = "glm-5.2"
 extra_flags = "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
 
 [provider.z]
 url = "https://api.z.ai/api/anthropic"
 token_var = "GLM_TOKEN"
-haiku_model = "glm-4.7"
-sonnet_model = "glm-5.1"
-opus_model = "glm-5.1 "
-extra_flags = "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
+haiku_model = "glm-5.2"
+sonnet_model = "glm-5.2"
+opus_model = "glm-5.2"
 
 [provider.anyrouter]
 url = "https://anyrouter.top"
@@ -87,16 +86,16 @@ opus_model = "qwen3.7-max"
 [provider.cliproxyapi-glm]
 url = "http://${CLIPROXYAPI_HOST}:8317"
 token_var = "CLIPROXYAPI_TOKEN"
-haiku_model = "glm-5"
-sonnet_model = "glm-5.1"
-opus_model = "glm-5.1"
+haiku_model = "glm-5.2"
+sonnet_model = "glm-5.2"
+opus_model = "glm-5.2"
 
 [provider.cliproxyapi-kimi]
 url = "http://${CLIPROXYAPI_HOST}:8317"
 token_var = "CLIPROXYAPI_TOKEN"
-haiku_model = "kimi-k2.5"
-sonnet_model = "kimi-k2.5"
-opus_model = "kimi-k2.5"
+haiku_model = "kimi/kimi-k2.7-code"
+sonnet_model = "kimi/kimi-k2.7-code"
+opus_model = "kimi/kimi-k2.7-code"
 
 [provider.cliproxyapi-minimax]
 url = "http://${CLIPROXYAPI_HOST}:8317"
