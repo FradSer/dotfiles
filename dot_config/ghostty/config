@@ -19,7 +19,7 @@ quit-after-last-window-closed = true
 # --- Cursor ---
 cursor-style = block
 cursor-style-blink = true
-cursor-opacity = 0.8
+cursor-opacity = 1
 
 # --- Mouse & Clipboard ---
 mouse-hide-while-typing = true
@@ -35,6 +35,7 @@ quick-terminal-animation-duration = 0.15
 
 # --- Shell Integration & Execution ---
 shell-integration = zsh
+shell-integration-features = no-cursor
 notify-on-command-finish = always
 
 # --- Performance ---
