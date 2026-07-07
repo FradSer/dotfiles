@@ -128,19 +128,16 @@ if [[ -z "${ANTHROPIC_BASE_URL:-}" ]]; then
       return
     fi
     local secs_left=$(( resets_epoch - $(date +%s) ))
+    # Single largest unit, round-half-up, promoting on overflow so boundary
+    # artifacts like 60m / 24h never surface (e.g. 59m30s -> 1h, 6d12h -> 7d).
     if [[ $secs_left -le 60 ]]; then
       echo "now"
-    elif [[ $secs_left -lt 3600 ]]; then
-      echo "$(( (secs_left + 30) / 60 ))m"
-    elif [[ $secs_left -lt 86400 ]]; then
-      echo "$(( secs_left / 3600 ))h"
     else
-      local days=$(( secs_left / 86400 ))
-      local hours=$(( (secs_left % 86400) / 3600 ))
-      if [[ $hours -gt 0 ]]; then
-        echo "${days}d${hours}h"
-      else
-        echo "${days}d"
+      local mins=$(( (secs_left + 30) / 60 ))
+      local hrs=$(( (secs_left + 1800) / 3600 ))
+      if   [[ $mins -lt 60 ]]; then echo "${mins}m"
+      elif [[ $hrs  -lt 24 ]]; then echo "${hrs}h"
+      else                          echo "$(( (secs_left + 43200) / 86400 ))d"
       fi
     fi
   }
