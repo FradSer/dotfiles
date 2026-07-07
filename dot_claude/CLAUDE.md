@@ -22,6 +22,7 @@ ALWAYS use the `AskUserQuestion` tool when you need to ask the user a question. 
 - Match complexity to actual scale — 2 variants = if/switch, not an abstraction layer
 - Web search for latest best practices before planning and implementing
 - Verify your own work: run tests and typecheck after completing changes
+- Fresh-agent audit for multi-file or core-logic changes: after self-verification, spawn a new agent with no implementation context to audit correctness. Skip for one-line config, copy, or rename edits.
 
 ## Code Quality
 
