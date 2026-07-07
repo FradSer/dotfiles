@@ -135,7 +135,13 @@ if [[ -z "${ANTHROPIC_BASE_URL:-}" ]]; then
     elif [[ $secs_left -lt 86400 ]]; then
       echo "$(( secs_left / 3600 ))h"
     else
-      echo "$(( secs_left / 86400 ))d"
+      local days=$(( secs_left / 86400 ))
+      local hours=$(( (secs_left % 86400) / 3600 ))
+      if [[ $hours -gt 0 ]]; then
+        echo "${days}d${hours}h"
+      else
+        echo "${days}d"
+      fi
     fi
   }
 
