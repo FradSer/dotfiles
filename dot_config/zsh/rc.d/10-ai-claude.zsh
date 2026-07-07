@@ -45,7 +45,8 @@ claude() {
   unset CLAUDE_CODE_OAUTH_TOKEN \
     ANTHROPIC_BASE_URL ANTHROPIC_AUTH_TOKEN ANTHROPIC_API_KEY \
     CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC \
-    ANTHROPIC_DEFAULT_HAIKU_MODEL ANTHROPIC_DEFAULT_SONNET_MODEL ANTHROPIC_DEFAULT_OPUS_MODEL
+    ANTHROPIC_DEFAULT_HAIKU_MODEL ANTHROPIC_DEFAULT_SONNET_MODEL ANTHROPIC_DEFAULT_OPUS_MODEL \
+    ANTHROPIC_DEFAULT_FABLE_MODEL
 
   local provider="" arg candidate
   local -i skip_perms=0
@@ -76,6 +77,8 @@ claude() {
     [[ -n "$v" ]] && export ANTHROPIC_DEFAULT_SONNET_MODEL="$v"
     v="$(_claude_provider_get "$provider" opus_model)"
     [[ -n "$v" ]] && export ANTHROPIC_DEFAULT_OPUS_MODEL="$v"
+    v="$(_claude_provider_get "$provider" fable_model)"
+    [[ -n "$v" ]] && export ANTHROPIC_DEFAULT_FABLE_MODEL="$v"
 
     extra="$(_claude_provider_get "$provider" extra_flags)"
     [[ -n "$extra" ]] && export ${(z)extra}
@@ -101,9 +104,10 @@ claude-provider() {
       local name
       for name in "${_CLAUDE_PROVIDER_NAMES[@]}"; do
         printf "  --%-35s  %s\n" "$name" "$(_claude_provider_get "$name" url)"
-        printf "    Token: %s  |  Haiku: %s\n" \
+        printf "    Token: %s  |  Haiku: %s  |  Fable: %s\n" \
           "$(_claude_provider_get "$name" token_var)" \
-          "$(_claude_provider_get "$name" haiku_model)"
+          "$(_claude_provider_get "$name" haiku_model)" \
+          "$(_claude_provider_get "$name" fable_model)"
       done
       ;;
 
@@ -121,21 +125,25 @@ claude-provider() {
 
       echo "Adding new provider: $name"
       echo ""
-      local url token haiku sonnet opus
+      local url token haiku sonnet opus fable
       read "url?URL: "
       read "token?Token variable (default CLIPROXYAPI_TOKEN): "
       token="${token:-CLIPROXYAPI_TOKEN}"
       read "haiku?Haiku model: "
       read "sonnet?Sonnet model: "
       read "opus?Opus model: "
+      read "fable?Fable model (optional): "
 
       if [[ -z "$url" || -z "$haiku" || -z "$sonnet" || -z "$opus" ]]; then
-        echo "Error: URL and all model fields are required!"
+        echo "Error: URL and haiku/sonnet/opus model fields are required!"
         return 1
       fi
 
-      printf '\n[provider.%s]\nurl = "%s"\ntoken_var = "%s"\nhaiku_model = "%s"\nsonnet_model = "%s"\nopus_model = "%s"\n' \
-        "$name" "$url" "$token" "$haiku" "$sonnet" "$opus" >> "$toml"
+      {
+        printf '\n[provider.%s]\nurl = "%s"\ntoken_var = "%s"\nhaiku_model = "%s"\nsonnet_model = "%s"\nopus_model = "%s"\n' \
+          "$name" "$url" "$token" "$haiku" "$sonnet" "$opus"
+        [[ -n "$fable" ]] && printf 'fable_model = "%s"\n' "$fable"
+      } >> "$toml"
 
       _claude_providers_load
       echo ""
@@ -182,6 +190,9 @@ claude-provider() {
       echo "Haiku:      $(_claude_provider_get "$name" haiku_model)"
       echo "Sonnet:     $(_claude_provider_get "$name" sonnet_model)"
       echo "Opus:       $(_claude_provider_get "$name" opus_model)"
+      local fable_val
+      fable_val="$(_claude_provider_get "$name" fable_model)"
+      [[ -n "$fable_val" ]] && echo "Fable:      $fable_val"
       ;;
 
     help|-h|--help)

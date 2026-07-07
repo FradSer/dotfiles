@@ -4,6 +4,7 @@
 [provider.codesome]
 url = "https://cc.codesome.ai"
 token_var = "CODESOME_TOKEN"
+fable_model = "claude-fable-5"
 
 [provider.glm]
 url = "https://open.bigmodel.cn/api/anthropic"
@@ -11,6 +12,7 @@ token_var = "GLM_TOKEN"
 haiku_model = "glm-5.2"
 sonnet_model = "glm-5.2"
 opus_model = "glm-5.2"
+fable_model = "glm-5.2"
 extra_flags = "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
 
 [provider.z]
@@ -19,18 +21,22 @@ token_var = "GLM_TOKEN"
 haiku_model = "glm-5.2"
 sonnet_model = "glm-5.2"
 opus_model = "glm-5.2"
+fable_model = "glm-5.2"
 
 [provider.anyrouter]
 url = "https://anyrouter.top"
 token_var = "ANYROUTER_TOKEN"
+fable_model = "claude-fable-5"
 
 [provider.anyrouter-cn]
 url = "https://pmpjfbhq.cn-nb1.rainapp.top"
 token_var = "ANYROUTER_TOKEN"
+fable_model = "claude-fable-5"
 
 [provider.moonshot]
 url = "https://api.moonshot.cn/anthropic"
 token_var = "MOONSHOT_TOKEN"
+fable_model = "claude-fable-5"
 
 [provider.modelscope]
 url = "https://api-inference.modelscope.cn"
@@ -38,6 +44,7 @@ token_var = "MODELSCOPE_TOKEN"
 haiku_model = "MiniMax/MiniMax-M2.7"
 sonnet_model = "MiniMax/MiniMax-M2.7"
 opus_model = "MiniMax/MiniMax-M2.7"
+fable_model = "MiniMax/MiniMax-M2.7"
 
 [provider.aliyuncs]
 url = "https://dashscope.aliyuncs.com/apps/anthropic"
@@ -45,6 +52,7 @@ token_var = "ALIYUNCS_TOKEN"
 haiku_model = "qwen3.6-flash"
 sonnet_model = "qwen3.7-plus"
 opus_model = "qwen3.7-max"
+fable_model = "qwen3.7-max"
 
 [provider.kimi]
 url = "https://api.kimi.com/coding"
@@ -52,6 +60,7 @@ token_var = "KIMI_TOKEN"
 haiku_model = "kimi-for-coding"
 sonnet_model = "kimi-for-coding"
 opus_model = "kimi-for-coding"
+fable_model = "kimi-for-coding"
 
 [provider.zenmux]
 url = "https://zenmux.ai/api/anthropic"
@@ -59,6 +68,7 @@ token_var = "ZENMUX_TOKEN"
 haiku_model = "z-ai/glm-4.6v-flash"
 sonnet_model = "kuaishou/kat-coder-pro-v1"
 opus_model = "google/gemini-3-pro-preview"
+fable_model = "google/gemini-3-pro-preview"
 extra_flags = "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
 
 [provider.tu-zi]
@@ -67,6 +77,7 @@ token_var = "TU_ZI_TOKEN"
 haiku_model = "gemini-2.5-flash"
 sonnet_model = "gemini-3-pro-preview"
 opus_model = "gemini-3-pro-preview"
+fable_model = "gemini-3-pro-preview"
 extra_flags = "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
 
 [provider.openrouter]
@@ -75,6 +86,7 @@ token_var = "OPENROUTER_TOKEN"
 haiku_model = "openrouter/pony-alpha"
 sonnet_model = "openrouter/pony-alpha"
 opus_model = "openrouter/pony-alpha"
+fable_model = "openrouter/pony-alpha"
 
 [provider.cliproxyapi-qwen]
 url = "http://${CLIPROXYAPI_HOST}:8317"
@@ -82,6 +94,7 @@ token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "qwen3.6-flash"
 sonnet_model = "qwen3.7-plus"
 opus_model = "qwen3.7-max"
+fable_model = "qwen3.7-max"
 
 [provider.cliproxyapi-glm]
 url = "http://${CLIPROXYAPI_HOST}:8317"
@@ -89,6 +102,7 @@ token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "glm-5.2"
 sonnet_model = "glm-5.2"
 opus_model = "glm-5.2"
+fable_model = "glm-5.2"
 
 [provider.cliproxyapi-kimi]
 url = "http://${CLIPROXYAPI_HOST}:8317"
@@ -96,6 +110,7 @@ token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "kimi/kimi-k2.7-code"
 sonnet_model = "kimi/kimi-k2.7-code"
 opus_model = "kimi/kimi-k2.7-code"
+fable_model = "kimi/kimi-k2.7-code"
 
 [provider.cliproxyapi-minimax]
 url = "http://${CLIPROXYAPI_HOST}:8317"
@@ -103,6 +118,7 @@ token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "MiniMax/MiniMax-M2.5"
 sonnet_model = "MiniMax/MiniMax-M2.5"
 opus_model = "MiniMax/MiniMax-M2.5"
+fable_model = "MiniMax/MiniMax-M2.5"
 
 [provider.cliproxyapi-doubao]
 url = "http://${CLIPROXYAPI_HOST}:8317"
@@ -110,6 +126,7 @@ token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "ark/doubao-seed-2.0-code"
 sonnet_model = "ark/doubao-seed-2.0-code"
 opus_model = "ark/doubao-seed-2.0-code"
+fable_model = "ark/doubao-seed-2.0-code"
 
 [provider.cliproxyapi-gemini]
 url = "http://${CLIPROXYAPI_HOST}:8317"
@@ -117,6 +134,7 @@ token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "gemini-3.1-flash-lite-preview"
 sonnet_model = "gemini-3.1-pro-preview"
 opus_model = "gemini-3.1-pro-preview"
+fable_model = "gemini-3.1-pro-preview"
 
 [provider.xiaomi]
 url = "https://token-plan-cn.xiaomimimo.com/anthropic"
@@ -124,3 +142,4 @@ token_var = "XIAOMI_TOKEN"
 haiku_model = "mimo-v2.5-pro"
 sonnet_model = "mimo-v2.5-pro"
 opus_model = "mimo-v2.5-pro"
+fable_model = "mimo-v2.5-pro"
