@@ -16,3 +16,6 @@ fi
 
 # 4. Add ~/.local/bin to PATH
 [[ -f "$HOME/.local/bin/env" ]] && source "$HOME/.local/bin/env"
+
+# Load event sync config from env vars
+[ -f "$HOME/.config/event-sync/env.sh" ] && source "$HOME/.config/event-sync/env.sh"
