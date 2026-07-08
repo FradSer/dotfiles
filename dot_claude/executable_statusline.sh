@@ -76,12 +76,16 @@ if git -C "$current_dir" rev-parse --git-dir >/dev/null 2>&1; then
 
   git_flags=""
   git_status_output=$(git -C "$current_dir" status --porcelain 2>/dev/null)
-  # Order mirrors starship git_status defaults: $!+?  then ahead_behind
-  git -C "$current_dir" rev-parse --verify refs/stash >/dev/null 2>&1 && git_flags="${git_flags}\$"
-  echo "$git_status_output" | grep -q "^.[MD]" && git_flags="${git_flags}!"  # unstaged modified/deleted
-  echo "$git_status_output" | grep -q "^[UAD][UAD]" && git_flags="${git_flags}="  # unmerged/conflict
-  echo "$git_status_output" | grep -q "^[AMDRC]" && git_flags="${git_flags}+"  # staged
-  echo "$git_status_output" | grep -q "^??" && git_flags="${git_flags}?"
+  # Order mirrors starship git_status defaults: conflicted stashed deleted renamed modified staged untracked, then ahead_behind
+  conflict_re='^(DD|AU|UD|UA|DU|AA|UU)'
+  echo "$git_status_output" | grep -qE "$conflict_re" && git_flags="${git_flags}="  # conflicted
+  git -C "$current_dir" rev-parse --verify refs/stash >/dev/null 2>&1 && git_flags="${git_flags}\$"  # stashed
+  tracked=$(echo "$git_status_output" | grep -vE "$conflict_re")
+  echo "$tracked" | grep -qE "^(D.|.D)" && git_flags="${git_flags}✘"  # deleted (index or worktree)
+  echo "$tracked" | grep -qE "^(R.|.R)" && git_flags="${git_flags}»"  # renamed (index or worktree)
+  echo "$tracked" | grep -qE "^.[MT]" && git_flags="${git_flags}!"  # modified/typechange (worktree)
+  echo "$tracked" | grep -qE "^[MAT]" && git_flags="${git_flags}+"  # staged (index add/modify/typechange)
+  echo "$git_status_output" | grep -q "^??" && git_flags="${git_flags}?"  # untracked
   ahead_behind=$(git -C "$current_dir" rev-list --left-right --count @{upstream}...HEAD 2>/dev/null)
   if [[ -n "$ahead_behind" ]]; then
     behind=$(echo "$ahead_behind" | awk '{print $1}')
