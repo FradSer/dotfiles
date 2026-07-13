@@ -227,26 +227,37 @@ EOF
 alias cpf='claude-provider'
 
 _claude_completions() {
-  local -a providers options
+  local -a providers options subcommands
   local name
   for name in "${_CLAUDE_PROVIDER_NAMES[@]}"; do
-    providers+=("--${name}:Use the ${name} provider")
+    providers+=("--${name}[Use the ${name} provider]")
   done
   options=(
-    "--help:Show help"
-    "--version:Show version"
-    "--model:Override model"
-    "--yolo:Enable --dangerously-skip-permissions"
-    "--dangerously-skip-permissions:Skip permissions prompts"
+    "--help[Show help]"
+    "--version[Show version]"
+    "--model[Override model]:model:"
+    "--yolo[Enable --dangerously-skip-permissions]"
+    "--dangerously-skip-permissions[Skip permission prompts]"
+  )
+  subcommands=(
+    "agents[Manage background agents]"
+    "auth[Manage authentication]"
+    "doctor[Check installation health]"
+    "mcp[Configure MCP servers]"
+    "plugin[Manage plugins]"
+    "install[Install native build]"
+    "update[Check for updates]"
+    "ultrareview[Run cloud code review]"
   )
 
-  _arguments -C '*: :->args'
+  _arguments -C \
+    $providers \
+    $options \
+    '1: :->subcmd' \
+    '*: :->args'
   case $state in
-    args)
-      _describe -t providers "provider" providers
-      _describe -t options "option" options
-      _files
-      ;;
+    subcmd) _describe -t commands 'command' subcommands ;;
+    args) _files ;;
   esac
 }
 
