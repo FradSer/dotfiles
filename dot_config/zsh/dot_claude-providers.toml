@@ -99,7 +99,7 @@ token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "glm-5.2"
 sonnet_model = "glm-5.2"
 opus_model = "glm-5.2"
-fable_model = "glm-5.2-fast-preview""
+fable_model = "glm-5.2-fast-preview"
 
 [provider.cliproxyapi-glm-fast]
 url = "http://${CLIPROXYAPI_HOST}:8317"
