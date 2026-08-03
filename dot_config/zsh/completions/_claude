@@ -1,0 +1,49 @@
+#compdef claude
+
+# Completion for the claude wrapper (provider selection + native subcommands).
+# Autoloaded by compinit via fpath — works regardless of compdef timing.
+
+typeset -ga _CLAUDE_PROVIDER_NAMES
+if [[ -f "${HOME}/.config/zsh/.claude-providers.toml" ]]; then
+  local line name
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    [[ "$line" =~ '^\[provider\.([^]]+)\]$' ]] && _CLAUDE_PROVIDER_NAMES+=("${match[1]}")
+  done < "${HOME}/.config/zsh/.claude-providers.toml"
+fi
+
+local -a providers options subcommands
+local name
+
+for name in "${_CLAUDE_PROVIDER_NAMES[@]}"; do
+  providers+=("--${name}[Use the ${name} provider]")
+done
+
+options=(
+  "--help[Show help]"
+  "--version[Show version]"
+  "--model[Override model]:model:"
+  "--yolo[Enable --dangerously-skip-permissions]"
+  "--dangerously-skip-permissions[Skip permission prompts]"
+)
+
+subcommands=(
+  "agents[Manage background agents]"
+  "auth[Manage authentication]"
+  "doctor[Check installation health]"
+  "mcp[Configure MCP servers]"
+  "plugin[Manage plugins]"
+  "install[Install native build]"
+  "update[Check for updates]"
+  "ultrareview[Run cloud code review]"
+)
+
+_arguments -s -S -C \
+  "${providers[@]}" \
+  "${options[@]}" \
+  "1: :->subcmd" \
+  "*: :->args" && return 0
+
+case $state in
+  subcmd) _describe -t commands 'command' subcommands ;;
+  args) _files ;;
+esac

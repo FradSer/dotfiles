@@ -1,0 +1,41 @@
+#compdef claude-provider
+
+# Completion for the claude-provider management command.
+# Autoloaded by compinit via fpath.
+
+typeset -ga _CLAUDE_PROVIDER_NAMES
+if [[ -f "${HOME}/.config/zsh/.claude-providers.toml" ]]; then
+  local line name
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    [[ "$line" =~ '^\[provider\.([^]]+)\]$' ]] && _CLAUDE_PROVIDER_NAMES+=("${match[1]}")
+  done < "${HOME}/.config/zsh/.claude-providers.toml"
+fi
+
+local -a commands providers
+commands=(
+  'list:List all available providers'
+  'add:Add a new provider'
+  'remove:Remove a provider'
+  'show:Show details of a provider'
+  'help:Show help message'
+)
+
+for name in "${_CLAUDE_PROVIDER_NAMES[@]}"; do
+  providers+=("${name}:Provider")
+done
+
+_arguments -C \
+  '1: :->command' \
+  '2: :->provider' && return 0
+
+case $state in
+  command)
+    _describe 'command' commands
+    ;;
+  provider)
+    case "${words[2]}" in
+      remove|show) _describe 'provider' providers ;;
+      *) _message 'provider name' ;;
+    esac
+    ;;
+esac
