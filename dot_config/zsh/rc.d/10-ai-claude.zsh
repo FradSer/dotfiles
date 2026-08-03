@@ -122,10 +122,14 @@ claude() {
 }
 
 claude-provider() {
-  local action="${1:-list}"
+  local action="${1:-tui}"
   local toml="$CLAUDE_PROVIDERS_FILE"
 
   case "$action" in
+    tui)
+      _claude_provider_tui
+      ;;
+
     list|ls)
       echo "Available providers:"
       echo ""
@@ -142,70 +146,11 @@ claude-provider() {
       ;;
 
     add)
-      local name="$2"
-      if [[ -z "$name" ]]; then
-        echo "Usage: claude-provider add <name>"
-        echo "Example: claude-provider add cliproxyapi-deepseek"
-        return 1
-      fi
-      if grep -q "^\[provider\.${name}\]" "$toml" 2>/dev/null; then
-        echo "Error: Provider '$name' already exists in TOML!"
-        return 1
-      fi
-
-      echo "Adding new provider: $name"
-      echo ""
-      local url token key haiku sonnet opus fable
-      read "url?URL: "
-      read "token?Token variable (default CLIPROXYAPI_TOKEN, ignored if key set): "
-      read "key?Inline API key (optional, takes precedence over token variable): "
-      token="${token:-CLIPROXYAPI_TOKEN}"
-      read "haiku?Haiku model: "
-      read "sonnet?Sonnet model: "
-      read "opus?Opus model: "
-      read "fable?Fable model (optional): "
-
-      if [[ -z "$url" || -z "$haiku" || -z "$sonnet" || -z "$opus" ]]; then
-        echo "Error: URL and haiku/sonnet/opus model fields are required!"
-        return 1
-      fi
-
-      {
-        printf '\n[provider.%s]\nurl = "%s"\n' "$name" "$url"
-        if [[ -n "$key" ]]; then
-          printf 'key = "%s"\n' "$key"
-        else
-          printf 'token_var = "%s"\n' "$token"
-        fi
-        printf 'haiku_model = "%s"\nsonnet_model = "%s"\nopus_model = "%s"\n' "$haiku" "$sonnet" "$opus"
-        [[ -n "$fable" ]] && printf 'fable_model = "%s"\n' "$fable"
-      } >> "$toml"
-
-      _claude_providers_load
-      echo ""
-      echo "Provider '$name' added!"
-      echo "Use: claude --${name} <prompt>"
+      _claude_provider_add "$2"
       ;;
 
     remove|rm)
-      local name="$2"
-      if [[ -z "$name" ]]; then
-        echo "Usage: claude-provider remove <name>"
-        return 1
-      fi
-      if ! grep -q "^\[provider\.${name}\]" "$toml" 2>/dev/null; then
-        echo "Error: Provider '$name' not found in TOML!"
-        return 1
-      fi
-
-      local tmp="${toml}.tmp"
-      awk -v target="[provider.${name}]" '
-        /^\[/ { in_sec = ($0 == target) }
-        !in_sec { print }
-      ' "$toml" > "$tmp" && mv "$tmp" "$toml"
-
-      _claude_providers_load
-      echo "Provider '$name' removed!"
+      _claude_provider_remove "$2"
       ;;
 
     show|info)
@@ -241,16 +186,21 @@ claude-provider() {
       cat <<'EOF'
 claude-provider - Interactive Claude provider management
 
-Usage: claude-provider <command> [options]
+Usage: claude-provider [command] [options]
 
 Commands:
+  (no args)             TUI mode (fzf): browse, view, edit, delete providers
   list, ls              List all available providers
   add <name>            Add a new provider to TOML
   remove <name>         Remove a provider from TOML
   show <name>           Show details of a provider
   help                  Show this help message
 
+TUI mode requires fzf and opens a picker with a live preview of each
+provider's TOML section; select one to view, edit, or delete it.
+
 Examples:
+  claude-provider
   claude-provider list
   claude-provider add cliproxyapi-deepseek
   claude-provider show cliproxyapi-qwen
@@ -264,6 +214,214 @@ EOF
       return 1
       ;;
   esac
+}
+
+# TUI helpers — require fzf
+_claude_provider_tui() {
+  (( $+commands[fzf] )) || {
+    echo "Error: TUI mode requires fzf (brew install fzf)"
+    return 1
+  }
+  [[ -t 1 ]] || {
+    echo "Error: TUI mode requires an interactive terminal — use 'claude-provider list'"
+    return 1
+  }
+
+  local toml="$CLAUDE_PROVIDERS_FILE"
+  local preview="printf '[{1}]\n'; sed -n '/^\\[provider.{1}]/,/^\\[/p' '$toml' | grep -v '^\\['"
+  local -a items
+  local n sel
+
+  while true; do
+    items=()
+    for n in "${_CLAUDE_PROVIDER_NAMES[@]}"; do
+      items+=("$(printf -- '%-22s%s' "$n" "$(_claude_provider_get "$n" url)")")
+    done
+    items+=("+ add new provider")
+
+    sel="$(print -l -- "${items[@]}" \
+      | fzf --prompt 'provider> ' --preview "$preview" --preview-window=right:60%)" || return 0
+
+    if [[ "$sel" == "+ add new provider" ]]; then
+      _claude_provider_add
+      continue
+    fi
+
+    _claude_provider_manage "${sel%% *}"
+  done
+}
+
+# Manage a single provider: show full config, loop until back/delete/ESC.
+_claude_provider_manage() {
+  local name="$1" action
+  while true; do
+    action="$(_claude_provider_menu "$name")" || return 0
+    case "$action" in
+      edit)
+        _claude_provider_edit "$name"
+        ;;
+      delete)
+        _claude_provider_remove_confirm "$name" && return 0
+        ;;
+      *) return 0 ;;
+    esac
+  done
+}
+
+_claude_provider_menu() {
+  local name="$1"
+
+  # UI details go to stderr — stdout is reserved for the fzf selection,
+  # which is captured by the caller via $(...).
+  {
+    clear
+    print -r -- "Provider: $name"
+    print -r -- "===================="
+    print -r -- "URL:          $(_claude_provider_get "$name" url)"
+    local key_val
+    key_val="$(_claude_provider_get "$name" key)"
+    if [[ -n "$key_val" ]]; then
+      print -r -- "Key:          ${key_val:0:6}... (inline)"
+    else
+      print -r -- "Token var:    $(_claude_provider_get "$name" token_var)"
+    fi
+    print -r -- "Haiku:        $(_claude_provider_get "$name" haiku_model)"
+    print -r -- "Sonnet:       $(_claude_provider_get "$name" sonnet_model)"
+    print -r -- "Opus:         $(_claude_provider_get "$name" opus_model)"
+    print -r -- "Fable:        $(_claude_provider_get "$name" fable_model)"
+    print -r -- "Extra flags:  $(_claude_provider_get "$name" extra_flags)"
+    print -r -- ""
+  } >&2
+
+  print -l "edit" "delete" "back" \
+    | fzf --prompt 'action> ' --height=5 --reverse
+}
+
+_claude_provider_edit() {
+  local name="$1"
+  local toml="$CLAUDE_PROVIDERS_FILE"
+  local field current newval
+
+  field="$(print -l url token_var key haiku_model sonnet_model opus_model fable_model extra_flags \
+    | fzf --prompt 'field> ' --height=9 --reverse)" || return 1
+
+  current="$(_claude_provider_get "$name" "$field")"
+  if [[ "$field" == "key" && -n "$current" ]]; then
+    print -r -- "Current key: ${current:0:6}... (inline)"
+  else
+    print -r -- "Current ${field}: ${current:-<empty>}"
+  fi
+  newval=""
+  vared -p "New ${field} (empty to cancel) > " newval || return 1
+  [[ -z "$newval" ]] && return 1
+  [[ "$newval" == "$current" ]] && { echo "Unchanged."; return 1 }
+
+  local tmp="${toml}.tmp"
+  cp "$toml" "${toml}.bak"
+  awk -v sec="[provider.${name}]" -v key="$field" -v val="$newval" '
+    /^\[/ { in_sec = ($0 == sec) }
+    in_sec && $0 ~ ("^" key "[[:space:]]*=") { print key " = \"" val "\""; next }
+    { print }
+  ' "$toml" > "$tmp"
+
+  if cmp -s "$tmp" "$toml"; then
+    rm -f "$tmp" "${toml}.bak"
+    echo "Error: field '$field' not found in provider '$name'"
+    return 1
+  fi
+  mv "$tmp" "$toml"
+
+  if ! python3 -c 'import tomllib,sys; tomllib.load(open(sys.argv[1],"rb"))' "$toml" 2>/dev/null; then
+    mv "${toml}.bak" "$toml"
+    echo "Error: edit produced invalid TOML — reverted"
+    return 1
+  fi
+  rm -f "${toml}.bak"
+
+  _claude_providers_load
+  echo "Updated $name.$field"
+}
+
+_claude_provider_remove() {
+  local name="$1"
+  local toml="$CLAUDE_PROVIDERS_FILE"
+  if [[ -z "$name" ]]; then
+    echo "Usage: claude-provider remove <name>"
+    return 1
+  fi
+  if ! grep -q "^\[provider\.${name}\]" "$toml" 2>/dev/null; then
+    echo "Error: Provider '$name' not found in TOML!"
+    return 1
+  fi
+
+  local tmp="${toml}.tmp"
+  awk -v target="[provider.${name}]" '
+    /^\[/ { in_sec = ($0 == target) }
+    !in_sec { print }
+  ' "$toml" > "$tmp" && mv "$tmp" "$toml"
+
+  _claude_providers_load
+  echo "Provider '$name' removed!"
+}
+
+_claude_provider_remove_confirm() {
+  local name="$1" ans
+  read "ans?Delete provider '$name'? [y/N]: "
+  if [[ "$ans" == "y" || "$ans" == "Y" ]]; then
+    _claude_provider_remove "$name"
+  else
+    echo "Cancelled."
+  fi
+}
+
+_claude_provider_add() {
+  local toml="$CLAUDE_PROVIDERS_FILE"
+  local name="$1"
+
+  if [[ -z "$name" ]]; then
+    read "name?Provider name: "
+    if [[ -z "$name" ]]; then
+      echo "Aborted."
+      return 1
+    fi
+  fi
+  if grep -q "^\[provider\.${name}\]" "$toml" 2>/dev/null; then
+    echo "Error: Provider '$name' already exists in TOML!"
+    return 1
+  fi
+
+  echo "Adding new provider: $name"
+  echo ""
+  local url token key haiku sonnet opus fable
+  read "url?URL: "
+  read "token?Token variable (default CLIPROXYAPI_TOKEN, ignored if key set): "
+  read "key?Inline API key (optional, takes precedence over token variable): "
+  token="${token:-CLIPROXYAPI_TOKEN}"
+  read "haiku?Haiku model: "
+  read "sonnet?Sonnet model: "
+  read "opus?Opus model: "
+  read "fable?Fable model (optional): "
+
+  if [[ -z "$url" || -z "$haiku" || -z "$sonnet" || -z "$opus" ]]; then
+    echo "Error: URL and haiku/sonnet/opus model fields are required!"
+    return 1
+  fi
+
+  {
+    printf '\n[provider.%s]\nurl = "%s"\n' "$name" "$url"
+    if [[ -n "$key" ]]; then
+      printf 'key = "%s"\n' "$key"
+    else
+      printf 'token_var = "%s"\n' "$token"
+    fi
+    printf 'haiku_model = "%s"\nsonnet_model = "%s"\nopus_model = "%s"\n' "$haiku" "$sonnet" "$opus"
+    [[ -n "$fable" ]] && printf 'fable_model = "%s"\n' "$fable"
+  } >> "$toml"
+
+  _claude_providers_load
+  echo ""
+  echo "Provider '$name' added!"
+  echo "Use: claude --${name} <prompt>"
 }
 
 alias cpf='claude-provider'
