@@ -4,8 +4,10 @@
 [provider.codesome]
 url = "https://cc.codesome.ai"
 token_var = "CODESOME_TOKEN"
-extra_flags ="CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
-extra_flags = "CLAUDE_CODE_ATTRIBUTION_HEADER=0"
+extra_flags = [
+  "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1",
+  "CLAUDE_CODE_ATTRIBUTION_HEADER=0",
+]
 
 
 [provider.glm]
@@ -211,8 +213,10 @@ fable_model = "ark-code-latest"
 [provider.yuyu]
 url = "https://app.yylx.io"
 token_var = "YUYU_TOKEN"
-extra_flags = "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
-extra_flags = "CLAUDE_CODE_ATTRIBUTION_HEADER=0"
+extra_flags = [
+  "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1",
+  "CLAUDE_CODE_ATTRIBUTION_HEADER=0",
+]
 
 [provider.xianyu]
 url = "http://103.236.76.197:11223/anthropic"

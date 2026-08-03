@@ -21,12 +21,29 @@ _claude_providers_load() {
   _CLAUDE_PROVIDER_NAMES=()
   [[ -f "$CLAUDE_PROVIDERS_FILE" ]] || return
 
-  local line name="" field value
+  local line name="" field value elem
   while IFS= read -r line || [[ -n "$line" ]]; do
     if [[ "$line" =~ '^\[provider\.([^]]+)\]$' ]]; then
       name="${match[1]}"
       _CLAUDE_PROVIDER_NAMES+=("$name")
-    elif [[ -n "$name" && "$line" =~ '^([a-z_]+) = "(.*)"$' ]]; then
+    elif [[ -n "$name" && "$line" =~ '^([a-z_]+)[[:space:]]*=[[:space:]]*\[[[:space:]]*$' ]]; then
+      # Array value: collect quoted elements until the closing bracket.
+      field="${match[1]}"
+      value=""
+      while IFS= read -r elem || [[ -n "$elem" ]]; do
+        if [[ "$elem" =~ '^[[:space:]]*\]' ]]; then
+          break
+        elif [[ "$elem" =~ '^[[:space:]]*"(.*)"[[:space:]]*,?[[:space:]]*$' ]]; then
+          [[ -n "$value" ]] && value+=" "
+          value+="${match[1]}"
+        fi
+      done
+      if [[ "$field" == "key" ]]; then
+        _CLAUDE_PROVIDERS[${name}::${field}]="$value"
+      else
+        _CLAUDE_PROVIDERS[${name}::${field}]="${(e)value}"
+      fi
+    elif [[ -n "$name" && "$line" =~ '^([a-z_]+)[[:space:]]*=[[:space:]]*"(.*)"$' ]]; then
       field="${match[1]}"
       value="${match[2]}"
       # Inline keys are stored verbatim; other fields allow $VAR expansion.
