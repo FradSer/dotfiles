@@ -4,7 +4,9 @@
 [provider.codesome]
 url = "https://cc.codesome.ai"
 token_var = "CODESOME_TOKEN"
-fable_model = "claude-fable-5"
+extra_flags ="CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
+extra_flags = "CLAUDE_CODE_ATTRIBUTION_HEADER=0"
+
 
 [provider.glm]
 url = "https://open.bigmodel.cn/api/anthropic"
@@ -80,18 +82,18 @@ extra_flags = "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
 [provider.openrouter]
 url = "https://openrouter.ai/api"
 token_var = "OPENROUTER_TOKEN"
-haiku_model = "tencent/hy3:free"
-sonnet_model = "tencent/hy3:free"
-opus_model = "tencent/hy3:free"
-fable_model = "tencent/hy3:free"
+haiku_model = "nvidia/nemotron-3-ultra-550b-a55b:free"
+sonnet_model = "nvidia/nemotron-3-ultra-550b-a55b:free"
+opus_model = "nvidia/nemotron-3-ultra-550b-a55b:free"
+fable_model = "nvidia/nemotron-3-ultra-550b-a55b:free"
 
 [provider.cliproxyapi-qwen]
 url = "http://${CLIPROXYAPI_HOST}:8317"
 token_var = "CLIPROXYAPI_TOKEN"
-haiku_model = "qwen3.6-flash"
+haiku_model = "qwen3.7-flash"
 sonnet_model = "qwen3.7-plus"
-opus_model = "qwen3.7-max"
-fable_model = "qwen3.7-max"
+opus_model = "qwen3.8-max"
+fable_model = "qwen3.8-max"
 
 [provider.cliproxyapi-glm]
 url = "http://${CLIPROXYAPI_HOST}:8317"
@@ -112,8 +114,8 @@ fable_model = "glm-5.2-fast-preview"
 [provider.cliproxyapi-kimi]
 url = "http://${CLIPROXYAPI_HOST}:8317"
 token_var = "CLIPROXYAPI_TOKEN"
-haiku_model = "kimi/kimi-k2.7-code"
-sonnet_model = "kimi/kimi-k2.7-code"
+haiku_model = "glm-5.2-fast-preview"
+sonnet_model = "kimi/kimi-k3"
 opus_model = "kimi/kimi-k3"
 fable_model = "kimi/kimi-k3"
 
@@ -128,18 +130,18 @@ fable_model = "MiniMax/MiniMax-M2.5"
 [provider.cliproxyapi-doubao]
 url = "http://${CLIPROXYAPI_HOST}:8317"
 token_var = "CLIPROXYAPI_TOKEN"
-haiku_model = "ark/doubao-seed-2.0-code"
-sonnet_model = "ark/doubao-seed-2.0-code"
-opus_model = "ark/doubao-seed-2.0-code"
-fable_model = "ark/doubao-seed-2.0-code"
+haiku_model = "ark/doubao-seed-2-0-code"
+sonnet_model = "ark/doubao-seed-2-0-code"
+opus_model = "ark/doubao-seed-2-0-code"
+fable_model = "ark/doubao-seed-2-0-code"
 
 [provider.cliproxyapi-gemini]
 url = "http://${CLIPROXYAPI_HOST}:8317"
 token_var = "CLIPROXYAPI_TOKEN"
-haiku_model = "gemini-3.1-flash-lite-preview"
-sonnet_model = "gemini-3.1-pro-preview"
-opus_model = "gemini-3.1-pro-preview"
-fable_model = "gemini-3.1-pro-preview"
+haiku_model = "gemini-3.5-flash-lite"
+sonnet_model = "gemini-3.6-flash"
+opus_model = "gemini-3.6-flash"
+fable_model = "gemini-3.1-pro"
 
 [provider.cliproxyapi-grok]
 url = "http://${CLIPROXYAPI_HOST}:8317"
@@ -148,6 +150,23 @@ haiku_model = "grok-4.5"
 sonnet_model = "grok-4.5"
 opus_model = "grok-4.5"
 fable_model = "grok-4.5"
+
+[provider.cliproxyapi-deepseek]
+url = "http://${CLIPROXYAPI_HOST}:8317"
+token_var = "CLIPROXYAPI_TOKEN"
+haiku_model = "deepseek-v4-flash"
+sonnet_model = "deepseek-v4-flash"
+opus_model = "deepseek-v4-flash"
+fable_model = "deepseek-v4-flash"
+extra_flags = "CLAUDE_CODE_EFFORT_LEVEL=max"
+
+[provider.cliproxyapi-gpt]
+url = "http://${CLIPROXYAPI_HOST}:8317"
+token_var = "CLIPROXYAPI_TOKEN"
+haiku_model = "gpt-5.6-luna"
+sonnet_model = "gpt-5.6-terra"
+opus_model = "gpt-5.6-sol"
+fable_model = "gpt-5.6-sol"
 
 [provider.xiaomi]
 url = "https://token-plan-cn.xiaomimimo.com/anthropic"
@@ -173,6 +192,22 @@ sonnet_model = "doubao-seed-evolving"
 opus_model = "doubao-seed-evolving"
 fable_model = "doubao-seed-evolving"
 
+[provider.ark-glm]
+url = "https://ark.cn-beijing.volces.com/api/coding"
+token_var = "ARK_TOKEN"
+haiku_model = "glm-5.2"
+sonnet_model = "glm-5.2"
+opus_model = "glm-5.2"
+fable_model = "glm-5.2"
+
+[provider.ark-auto]
+url = "https://ark.cn-beijing.volces.com/api/coding"
+token_var = "ARK_TOKEN"
+haiku_model = "ark-code-latest"
+sonnet_model = "ark-code-latest"
+opus_model = "ark-code-latest"
+fable_model = "ark-code-latest"
+
 [provider.yuyu]
 url = "https://app.yylx.io"
 token_var = "YUYU_TOKEN"
@@ -187,3 +222,21 @@ sonnet_model = "kimi-k3"
 opus_model = "kimi-k3"
 fable_model = "kimi-k3"
 extra_flags = "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1"
+
+[provider.deepseek]
+url = "https://api.deepseek.com/anthropic"
+token_var = "DS_TOKEN"
+haiku_model = "deepseek-v4-flash"
+sonnet_model = "deepseek-v4-flash"
+opus_model = "deepseek-v4-flash"
+fable_model = "deepseek-v4-flash"
+extra_flags = "CLAUDE_CODE_EFFORT_LEVEL=max"
+
+[provider.deepseek-xianyu]
+url = "http://124.223.194.126:52013"
+token_var = "XIANYU_DS_TOKEN"
+haiku_model = "deepseek-v4-flash"
+sonnet_model = "deepseek-v4-flash"
+opus_model = "deepseek-v4-flash"
+fable_model = "deepseek-v4-flash"
+extra_flags = "CLAUDE_CODE_EFFORT_LEVEL=max"
