@@ -9,7 +9,6 @@ extra_flags = [
   "CLAUDE_CODE_ATTRIBUTION_HEADER=0",
 ]
 
-
 [provider.glm]
 url = "https://open.bigmodel.cn/api/anthropic"
 token_var = "GLM_TOKEN"
@@ -53,15 +52,7 @@ token_var = "ALIYUNCS_TOKEN"
 haiku_model = "qwen3.6-flash"
 sonnet_model = "qwen3.7-plus"
 opus_model = "qwen3.7-max"
-fable_model = "qwen3.7-max"
-
-[provider.kimi]
-url = "https://api.kimi.com/coding"
-token_var = "KIMI_TOKEN"
-haiku_model = "kimi-for-coding"
-sonnet_model = "kimi-for-coding"
-opus_model = "kimi-for-coding"
-fable_model = "kimi-for-coding"
+fable_model = "qwen3.8-max"
 
 [provider.zenmux]
 url = "https://zenmux.ai/api/anthropic"
@@ -156,10 +147,37 @@ fable_model = "grok-4.5"
 [provider.cliproxyapi-deepseek]
 url = "http://${CLIPROXYAPI_HOST}:8317"
 token_var = "CLIPROXYAPI_TOKEN"
-haiku_model = "deepseek-v4-flash"
-sonnet_model = "deepseek-v4-flash"
-opus_model = "deepseek-v4-flash"
-fable_model = "deepseek-v4-flash"
+haiku_model = "bailian/deepseek-v4-flash"
+sonnet_model = "bailian/deepseek-v4-flash"
+opus_model = "bailian/deepseek-v4-flash"
+fable_model = "bailian/deepseek-v4-flash"
+extra_flags = "CLAUDE_CODE_EFFORT_LEVEL=max"
+
+[provider.cliproxyapi-deepseek-loli]
+url = "http://${CLIPROXYAPI_HOST}:8317"
+token_var = "CLIPROXYAPI_TOKEN"
+haiku_model = "loli/deepseek-v4-flash"
+sonnet_model = "loli/deepseek-v4-flash"
+opus_model = "loli/deepseek-v4-flash"
+fable_model = "loli/deepseek-v4-flash"
+extra_flags = "CLAUDE_CODE_EFFORT_LEVEL=max"
+
+[provider.cliproxyapi-deepseek-ark]
+url = "http://${CLIPROXYAPI_HOST}:8317"
+token_var = "CLIPROXYAPI_TOKEN"
+haiku_model = "ark/deepseek-v4-flash"
+sonnet_model = "ark/deepseek-v4-flash"
+opus_model = "ark/deepseek-v4-flash"
+fable_model = "ark/deepseek-v4-flash"
+extra_flags = "CLAUDE_CODE_EFFORT_LEVEL=max"
+
+[provider.cliproxyapi-deepseek-opencode]
+url = "http://${CLIPROXYAPI_HOST}:8317"
+token_var = "CLIPROXYAPI_TOKEN"
+haiku_model = "opencode/deepseek-v4-flash"
+sonnet_model = "opencode/deepseek-v4-flash"
+opus_model = "opencode/deepseek-v4-flash"
+fable_model = "opencode/deepseek-v4-pro"
 extra_flags = "CLAUDE_CODE_EFFORT_LEVEL=max"
 
 [provider.cliproxyapi-gpt]
@@ -244,3 +262,17 @@ sonnet_model = "deepseek-v4-flash"
 opus_model = "deepseek-v4-flash"
 fable_model = "deepseek-v4-flash"
 extra_flags = "CLAUDE_CODE_EFFORT_LEVEL=max"
+
+
+[provider.kimi]
+url = "https://api.kimi.com/coding/"
+token_var = "KIMI_TOKEN"
+haiku_model = "kimi-for-coding"
+sonnet_model = "k3"
+opus_model = "k3"
+fable_model = "k3"
+extra_flags = [
+  "CLAUDE_CODE_EFFORT_LEVEL=high",
+  "CLAUDE_CODE_AUTO_COMPACT_WINDOW=1048576",
+  "CLAUDE_CODE_MAX_CONTEXT_TOKENS=1048576",
+]
