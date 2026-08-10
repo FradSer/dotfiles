@@ -104,18 +104,51 @@ fi
 
 # ---- standard path (non-worktree) ----
 if [[ "$_is_worktree" != "true" ]]; then
-  if [[ -n "$project_dir" && -n "$current_dir" && "$normalized_current" != "$normalized_project" && "$normalized_current" == "$normalized_project"/* ]]; then
+  # Anchor to the git repo root when project_dir is a deep subdirectory (e.g.
+  # agent cwd deep in a repo). This keeps the project name identifiable instead
+  # of showing only the launch dir's basename.
+  _repo_top=""
+  if [[ -d "$project_dir" ]]; then
+    _repo_top=$(git -C "$project_dir" rev-parse --show-toplevel 2>/dev/null)
+  fi
+
+  if [[ -n "$_repo_top" ]]; then
+    _proj_name=$(basename "$_repo_top")
+    # project_dir relative to repo root (empty when project_dir IS the root)
+    base_rel="${normalized_project#$_repo_top/}"
+    [[ "$base_rel" == "$normalized_project" ]] && base_rel=""
+  else
+    _proj_name="$project_name"
+    base_rel=""
+  fi
+
+  # Prefix = project name + optional project_dir-relative segment
+  prefix="$_proj_name"
+  if [[ -n "$base_rel" ]]; then
+    depth=$(echo "$base_rel" | tr '/' '\n' | wc -l)
+    if [[ $depth -gt 2 ]]; then
+      first_dir=$(echo "$base_rel" | cut -d'/' -f1)
+      last_dir=$(basename "$base_rel")
+      prefix="$_proj_name/$first_dir/.../$last_dir"
+    else
+      prefix="$_proj_name/$base_rel"
+    fi
+  fi
+
+  if [[ "$normalized_current" != "$normalized_project" && "$normalized_current" == "$normalized_project"/* ]]; then
     relative_path="${normalized_current#$normalized_project/}"
     depth=$(echo "$relative_path" | tr '/' '\n' | wc -l)
     if [[ $depth -gt 2 ]]; then
       first_dir=$(echo "$relative_path" | cut -d'/' -f1)
       last_dir=$(basename "$relative_path")
-      echo "$project_name/$first_dir/.../$last_dir"
+      echo "$prefix/$first_dir/.../$last_dir"
+    elif [[ -n "$relative_path" ]]; then
+      echo "$prefix/$relative_path"
     else
-      echo "$project_name/$relative_path"
+      echo "$prefix"
     fi
   else
-    echo "$project_name"
+    echo "$prefix"
   fi
   exit 0
 fi
