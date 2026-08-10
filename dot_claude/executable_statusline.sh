@@ -5,15 +5,24 @@
 
 input=$(cat)
 
-# Parse all fields in a single jq call
-IFS=$'\t' read -r model_name current_dir project_dir output_style <<< "$(
+# Parse all fields in a single jq call. Use unit separator (0x1f) as delimiter:
+# a plain tab is whitespace for bash read, so two consecutive empty fields would
+# collapse and shift every later field. 0x1f never appears in these values.
+IFS=$'\x1f' read -r model_name model_id current_dir project_dir output_style <<< "$(
   echo "$input" | jq -r '[
     (.model.display_name // "Claude"),
+    (.model.id // ""),
     (.workspace.current_dir // ""),
     (.workspace.project_dir // ""),
     (.output_style.name // "")
-  ] | @tsv'
+  ] | join("")'
 )"
+
+# Detect OpenCode-backed sessions (e.g. "opencode/deepseek-v4-flash[1m]")
+is_opencode=false
+case "$model_id $model_name" in
+  *opencode*) is_opencode=true ;;
+esac
 
 # Get current provider name from URL
 PROVIDER="${ANTHROPIC_BASE_URL:-}"
@@ -24,28 +33,10 @@ else
   PROVIDER_NAME="unknown"
 fi
 
-# Build display directory
-if [[ -n "$project_dir" ]]; then
-  project_name=$(basename "$project_dir")
-  normalized_project="${project_dir%/}"
-  normalized_current="${current_dir%/}"
-
-  if [[ "$normalized_current" != "$normalized_project" && "$normalized_current" == "$normalized_project"/* ]]; then
-    relative_path="${normalized_current#$normalized_project/}"
-    depth=$(echo "$relative_path" | tr '/' '\n' | wc -l)
-    if [[ $depth -gt 2 ]]; then
-      first_dir=$(echo "$relative_path" | cut -d'/' -f1)
-      last_dir=$(basename "$relative_path")
-      display_dir="$project_name/$first_dir/.../$last_dir"
-    else
-      display_dir="$project_name/$relative_path"
-    fi
-  else
-    display_dir="$project_name"
-  fi
-else
-  display_dir=$(basename "$current_dir")
-fi
+# Build display directory (handled by the dir plugin — handles git worktrees,
+# showing the main repo + /.../ + worktree name so the project is identifiable)
+display_dir="$("$HOME/.claude/statusline.d/dir.sh" <<< "$input" 2>/dev/null)"
+[[ -z "$display_dir" ]] && display_dir="$(basename "$current_dir")"
 
 # Get all git info using a single git status call
 git_info=""
@@ -103,6 +94,52 @@ if git -C "$current_dir" rev-parse --git-dir >/dev/null 2>&1; then
   git_info=" on   $branch$rebase_suffix$git_flags"
 fi
 
+# Usage countdown/color helpers (shared by Claude and OpenCode usage)
+# Convert resets_at timestamp to human-readable countdown label
+_countdown_label() {
+  local resets_at=$1 fallback=$2
+  if [[ -z "$resets_at" || "$resets_at" == "-" ]]; then
+    echo "$fallback"
+    return
+  fi
+  local ts="$resets_at"
+  ts="${ts%Z}"
+  ts="${ts%%+*}"
+  ts="${ts%%.*}"
+  local resets_epoch
+  resets_epoch=$(TZ=UTC date -j -f "%Y-%m-%dT%H:%M:%S" "$ts" "+%s" 2>/dev/null)
+  if [[ -z "$resets_epoch" ]]; then
+    echo "$fallback"
+    return
+  fi
+  _countdown_secs "$(( resets_epoch - $(date +%s) ))"
+}
+
+# Single largest unit, round-half-up, promoting on overflow so boundary
+# artifacts like 60m / 24h never surface (e.g. 59m30s -> 1h, 6d12h -> 7d).
+_countdown_secs() {
+  local secs_left=$1
+  if [[ $secs_left -le 60 ]]; then
+    echo "now"
+  else
+    local mins=$(( (secs_left + 30) / 60 ))
+    local hrs=$(( (secs_left + 1800) / 3600 ))
+    if   [[ $mins -lt 60 ]]; then echo "${mins}m"
+    elif [[ $hrs  -lt 24 ]]; then echo "${hrs}h"
+    else                          echo "$(( (secs_left + 43200) / 86400 ))d"
+    fi
+  fi
+}
+
+# Color based on remaining: red < 10%, yellow 10-30%, gray >= 30%
+_usage_color() {
+  local rem=$1
+  if   [[ $rem -lt 10 ]]; then printf '\033[31m'  # red
+  elif [[ $rem -lt 30 ]]; then printf '\033[33m'  # yellow
+  else                         printf '\033[90m'  # gray
+  fi
+}
+
 # Output style indicator
 style_indicator=""
 [[ "$output_style" != "default" && -n "$output_style" ]] && style_indicator=" [$output_style]"
@@ -113,47 +150,6 @@ if [[ -z "${ANTHROPIC_BASE_URL:-}" ]]; then
   USAGE_CACHE="/tmp/claude-statusline-usage.json"
   USAGE_LOCK="/tmp/claude-statusline-usage.lock"
   CACHE_MAX_AGE=300  # 5 minutes
-
-  # Convert resets_at timestamp to human-readable countdown label
-  _countdown_label() {
-    local resets_at=$1 fallback=$2
-    if [[ -z "$resets_at" || "$resets_at" == "-" ]]; then
-      echo "$fallback"
-      return
-    fi
-    local ts="$resets_at"
-    ts="${ts%Z}"
-    ts="${ts%%+*}"
-    ts="${ts%%.*}"
-    local resets_epoch
-    resets_epoch=$(TZ=UTC date -j -f "%Y-%m-%dT%H:%M:%S" "$ts" "+%s" 2>/dev/null)
-    if [[ -z "$resets_epoch" ]]; then
-      echo "$fallback"
-      return
-    fi
-    local secs_left=$(( resets_epoch - $(date +%s) ))
-    # Single largest unit, round-half-up, promoting on overflow so boundary
-    # artifacts like 60m / 24h never surface (e.g. 59m30s -> 1h, 6d12h -> 7d).
-    if [[ $secs_left -le 60 ]]; then
-      echo "now"
-    else
-      local mins=$(( (secs_left + 30) / 60 ))
-      local hrs=$(( (secs_left + 1800) / 3600 ))
-      if   [[ $mins -lt 60 ]]; then echo "${mins}m"
-      elif [[ $hrs  -lt 24 ]]; then echo "${hrs}h"
-      else                          echo "$(( (secs_left + 43200) / 86400 ))d"
-      fi
-    fi
-  }
-
-  # Color based on remaining: red < 10%, yellow 10-30%, gray >= 30%
-  _usage_color() {
-    local rem=$1
-    if   [[ $rem -lt 10 ]]; then printf '\033[31m'  # red
-    elif [[ $rem -lt 30 ]]; then printf '\033[33m'  # yellow
-    else                         printf '\033[90m'  # gray
-    fi
-  }
 
   # Check if cache is fresh
   _cache_fresh=false
@@ -224,6 +220,15 @@ if [[ -z "${ANTHROPIC_BASE_URL:-}" ]]; then
   fi
 
   [[ -n "$usage_parts" ]] && usage_str="\033[90m · \033[0m${usage_parts}"
+fi
+
+# OpenCode Go subscription usage — when the session runs an opencode model.
+# Handled by the dedicated plugin script (reads Chrome cookies via CodexBarCLI,
+# falls back to a local opencode DB estimate). Output includes the leading
+# " · " separator when usage is available.
+if [[ "$is_opencode" == "true" ]]; then
+  _oc_plugin_out="$("$HOME/.claude/statusline.d/opencode.sh" <<< "$input" 2>/dev/null)"
+  [[ -n "$_oc_plugin_out" ]] && usage_str="$_oc_plugin_out"
 fi
 
 printf "\033[36m%s\033[0m\033[90m in %s\033[0m\033[32m%s\033[0m\033[34m%s\033[0m%b" \
