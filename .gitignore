@@ -37,3 +37,10 @@ Temporary Items
 
 # End of https://www.toptal.com/developers/gitignore/api/macos
 ### end git-agent ###
+
+# git-agent generated files (never track)
+.git-agent/graph.db
+*.db-shm
+*.db-wal
+*.db-journal
+.git-agent/config.local.yml
