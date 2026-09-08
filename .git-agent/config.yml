@@ -5,3 +5,5 @@ scopes:
       description: Claude Code configuration and scripts
     - name: config
       description: Shell and system configuration files
+    - name: codex
+      description: Engineering guidelines and agent documentation in dot_codex/; does not cover configuration or binary scripts
