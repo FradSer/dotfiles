@@ -36,5 +36,8 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}
 # Special directories (. and ..)
 zstyle ':completion:*' special-dirs true
 
+# cd completion: current directory first, then CDPATH dirs
+zstyle ':completion:*:cd:*' tag-order 'local-directories' 'path-directories' 'directory-stack' 'named-directories'
+
 # SSH hosts from known_hosts
 zstyle ':completion:*:*:ssh:*:hosts' hosts ${${${(f)"$(<$HOME/.ssh/known_hosts)"}%% *}#*\]} 2>/dev/null

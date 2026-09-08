@@ -1,7 +1,19 @@
 # Plugins
 # FPATH and _BREW_PREFIX are set up in 05-compinit.zsh (must precede compinit).
 
-export ZSH_AUTOSUGGEST_STRATEGY=(history)
+# Custom autosuggest strategy: command position -> history (instant, so the
+# very first keystroke gets a suggestion); argument position -> completion
+# (path/context aware), falling back to history when nothing completes.
+_zsh_autosuggest_strategy_histcomp() {
+  emulate -L zsh
+  if [[ "$1" != *' '* ]]; then
+    _zsh_autosuggest_strategy_history "$1"
+    return
+  fi
+  _zsh_autosuggest_strategy_completion "$1"
+  [[ "$suggestion" == "$1"* ]] || _zsh_autosuggest_strategy_history "$1"
+}
+export ZSH_AUTOSUGGEST_STRATEGY=(histcomp)
 
 # 1. Core Completion & Autosuggestions
 source $_BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
