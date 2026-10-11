@@ -7,3 +7,5 @@ bin
 CLAUDE.md
 .zshrc.local
 .git-agent
+tests
+.memory

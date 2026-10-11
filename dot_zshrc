@@ -3,7 +3,11 @@
 # 1. Load secret environment variables
 [[ -f "$HOME/.config/zsh/.secret" ]] && source "$HOME/.config/zsh/.secret"
 
-# 2. Load modular configurations
+# 2. Load optional tool environment before initialization
+[[ -f "$HOME/.local/bin/env" ]] && source "$HOME/.local/bin/env"
+[[ -f "$HOME/.config/event-sync/env.sh" ]] && source "$HOME/.config/event-sync/env.sh"
+
+# 3. Load modular configurations
 if [[ -d "$HOME/.config/zsh/rc.d" ]]; then
   for conf in "$HOME/.config/zsh/rc.d/"*.zsh(N); do
     source "$conf"
@@ -11,11 +15,7 @@ if [[ -d "$HOME/.config/zsh/rc.d" ]]; then
   unset conf
 fi
 
-# 3. Load machine-local overrides (not managed by chezmoi)
-[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
-
-# 4. Add ~/.local/bin to PATH
-[[ -f "$HOME/.local/bin/env" ]] && source "$HOME/.local/bin/env"
-
-# Load event sync config from env vars
-[ -f "$HOME/.config/event-sync/env.sh" ] && source "$HOME/.config/event-sync/env.sh"
+# 4. Load machine-local overrides last (not managed by chezmoi)
+if [[ -f "$HOME/.zshrc.local" ]]; then
+  source "$HOME/.zshrc.local"
+fi

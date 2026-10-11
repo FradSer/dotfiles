@@ -4,14 +4,12 @@
 # FPATH must be extended BEFORE compinit runs, otherwise completions
 # from $HOME/.config/zsh/completions and brew's zsh-completions never load.
 
-typeset -g _BREW_PREFIX="/opt/homebrew"
-typeset -U fpath  # auto-dedupe; /etc/zshrc or plugins may re-prepend
+typeset -U fpath
 
-fpath=(
-  "$HOME/.config/zsh/completions"
-  "$_BREW_PREFIX/share/zsh-completions"
-  $fpath
-)
+if [[ -n "$_BREW_PREFIX" ]]; then
+  fpath=("$_BREW_PREFIX/share/zsh-completions" "$_BREW_PREFIX/share/zsh/site-functions" $fpath)
+fi
+fpath=("$HOME/.config/zsh/completions" $fpath)
 
 autoload -Uz compinit
 local _zcd="${ZDOTDIR:-$HOME}/.zcompdump-${ZSH_VERSION}"
@@ -19,6 +17,11 @@ if [[ -n "$_zcd"(#qN.m-1) ]]; then
   compinit -i -C -d "$_zcd"
 else
   compinit -i -d "$_zcd"
+fi
+
+# Bun's generated completion registers itself with compdef.
+if [[ -r "$HOME/.bun/_bun" && -s "$HOME/.bun/_bun" ]]; then
+  source "$HOME/.bun/_bun"
 fi
 
 # --- Completion Behavior ---
@@ -40,4 +43,6 @@ zstyle ':completion:*' special-dirs true
 zstyle ':completion:*:cd:*' tag-order 'local-directories' 'path-directories' 'directory-stack' 'named-directories'
 
 # SSH hosts from known_hosts
-zstyle ':completion:*:*:ssh:*:hosts' hosts ${${${(f)"$(<$HOME/.ssh/known_hosts)"}%% *}#*\]} 2>/dev/null
+if [[ -r "$HOME/.ssh/known_hosts" ]]; then
+  zstyle ':completion:*:*:ssh:*:hosts' hosts ${${${(f)"$(<$HOME/.ssh/known_hosts)"}%% *}#*\]}
+fi

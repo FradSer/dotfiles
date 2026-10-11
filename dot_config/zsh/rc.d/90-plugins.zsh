@@ -13,21 +13,24 @@ _zsh_autosuggest_strategy_histcomp() {
   _zsh_autosuggest_strategy_completion "$1"
   [[ "$suggestion" == "$1"* ]] || _zsh_autosuggest_strategy_history "$1"
 }
-export ZSH_AUTOSUGGEST_STRATEGY=(histcomp)
+typeset -ga ZSH_AUTOSUGGEST_STRATEGY=(histcomp)
 
-# 1. Core Completion & Autosuggestions
-source $_BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# 2. FZF-Tab (Must be loaded after compinit and before syntax highlighting)
-source $_BREW_PREFIX/opt/fzf-tab/share/fzf-tab/fzf-tab.zsh
-
-# 3. Utilities
-source $_BREW_PREFIX/share/zsh-autopair/autopair.zsh
-source $_BREW_PREFIX/share/zsh-you-should-use/you-should-use.plugin.zsh
-
-# 4. Visual & History (Must be loaded last)
-source $_BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $_BREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+# Completion widgets precede syntax highlighting.
+() {
+  [[ -n "$_BREW_PREFIX" ]] || return 0
+  local plugin
+  for plugin in \
+    share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+    opt/fzf-tab/share/fzf-tab/fzf-tab.zsh \
+    share/zsh-autopair/autopair.zsh \
+    share/zsh-you-should-use/you-should-use.plugin.zsh \
+    share/zsh-history-substring-search/zsh-history-substring-search.zsh \
+    share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh; do
+    if [[ -r "$_BREW_PREFIX/$plugin" ]]; then
+      source "$_BREW_PREFIX/$plugin"
+    fi
+  done
+}
 
 # --- FZF-Tab Settings ---
 # disable sort when completing `git checkout`
@@ -45,15 +48,19 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview '[[ -f $realpath ]] && bat --color=al
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
 # Key bindings for history substring search
-for mode in emacs viins; do
-  if [[ -n "${terminfo[kcuu1]}" ]]; then
-    bindkey -M $mode "${terminfo[kcuu1]}" history-substring-search-up
-  fi
-  if [[ -n "${terminfo[kcud1]}" ]]; then
-    bindkey -M $mode "${terminfo[kcud1]}" history-substring-search-down
-  fi
-  bindkey -M $mode '^[[A' history-substring-search-up
-  bindkey -M $mode '^[[B' history-substring-search-down
-  bindkey -M $mode '^[OA' history-substring-search-up
-  bindkey -M $mode '^[OB' history-substring-search-down
-done
+() {
+  (( $+functions[history-substring-search-up] )) || return 0
+  local mode
+  for mode in emacs viins; do
+    if [[ -n "${terminfo[kcuu1]}" ]]; then
+      bindkey -M $mode "${terminfo[kcuu1]}" history-substring-search-up
+    fi
+    if [[ -n "${terminfo[kcud1]}" ]]; then
+      bindkey -M $mode "${terminfo[kcud1]}" history-substring-search-down
+    fi
+    bindkey -M $mode '^[[A' history-substring-search-up
+    bindkey -M $mode '^[[B' history-substring-search-down
+    bindkey -M $mode '^[OA' history-substring-search-up
+    bindkey -M $mode '^[OB' history-substring-search-down
+  done
+}

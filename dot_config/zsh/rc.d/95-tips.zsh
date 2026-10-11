@@ -2,12 +2,12 @@
 # Terminal Tips - Scanned CLI Mastery
 # ==========================================
 
-function _show_terminal_tip() {
+function terminal-tip() {
   # Display only in interactive shells
   [[ $- != *i* ]] && return
 
-  # Detect system language: use Chinese if LANG/LC_ALL/LANGUAGE contains "zh"
-  local _lang="${LANG:-${LC_ALL:-${LANGUAGE:-}}}"
+  # Follow locale precedence for messages.
+  local _lang="${LC_ALL:-${LC_MESSAGES:-${LANG:-}}}"
   local _use_zh=0
   [[ "$_lang" == *zh* ]] && _use_zh=1
 
@@ -60,13 +60,13 @@ function _show_terminal_tip() {
 
     if command -v claude >/dev/null; then
       tips+=(
-        "[AI] 输入 %F{green}claude --glm%f 或 %F{green}claude --kimi%f 即可快速切换供应商。"
+        "[AI] 使用 %F{green}claude-provider list%f 查看供应商，再用 %F{green}claude --provider <名称>%f 选择。"
         "[AI] Claude 已开启 %F{cyan}agent-teams%f 实验性功能，适合处理复杂多步任务。"
       )
     fi
 
     if command -v gemini >/dev/null; then
-      tips+=("[AI] 您的 %F{green}gemini%f 命令已默认开启 %F{yellow}--yolo%f 模式。")
+      tips+=("[AI] 只有显式输入 %F{green}gemini --yolo%f 才会跳过审批。")
     fi
 
     if command -v gh >/dev/null; then
@@ -135,13 +135,13 @@ function _show_terminal_tip() {
 
     if command -v claude >/dev/null; then
       tips+=(
-        "[AI] Run %F{green}claude --glm%f or %F{green}claude --kimi%f to quickly switch AI providers."
+        "[AI] Run %F{green}claude-provider list%f, then select a provider with %F{green}claude --provider <name>%f."
         "[AI] Claude has %F{cyan}agent-teams%f experimental feature enabled — great for complex multi-step tasks."
       )
     fi
 
     if command -v gemini >/dev/null; then
-      tips+=("[AI] Your %F{green}gemini%f command runs with %F{yellow}--yolo%f mode enabled by default.")
+      tips+=("[AI] Use %F{green}gemini --yolo%f only when you explicitly want to skip approvals.")
     fi
 
     if command -v gh >/dev/null; then
@@ -169,5 +169,3 @@ function _show_terminal_tip() {
 
   print -P "\n%F{cyan}${tips[$index]}%f"
 }
-
-_show_terminal_tip

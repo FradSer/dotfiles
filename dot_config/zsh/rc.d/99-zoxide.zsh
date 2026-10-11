@@ -5,5 +5,9 @@
 
 # Cache zoxide init using evalcache
 if type zoxide &>/dev/null; then
-  _evalcache zoxide init zsh
+  if (( $+functions[_evalcache] )); then
+    _evalcache zoxide init zsh
+  else
+    eval "$(zoxide init zsh)"
+  fi
 fi

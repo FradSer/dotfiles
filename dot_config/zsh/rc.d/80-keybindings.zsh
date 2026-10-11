@@ -2,17 +2,15 @@
 # Key Bindings
 # ==========================================
 
-# Required for sched-based auto-clear
-zmodload zsh/sched
-
 # --- sudo plugin: Esc-Esc toggles sudo prefix ---
 _sudo_toggle() {
   if [[ $BUFFER = sudo\ * ]]; then
     BUFFER="${BUFFER#sudo }"
+    CURSOR=$(( CURSOR > 5 ? CURSOR - 5 : 0 ))
   elif [[ -n $BUFFER ]]; then
     BUFFER="sudo $BUFFER"
+    CURSOR=$(( CURSOR + 5 ))
   fi
-  CURSOR=$(( CURSOR + 5 ))
 }
 zle -N _sudo_toggle
 bindkey -M emacs '^[^[' _sudo_toggle
@@ -23,10 +21,8 @@ bindkey -M viins '^[^[' _sudo_toggle
 # Buffer is empty   → copy current timestamp to clipboard
 _copybuffer() {
   local content="${BUFFER:-$(date '+%Y-%m-%d %H:%M:%S')}"
-  print -rn -- "$content" </dev/null | pbcopy
+  print -rn -- "$content" </dev/null | pbcopy || return $?
   zle -M "已复制到剪贴板"
-  # Auto-clear after 2 seconds (requires zsh/sched)
-  sched +0.5 'zle -M "" 2>/dev/null'
 }
 zle -N _copybuffer
 bindkey -M emacs '^O' _copybuffer
@@ -47,17 +43,10 @@ bindkey -M emacs '^Z' _fancy_ctrl_z
 bindkey -M viins '^Z' _fancy_ctrl_z
 
 # --- Edit command line in $EDITOR: Ctrl-X Ctrl-E ---
-_edit_command_line() {
-  local tmp="${TMPDIR:-/tmp}/zsh-edit-$$"
-  print -rn "$BUFFER" > "$tmp"
-  ${EDITOR:-vim} "$tmp"
-  BUFFER="$(< "$tmp")"
-  command rm -f "$tmp"
-  zle end-of-line -w
-}
-zle -N _edit_command_line
-bindkey -M emacs '^X^E' _edit_command_line
-bindkey -M viins '^X^E' _edit_command_line
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M emacs '^X^E' edit-command-line
+bindkey -M viins '^X^E' edit-command-line
 
 # --- Esc-l: run ls ---
 _run_ls() {

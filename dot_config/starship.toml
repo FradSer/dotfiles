@@ -41,6 +41,11 @@ symbol = " "
 [fossil_branch]
 symbol = " "
 
+# GCP indicator removed: the default gcloud format renders
+# "on ☁️  <account>@<domain>", i.e. an email address in every prompt.
+[gcloud]
+disabled = true
+
 [git_branch]
 symbol = " "
 

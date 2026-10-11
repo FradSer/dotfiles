@@ -9,9 +9,10 @@ mkcd() {
 
 # copypath: copy absolute path to clipboard
 copypath() {
-  local path="${1:-$PWD}"
-  print -rn "$path" | pbcopy
-  print -P "%F{green}Copied to clipboard:%f $path"
+  local target="${1:-$PWD}"
+  target="${target:a}"
+  print -rn -- "$target" | pbcopy || return $?
+  print -P "%F{green}Copied to clipboard:%f $target"
 }
 
 # take: download, extract, and cd into an archive
@@ -33,7 +34,7 @@ take() {
     *.bz2)             bunzip2 "$filename" ;;
     *.7z)              7z x "$filename"    ;;
     *)                 print -P "%F{red}Unknown archive format: %f$filename"; return 1 ;;
-  esac
+  esac || return $?
   # cd into the extracted directory if there's exactly one
   local extracted=(*/(N))
   if (( ${#extracted} == 1 )); then

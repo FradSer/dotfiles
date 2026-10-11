@@ -1,6 +1,5 @@
 # --- Identity & Profile ---
 export GITHUB_USERNAME="FradSer"
-export EDITOR="cot"
 
 # History Configuration
 HISTFILE=$HOME/.zsh_history

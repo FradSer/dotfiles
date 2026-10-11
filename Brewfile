@@ -49,3 +49,5 @@ cask "cursor"        # Primary AI Editor
 cask "zed"           # Alternative Fast Editor
 cask "font-maple-mono-nf-cn" # Typography (with CN support)
 cask "google-chrome" # Browser
+# Interpreted, interactive, object-oriented programming language
+brew "python"

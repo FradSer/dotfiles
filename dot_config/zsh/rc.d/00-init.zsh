@@ -2,12 +2,22 @@
 # Tool Initializations
 # ==========================================
 
-# Initialize evalcache
-source $(brew --prefix)/share/evalcache/evalcache.plugin.zsh
+typeset -g _BREW_PREFIX="${HOMEBREW_PREFIX:-}"
+if [[ -z "$_BREW_PREFIX" ]] && (( $+commands[brew] )); then
+  _BREW_PREFIX="$(brew --prefix)"
+fi
+
+if [[ -n "$_BREW_PREFIX" && -r "$_BREW_PREFIX/share/evalcache/evalcache.plugin.zsh" ]]; then
+  source "$_BREW_PREFIX/share/evalcache/evalcache.plugin.zsh"
+fi
 
 # Cache starship init using evalcache
 if type starship &>/dev/null; then
-  _evalcache starship init zsh
+  if (( $+functions[_evalcache] )); then
+    _evalcache starship init zsh
+  else
+    eval "$(starship init zsh)"
+  fi
 fi
 
 # fnm (Fast Node Manager)
