@@ -3,28 +3,28 @@
 # Completion for the claude wrapper (provider selection + native subcommands).
 # Autoloaded by compinit via fpath — works regardless of compdef timing.
 
-typeset -ga _CLAUDE_PROVIDER_NAMES
-if [[ -f "${HOME}/.config/zsh/.claude-providers.toml" ]]; then
-  local line name
-  while IFS= read -r line || [[ -n "$line" ]]; do
-    [[ "$line" =~ '^\[provider\.([^]]+)\]$' ]] && _CLAUDE_PROVIDER_NAMES+=("${match[1]}")
-  done < "${HOME}/.config/zsh/.claude-providers.toml"
-fi
-
-local -a providers options subcommands
-local name
-
-for name in "${_CLAUDE_PROVIDER_NAMES[@]}"; do
-  providers+=("--${name}[Use the ${name} provider]")
+local -a provider_names options subcommands
+local -i prefix_index=2 wrapper_prefix=1
+while (( prefix_index < ${CURRENT:-2} )); do
+  case "${words[prefix_index]-}" in
+    --yolo) (( prefix_index += 1 )) ;;
+    --provider) (( prefix_index += 2 )) ;;
+    *) wrapper_prefix=0; break ;;
+  esac
 done
 
 options=(
   "--help[Show help]"
   "--version[Show version]"
   "--model[Override model]:model:"
-  "--yolo[Enable --dangerously-skip-permissions]"
   "--dangerously-skip-permissions[Skip permission prompts]"
 )
+if (( wrapper_prefix )); then
+  options+=(
+    "--provider[Use a configured provider]:provider:->provider"
+    "--yolo[Enable --dangerously-skip-permissions]"
+  )
+fi
 
 subcommands=(
   "agents[Manage background agents]"
@@ -38,12 +38,15 @@ subcommands=(
 )
 
 _arguments -s -S -C \
-  "${providers[@]}" \
   "${options[@]}" \
   "1: :->subcmd" \
   "*: :->args" && return 0
 
 case $state in
+  provider)
+    provider_names=("${(@f)$( _claude_providers_load && print -rl -- "${_CLAUDE_PROVIDER_NAMES[@]}" )}")
+    _describe 'provider' provider_names
+    ;;
   subcmd) _describe -t commands 'command' subcommands ;;
   args) _files ;;
 esac

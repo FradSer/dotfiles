@@ -3,24 +3,19 @@
 # Completion for the claude-provider management command.
 # Autoloaded by compinit via fpath.
 
-typeset -ga _CLAUDE_PROVIDER_NAMES
-if [[ -f "${HOME}/.config/zsh/.claude-providers.toml" ]]; then
-  local line name
-  while IFS= read -r line || [[ -n "$line" ]]; do
-    [[ "$line" =~ '^\[provider\.([^]]+)\]$' ]] && _CLAUDE_PROVIDER_NAMES+=("${match[1]}")
-  done < "${HOME}/.config/zsh/.claude-providers.toml"
-fi
+local -a provider_names
+provider_names=("${(@f)$( _claude_providers_load && print -rl -- "${_CLAUDE_PROVIDER_NAMES[@]}" )}")
 
 local -a commands providers
+local name
 commands=(
   'list:List all available providers'
-  'add:Add a new provider'
-  'remove:Remove a provider'
+  'edit:Edit and validate provider configuration'
   'show:Show details of a provider'
   'help:Show help message'
 )
 
-for name in "${_CLAUDE_PROVIDER_NAMES[@]}"; do
+for name in "${provider_names[@]}"; do
   providers+=("${name}:Provider")
 done
 
@@ -34,7 +29,7 @@ case $state in
     ;;
   provider)
     case "${words[2]}" in
-      remove|show) _describe 'provider' providers ;;
+      show|info) _describe 'provider' providers ;;
       *) _message 'provider name' ;;
     esac
     ;;

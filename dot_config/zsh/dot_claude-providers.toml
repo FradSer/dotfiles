@@ -81,7 +81,7 @@ opus_model = "nvidia/nemotron-3-ultra-550b-a55b:free"
 fable_model = "nvidia/nemotron-3-ultra-550b-a55b:free"
 
 [provider.cliproxyapi-qwen]
-url = "http://${CLIPROXYAPI_HOST}:8317"
+url = "http://${CLIPROXYAPI_HOST}:${CLIPROXYAPI_HOST_PORT}"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "qwen3.7-flash"
 sonnet_model = "qwen3.7-plus"
@@ -89,7 +89,7 @@ opus_model = "qwen3.8-max"
 fable_model = "qwen3.8-max"
 
 [provider.cliproxyapi-glm]
-url = "http://${CLIPROXYAPI_HOST}:8317"
+url = "http://${CLIPROXYAPI_HOST}:${CLIPROXYAPI_HOST_PORT}"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "glm-5.2"
 sonnet_model = "glm-5.2"
@@ -97,7 +97,7 @@ opus_model = "glm-5.2"
 fable_model = "glm-5.2-fast-preview"
 
 [provider.cliproxyapi-glm-fast]
-url = "http://${CLIPROXYAPI_HOST}:8317"
+url = "http://${CLIPROXYAPI_HOST}:${CLIPROXYAPI_HOST_PORT}"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "glm-5.2-fast-preview"
 sonnet_model = "glm-5.2-fast-preview"
@@ -105,7 +105,7 @@ opus_model = "glm-5.2-fast-preview"
 fable_model = "glm-5.2-fast-preview"
 
 [provider.cliproxyapi-kimi]
-url = "http://${CLIPROXYAPI_HOST}:8317"
+url = "http://${CLIPROXYAPI_HOST}:${CLIPROXYAPI_HOST_PORT}"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "glm-5.2-fast-preview"
 sonnet_model = "kimi/kimi-k3"
@@ -113,7 +113,7 @@ opus_model = "kimi/kimi-k3"
 fable_model = "kimi/kimi-k3"
 
 [provider.cliproxyapi-minimax]
-url = "http://${CLIPROXYAPI_HOST}:8317"
+url = "http://${CLIPROXYAPI_HOST}:${CLIPROXYAPI_HOST_PORT}"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "MiniMax/MiniMax-M2.5"
 sonnet_model = "MiniMax/MiniMax-M2.5"
@@ -121,7 +121,7 @@ opus_model = "MiniMax/MiniMax-M2.5"
 fable_model = "MiniMax/MiniMax-M2.5"
 
 [provider.cliproxyapi-doubao]
-url = "http://${CLIPROXYAPI_HOST}:8317"
+url = "http://${CLIPROXYAPI_HOST}:${CLIPROXYAPI_HOST_PORT}"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "ark/doubao-seed-2-0-code"
 sonnet_model = "ark/doubao-seed-2-0-code"
@@ -129,7 +129,7 @@ opus_model = "ark/doubao-seed-2-0-code"
 fable_model = "ark/doubao-seed-2-0-code"
 
 [provider.cliproxyapi-gemini]
-url = "http://${CLIPROXYAPI_HOST}:8317"
+url = "http://${CLIPROXYAPI_HOST}:${CLIPROXYAPI_HOST_PORT}"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "gemini-3.5-flash-lite"
 sonnet_model = "gemini-3.6-flash"
@@ -137,7 +137,7 @@ opus_model = "gemini-3.6-flash"
 fable_model = "gemini-3.1-pro"
 
 [provider.cliproxyapi-grok]
-url = "http://${CLIPROXYAPI_HOST}:8317"
+url = "http://${CLIPROXYAPI_HOST}:${CLIPROXYAPI_HOST_PORT}"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "grok-4.5"
 sonnet_model = "grok-4.5"
@@ -145,7 +145,7 @@ opus_model = "grok-4.5"
 fable_model = "grok-4.5"
 
 [provider.cliproxyapi-deepseek]
-url = "http://${CLIPROXYAPI_HOST}:8317"
+url = "http://${CLIPROXYAPI_HOST}:${CLIPROXYAPI_HOST_PORT}"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "bailian/deepseek-v4-flash"
 sonnet_model = "bailian/deepseek-v4-flash"
@@ -154,7 +154,7 @@ fable_model = "bailian/deepseek-v4-flash"
 extra_flags = "CLAUDE_CODE_EFFORT_LEVEL=max"
 
 [provider.cliproxyapi-deepseek-loli]
-url = "http://${CLIPROXYAPI_HOST}:8317"
+url = "http://${CLIPROXYAPI_HOST}:${CLIPROXYAPI_HOST_PORT}"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "loli/deepseek-v4-flash"
 sonnet_model = "loli/deepseek-v4-flash"
@@ -163,7 +163,7 @@ fable_model = "loli/deepseek-v4-flash"
 extra_flags = "CLAUDE_CODE_EFFORT_LEVEL=max"
 
 [provider.cliproxyapi-deepseek-ark]
-url = "http://${CLIPROXYAPI_HOST}:8317"
+url = "http://${CLIPROXYAPI_HOST}:${CLIPROXYAPI_HOST_PORT}"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "ark/deepseek-v4-flash"
 sonnet_model = "ark/deepseek-v4-flash"
@@ -172,7 +172,7 @@ fable_model = "ark/deepseek-v4-flash"
 extra_flags = "CLAUDE_CODE_EFFORT_LEVEL=max"
 
 [provider.cliproxyapi-deepseek-opencode]
-url = "http://${CLIPROXYAPI_HOST}:8317"
+url = "http://${CLIPROXYAPI_HOST}:${CLIPROXYAPI_HOST_PORT}"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "opencode/deepseek-v4-flash"
 sonnet_model = "opencode/deepseek-v4-flash"
@@ -181,7 +181,7 @@ fable_model = "opencode/deepseek-v4-pro"
 extra_flags = "CLAUDE_CODE_EFFORT_LEVEL=max"
 
 [provider.cliproxyapi-gpt]
-url = "http://${CLIPROXYAPI_HOST}:8317"
+url = "http://${CLIPROXYAPI_HOST}:${CLIPROXYAPI_HOST_PORT}"
 token_var = "CLIPROXYAPI_TOKEN"
 haiku_model = "gpt-5.6-luna"
 sonnet_model = "gpt-5.6-terra"

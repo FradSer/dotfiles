@@ -7,3 +7,5 @@ scopes:
       description: Shell and system configuration files
     - name: codex
       description: Engineering guidelines and agent documentation in dot_codex/; does not cover configuration or binary scripts
+    - name: cfg
+      description: General shell, system, and terminal configurations in dot_config/ and root dotfiles; does not cover Claude-specific logic.

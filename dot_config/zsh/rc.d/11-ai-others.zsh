@@ -1,16 +1,15 @@
 # ==============================================================================
-# Other AI CLIs — wrappers that auto-apply a YOLO-style flag, with
-# `--original` escape hatch to invoke the binary without it.
+# Other AI CLIs — native defaults, with an explicit leading --yolo opt-in.
 # ==============================================================================
 
 _ai_wrap() {
   local cmd="$1" flag="$2"
   shift 2
-  if [[ "$1" == "--original" ]]; then
+  if [[ "${1:-}" == "--yolo" ]]; then
     shift
-    command "$cmd" "$@"
-  else
     command "$cmd" "$flag" "$@"
+  else
+    command "$cmd" "$@"
   fi
 }
 
